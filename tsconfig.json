@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "lib": ["ES2017", "DOM"],
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "./lib",
     "removeComments": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
