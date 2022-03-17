@@ -1,6 +1,6 @@
 {
   "name": "playwright-msw",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Mock Service Worker API for Playwright",
   "main": "lib/server.js",
   "files": [
@@ -23,6 +23,7 @@
     "clean": "rimraf lib",
     "lint": "eslint \"src/**/*.ts\"",
     "postinstall": "husky install",
+    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags",
     "prepare": "yarn clean && yarn build",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
