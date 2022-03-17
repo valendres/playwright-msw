@@ -20,8 +20,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "clean": "rimraf lib",
     "lint": "eslint \"src/**/*.ts\"",
     "postinstall": "husky install",
+    "prepare": "yarn clean && yarn build",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
   },
@@ -45,6 +47,7 @@
     "@types/node": "^17.0.21",
     "@types/node-fetch": "^2.6.1",
     "@types/prettier": "^2",
+    "@types/rimraf": "^3",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",
@@ -56,6 +59,7 @@
     "msw": "0.35.0",
     "pinst": "^3.0.0",
     "prettier": "^2.6.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.6.2"
   },
   "packageManager": "yarn@3.2.0"
