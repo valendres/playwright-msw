@@ -1,0 +1,19 @@
+# yarn
+.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+.pnp.cjs
+node_modules/
+yarn-debug.log
+yarn-error.log
+
+# system
+.DS_Store
+
+# environment variables
+.env
+
+# Build
+/dist
