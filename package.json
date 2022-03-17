@@ -32,6 +32,7 @@
     "@mswjs/http-middleware": "^0.3.0",
     "body-parser": "^1.19.2",
     "express": "^4.17.3",
+    "headers-polyfill": "^3.0.4",
     "node-fetch": "^2.6.7"
   },
   "peerDependencies": {
@@ -54,7 +55,6 @@
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "headers-polyfill": "^3.0.4",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.6",
     "msw": "0.35.0",
