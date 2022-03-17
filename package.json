@@ -1,7 +1,7 @@
 {
   "name": "playwright-msw",
-  "version": "0.0.2",
-  "description": "A Mock Service Worker API for Playwright",
+  "version": "0.0.3",
+  "description": "A Mock Service Worker API for Playwright.",
   "main": "lib/server.js",
   "files": [
     "lib"
