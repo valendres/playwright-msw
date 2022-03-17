@@ -2,7 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "target": "ES6",
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["ES2017", "DOM"],
     "declaration": true,
