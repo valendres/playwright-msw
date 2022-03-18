@@ -1,0 +1,4 @@
+"*":
+  - eslint --cache --fix
+  - prettier --write
+  - git add
