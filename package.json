@@ -36,13 +36,13 @@
     "node-fetch": "^2.6.7"
   },
   "peerDependencies": {
-    "@playwright/test": ">=1.19.2",
+    "@playwright/test": ">=1.20.0",
     "msw": ">=0.35.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@playwright/test": "1.19.2",
+    "@playwright/test": "1.20.0",
     "@types/body-parser": "^1",
     "@types/eslint": "^8",
     "@types/express": "^4",
