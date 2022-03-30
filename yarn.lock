@@ -4527,15 +4527,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinst@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "pinst@npm:3.0.0"
-  bin:
-    pinst: bin.js
-  checksum: 4ae48a6a60f79c37071233af51b4d91bfc85cfa3c12b66ccda60cdb642b4d14a4ab0cb3587afc55b1f6192cea1772a5e4822026a0d0d3528296edef00cc2d61f
-  languageName: node
-  linkType: hard
-
 "pirates@npm:4.0.4":
   version: 4.0.4
   resolution: "pirates@npm:4.0.4"
@@ -4582,35 +4573,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-msw@workspace:.":
+"playwright-msw@workspace:packages/playwright-msw":
   version: 0.0.0-use.local
-  resolution: "playwright-msw@workspace:."
+  resolution: "playwright-msw@workspace:packages/playwright-msw"
   dependencies:
-    "@commitlint/cli": ^16.2.3
-    "@commitlint/config-conventional": ^16.2.1
     "@mswjs/http-middleware": ^0.3.0
     "@playwright/test": ^1.20.1
     "@types/body-parser": ^1
-    "@types/eslint": ^8
     "@types/express": ^4
     "@types/node": ^17.0.21
     "@types/node-fetch": ^2.6.1
-    "@types/prettier": ^2
     "@types/rimraf": ^3
-    "@typescript-eslint/eslint-plugin": ^5.15.0
-    "@typescript-eslint/parser": ^5.15.0
     body-parser: ^1.19.2
-    eslint: ^8.11.0
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-prettier: ^4.0.0
     express: ^4.17.3
     headers-polyfill: ^3.0.4
-    husky: ^7.0.4
-    lint-staged: ^12.3.6
     msw: 0.35.0
     node-fetch: ^2.6.7
-    pinst: ^3.0.0
-    prettier: ^2.6.0
     rimraf: ^3.0.2
     typescript: ^4.6.2
   peerDependencies:
@@ -4949,6 +4927,25 @@ __metadata:
   checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
   languageName: node
   linkType: hard
+
+"root@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "root@workspace:."
+  dependencies:
+    "@commitlint/cli": ^16.2.3
+    "@commitlint/config-conventional": ^16.2.1
+    "@types/eslint": ^8
+    "@types/prettier": ^2
+    "@typescript-eslint/eslint-plugin": ^5.15.0
+    "@typescript-eslint/parser": ^5.15.0
+    eslint: ^8.11.0
+    eslint-config-prettier: ^8.5.0
+    eslint-plugin-prettier: ^4.0.0
+    husky: ^7.0.4
+    lint-staged: ^12.3.6
+    prettier: ^2.6.0
+  languageName: unknown
+  linkType: soft
 
 "run-async@npm:^2.4.0":
   version: 2.4.1

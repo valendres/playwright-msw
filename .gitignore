@@ -12,11 +12,5 @@ yarn-error.log
 # system
 .DS_Store
 
-# environment variables
-.env
-
-# Build
-/lib
-
 # eslint
 .eslintcache
