@@ -9,3 +9,4 @@ yarn.lock
 .prettierignore
 .gitignore
 .gitkeep
+*.svg

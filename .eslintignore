@@ -4,5 +4,8 @@
 yarn.lock
 **/.gitignore
 **/.gitkeep
+**/*.css
+**/*.html
 **/*.md
+**/*.svg
 **/*.yml
