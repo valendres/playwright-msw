@@ -4,6 +4,8 @@ dist
 node_modules
 .husky
 yarn.lock
+.editorconfig
 .eslintignore
 .prettierignore
 .gitignore
+.gitkeep

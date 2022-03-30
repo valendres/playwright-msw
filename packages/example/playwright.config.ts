@@ -7,7 +7,7 @@ const WEB_SERVER_PORT = 8080;
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: "./specs",
+  testDir: "./tests",
   outputDir: "./results",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -29,7 +29,7 @@ const config: PlaywrightTestConfig = {
     [
       "html",
       {
-        outputFolder: "./tests/integration/report",
+        outputFolder: "./reports",
         open: process.env.CI ? "never" : "on-failure",
       },
     ],
