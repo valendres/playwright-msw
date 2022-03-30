@@ -3,3 +3,7 @@
 dist
 node_modules
 .husky
+yarn.lock
+.eslintignore
+.prettierignore
+.gitignore
