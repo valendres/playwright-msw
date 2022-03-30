@@ -1,13 +1,13 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 
-const WEB_SERVER_PORT = 8080;
+const WEB_SERVER_PORT = 3000;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: "./tests",
+  testDir: "./specs",
   outputDir: "./results",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -29,7 +29,7 @@ const config: PlaywrightTestConfig = {
     [
       "html",
       {
-        outputFolder: "./reports",
+        outputFolder: "./tests/integration/report",
         open: process.env.CI ? "never" : "on-failure",
       },
     ],
@@ -66,44 +66,16 @@ const config: PlaywrightTestConfig = {
         ...devices["Desktop Safari"],
       },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //   },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: {
-    //     channel: 'msedge',
-    //   },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
-    // },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   // outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   port: 3000,
-  // },
+  webServer: {
+    command: "yarn start",
+    port: 3000,
+  },
 };
 
 export default config;
