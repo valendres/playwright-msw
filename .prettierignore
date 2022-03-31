@@ -9,4 +9,5 @@ yarn.lock
 .prettierignore
 .gitignore
 .gitkeep
+.github/CODEOWNERS
 *.svg
