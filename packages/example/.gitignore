@@ -1,2 +1,3 @@
-results/
-report/
+/dist
+/tests/integration/results
+/tests/integration/report
