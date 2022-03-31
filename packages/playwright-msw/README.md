@@ -81,7 +81,7 @@ export { expect };
 
 ## Usage
 
-The example below shows `playwright-msw` can be used to automatically mock API calls, while still allowing them to be mocked on a per test basis. For an up to date example, please refer to [example/tests/integration/specs/demo.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/integration/specs/demo.spec.ts).
+The example below shows `playwright-msw` can be used to automatically mock API calls, while still allowing them to be mocked on a per test basis. For an up to date example, please refer to [demo.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/integration/specs/demo.spec.ts).
 
 ```typescript
 import { expect, test } from "../test";
