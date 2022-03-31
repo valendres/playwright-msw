@@ -17,8 +17,10 @@ jobs:
         run: yarn
       - name: Install Playwright
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: yarn playwright test
+      - name: Build the example app
+        run: yarn packages/example run build
+      - name: Run the example app's Playwright tests
+        run: yarn packages/example run test:integration
       - uses: actions/upload-artifact@v2
         if: always()
         with:
