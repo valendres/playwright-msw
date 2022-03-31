@@ -17,13 +17,15 @@ jobs:
         run: yarn
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - name: Build playwright-msw
+        run: yarn packages/playwright-msw run build
       - name: Build the example app
         run: yarn packages/example run build
       - name: Run the example app's Playwright tests
-        run: yarn packages/example run test:integration
+        run: yarn packages/example run test:playwright
       - uses: actions/upload-artifact@v2
         if: always()
         with:
           name: playwright-report
-          path: packages/example/tests/integration/report
+          path: packages/example/tests/playwright/report
           retention-days: 30

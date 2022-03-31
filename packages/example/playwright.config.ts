@@ -3,7 +3,7 @@ import { devices } from "@playwright/test";
 import { resolve } from "path";
 
 const playwrightDir = (partialPath: string) =>
-  resolve(__dirname, "./tests/integration", partialPath);
+  resolve(__dirname, "./tests/playwright", partialPath);
 
 const WEB_SERVER_PORT = 4173;
 
