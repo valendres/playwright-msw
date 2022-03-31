@@ -1,6 +1,6 @@
 import { expect, test } from "../test";
 
-test.describe.parallel("demo", () => {
+test.describe.parallel("A demo of playwright-msw's functionality", () => {
   test("should use the default handlers without requiring handlers to be specified on a per-test basis", async ({
     page,
   }) => {
