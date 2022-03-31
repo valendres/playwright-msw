@@ -10,7 +10,8 @@ export const UsersList: FC<UsersListProps> = () => {
     async () => {
       const response = await fetch("/api/users");
       return await response.json();
-    }
+    },
+    { retry: false }
   );
 
   return (

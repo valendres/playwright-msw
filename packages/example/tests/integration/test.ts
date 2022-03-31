@@ -16,7 +16,7 @@ export const test = base.extend<{
         handlers,
         webServerPort: info.config.webServer.port,
         baseWorkerServerPort: 9000,
-        url: "/**",
+        url: "/api/**",
       });
 
       await server.listen();

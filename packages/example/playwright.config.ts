@@ -1,14 +1,18 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
+import { resolve } from "path";
 
-const WEB_SERVER_PORT = 3000;
+const playwrightDir = (partialPath: string) =>
+  resolve(__dirname, "./tests/integration", partialPath);
+
+const WEB_SERVER_PORT = 4173;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: "./specs",
-  outputDir: "./results",
+  testDir: playwrightDir("./specs"),
+  outputDir: playwrightDir("./results"),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -29,7 +33,7 @@ const config: PlaywrightTestConfig = {
     [
       "html",
       {
-        outputFolder: "./tests/integration/report",
+        outputFolder: playwrightDir("./report"),
         open: process.env.CI ? "never" : "on-failure",
       },
     ],
@@ -40,7 +44,7 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: `http://localhost:${WEB_SERVER_PORT}`,
+    baseURL: `http://localhost:${WEB_SERVER_PORT}/`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
@@ -67,14 +71,11 @@ const config: PlaywrightTestConfig = {
       },
     },
   ],
-
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
-
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "yarn start",
-    port: 3000,
+    command: `yarn preview --port ${WEB_SERVER_PORT}`,
+    port: WEB_SERVER_PORT,
+    reuseExistingServer: !process.env.CI,
   },
 };
 

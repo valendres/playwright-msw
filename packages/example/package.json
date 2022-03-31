@@ -7,7 +7,7 @@
     "preview": "vite preview",
     "start": "vite",
     "test": "yarn test:integration",
-    "test:integration": "npx playwright test --config=tests/integration/playwright.config.ts"
+    "test:integration": "npx playwright test"
   },
   "dependencies": {
     "msw": "0.39.2",
