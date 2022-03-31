@@ -8,7 +8,7 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeVisible();
   });
 
-  test.only("should allow mocks to be overridden on a per test basis", async ({
+  test("should allow mocks to be overridden on a per test basis", async ({
     page,
     msw,
     rest,
