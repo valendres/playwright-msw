@@ -4,7 +4,7 @@ A Mock Service Worker API for Playwright.
 
 ## Setup
 
-The example below shows how `playwright-msw` can be be used to create custom [test fixtures](https://playwright.dev/docs/test-fixtures) which allow API calls to be automatically mocked, while also exposing the `msw` fixture so that mocks may be overridden on a per test basis. For an up to date example, please refer to [test.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/integration/test.ts).
+The example below shows how `playwright-msw` can be be used to create custom [test fixtures](https://playwright.dev/docs/test-fixtures) which allow API calls to be automatically mocked, while also exposing the `msw` worker instance as a fixture so that mocks may be overridden on a per test basis. For an up to date example, please refer to [test.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/integration/test.ts).
 
 ```typescript
 import { test as base, expect } from "@playwright/test";
