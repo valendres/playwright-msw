@@ -23,6 +23,15 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
-    "prettier": "^2.6.1"
+    "prettier": "^2.6.1",
+    "typescript": "^4.6.3"
+  },
+  "dependenciesMeta": {
+    "@playwright/test": {
+      "unplugged": true
+    }
+  },
+  "resolutions": {
+    "strict-event-emitter": "0.2.0"
   }
 }

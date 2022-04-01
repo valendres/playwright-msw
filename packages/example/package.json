@@ -7,7 +7,7 @@
     "preview": "vite preview",
     "start": "vite",
     "test": "yarn test:playwright",
-    "test:playwright": "npx playwright test"
+    "test:playwright": "yarn playwright test"
   },
   "dependencies": {
     "msw": "0.39.2",
