@@ -5215,6 +5215,9 @@ __metadata:
     husky: ^7.0.4
     lint-staged: ^12.3.7
     prettier: ^2.6.1
+  dependenciesMeta:
+    "@playwright/test":
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -5498,11 +5501,11 @@ __metadata:
   linkType: hard
 
 "strict-event-emitter@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "strict-event-emitter@npm:0.2.0"
+  version: 0.2.4
+  resolution: "strict-event-emitter@npm:0.2.4"
   dependencies:
     events: ^3.3.0
-  checksum: b2bc33aa01e66010f6356368df7b043cc2a96645b5a8caf47226f349d1702f844375ece9d90e69ff1714599c4ef959031d23d3ffb224738a286b88fedcb42a4a
+  checksum: fe6af7baf4002910ffd04d16f37c994e7b9f56b4c01c8846a3b394efcea6689a9eba3ebcd5283774476c3a7632aae6b47ef89061b0fbf7f2256b8e07a5cab32d
   languageName: node
   linkType: hard
 
