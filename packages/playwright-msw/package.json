@@ -25,11 +25,7 @@
     "prepare": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@mswjs/http-middleware": "^0.3.0",
-    "body-parser": "^1.19.2",
-    "express": "^4.17.3",
-    "headers-polyfill": "^3.0.7",
-    "node-fetch": "^2.6.7"
+    "headers-polyfill": "^3.0.7"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.20.0",

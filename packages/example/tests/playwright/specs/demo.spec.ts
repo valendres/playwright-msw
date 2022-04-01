@@ -19,7 +19,7 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
       )
     );
     await page.goto("/");
-    await expect(page.locator('text="Alessandro Metcalfe"')).toBeHidden();
     await expect(page.locator('text="Failed to load users"')).toBeVisible();
+    await expect(page.locator('text="Alessandro Metcalfe"')).toBeHidden();
   });
 });

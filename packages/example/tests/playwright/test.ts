@@ -9,21 +9,9 @@ export const test = base.extend<{
   rest: typeof rest;
 }>({
   msw: [
-    async ({ page }, use, info): Promise<void> => {
-      const server = await createServer({
-        page,
-        info,
-        handlers,
-        webServerPort: info.config.webServer.port,
-        baseWorkerServerPort: 9000,
-        url: "/api/**",
-      });
-
-      await server.listen();
-      // Test has not started to execute
+    async ({ page }, use): Promise<void> => {
+      const server = await createServer(page, ...handlers);
       await use(server);
-      // Test has finished executing
-      await server.close();
     },
     {
       /**
