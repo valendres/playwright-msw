@@ -1501,7 +1501,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["debug", "virtual:62738e6f4a1bb4f8ff35ae41a77cb589aeffb1a2b896f237bc331b5509d0b413c328994ab1431dc8c128ffa7d6ca83d167ebf621c5c6b08297150420be31ce8e#npm:4.3.4"],\
             ["headers-polyfill", "npm:3.0.7"],\
             ["outvariant", "npm:1.3.0"],\
-            ["strict-event-emitter", "npm:0.2.4"]\
+            ["strict-event-emitter", "npm:0.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5423,7 +5423,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-fetch", "virtual:2a4aa5f1bc20631eaa6bc9fd75af6cb5a9916af8241b24b6d0c82453c816769b945a4b13e8789acb4c111ea4ed97b933e71ca2bb1549a1d44208903d300e77da#npm:2.6.7"],\
             ["path-to-regexp", "npm:6.2.0"],\
             ["statuses", "npm:2.0.1"],\
-            ["strict-event-emitter", "npm:0.2.4"],\
+            ["strict-event-emitter", "npm:0.2.0"],\
             ["type-fest", "npm:1.4.0"],\
             ["yargs", "npm:17.4.0"]\
           ],\
@@ -6762,10 +6762,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["strict-event-emitter", [\
-        ["npm:0.2.4", {\
-          "packageLocation": "./.yarn/cache/strict-event-emitter-npm-0.2.4-3f89d3b9ec-fe6af7baf4.zip/node_modules/strict-event-emitter/",\
+        ["npm:0.2.0", {\
+          "packageLocation": "./.yarn/cache/strict-event-emitter-npm-0.2.0-5ed371a312-b2bc33aa01.zip/node_modules/strict-event-emitter/",\
           "packageDependencies": [\
-            ["strict-event-emitter", "npm:0.2.4"],\
+            ["strict-event-emitter", "npm:0.2.0"],\
             ["events", "npm:3.3.0"]\
           ],\
           "linkType": "HARD"\

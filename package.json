@@ -29,5 +29,8 @@
     "@playwright/test": {
       "unplugged": true
     }
+  },
+  "resolutions": {
+    "strict-event-emitter": "0.2.0"
   }
 }
