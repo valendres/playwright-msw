@@ -10,7 +10,7 @@ The example below shows how `playwright-msw` can be be used to create custom [te
 import { test as base, expect } from "@playwright/test";
 import { rest } from "msw";
 import type { MockServiceWorker } from "playwright-msw";
-import { createServer } from "playwright-msw";
+import { createWorkerFixture } from "playwright-msw";
 
 const handlers = [
   rest.get("/api/users", (_, response, context) =>
@@ -38,45 +38,15 @@ const handlers = [
   ),
 ];
 
-export const test = base.extend<{
-  msw: MockServiceWorker;
+const test = base.extend<{
+  worker: MockServiceWorker;
   rest: typeof rest;
 }>({
-  msw: [
-    async ({ page }, use, info): Promise<void> => {
-      const server = await createServer({
-        page,
-        info,
-        handlers,
-        webServerPort: info.config.webServer.port,
-        baseWorkerServerPort: 9000,
-        url: "/api/**",
-      });
-
-      await server.listen();
-      // Test has not started to execute
-      await use(server);
-      // Test has finished executing
-      await server.close();
-    },
-    {
-      /**
-       * Scope this fixture on a per test basis to ensure that each test has a
-       * fresh copy of MSW.
-       */
-      scope: "test",
-      /**
-       * By default, fixtures are lazy; they will not be initalised unless they're
-       * used by the test. Setting `true` here means that the fixture will be auto-
-       * initialised even if the test doesn't use it.
-       */
-      auto: true,
-    },
-  ],
+  worker: createWorkerFixture(...handlers),
   rest,
 });
 
-export { expect };
+export { text, expect };
 ```
 
 ## Usage
@@ -96,10 +66,10 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
 
   test.only("should allow mocks to be overridden on a per test basis", async ({
     page,
-    msw,
+    worker,
     rest,
   }) => {
-    await msw.use(
+    await worker.use(
       rest.get("/api/users", (_, response, context) =>
         response(context.delay(250), context.status(403))
       )
