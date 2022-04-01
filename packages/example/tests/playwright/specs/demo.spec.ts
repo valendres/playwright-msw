@@ -10,10 +10,10 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
 
   test("should allow mocks to be overridden on a per test basis", async ({
     page,
-    msw,
+    worker,
     rest,
   }) => {
-    await msw.use(
+    await worker.use(
       rest.get("/api/users", (_, response, context) =>
         response(context.delay(250), context.status(403))
       )
