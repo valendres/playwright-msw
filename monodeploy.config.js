@@ -1,5 +1,4 @@
 module.exports = {
-  plugins: ["@monodeploy/plugin-github"],
   conventionalChangelogConfig: "@tophat/conventional-changelog-config",
   changelogFilename: "<packageDir>/CHANGELOG.md",
   access: "infer",

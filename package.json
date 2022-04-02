@@ -15,7 +15,6 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@monodeploy/plugin-github": "^0.3.15",
     "@tophat/conventional-changelog-config": "^0.6.1",
     "@types/eslint": "^8.4.1",
     "@types/prettier": "^2.4.4",
