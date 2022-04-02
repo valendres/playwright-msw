@@ -3,5 +3,8 @@ module.exports = {
   changelogFilename: "<packageDir>/CHANGELOG.md",
   persistVersions: true,
   autoCommit: true,
-  push: true,
+  git: {
+    push: true,
+    tag: true,
+  },
 };
