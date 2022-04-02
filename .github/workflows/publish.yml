@@ -1,0 +1,74 @@
+name: Publish
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+          - premajor
+          - preminor
+          - prepatch
+          - prerelease
+jobs:
+  version:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Bump version
+        run: echo ::set-env name=TAG_NAME::$(npm --prefix packages/playwright-msw ${{ github.event.inputs.version }})
+      - uses: EndBug/add-and-commit@v7
+        with:
+          message: "chore: release ${{ env.TAG_NAME }} [skip ci]"
+          default_author: github_actions
+          add: "packages/playwright-msw/package.json --force"
+          tag: "${{ env.TAG_NAME }} --force"
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn
+      - name: Build playwright-msw
+        run: yarn packages/playwright-msw run build
+      - name: Cache playwright-msw build output
+        uses: actions/cache@v2
+        with:
+          path: packages/playwright-msw/lib
+          key: playwright-msw-lib
+  publish:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    environment: npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Restore playwright-msw build output
+        id: playwright-msw-lib-cache
+        uses: actions/cache@v2
+        with:
+          path: packages/playwright-msw/lib
+          key: playwright-msw-lib
+      - name: Publish playwright-msw
+        if: steps.playwright-msw-lib-cache.outputs.cache-hit != 'true'
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          npm --prefix packages/playwright-msw publish --ignore-scripts
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
