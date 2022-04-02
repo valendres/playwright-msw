@@ -21,8 +21,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib",
-    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags",
-    "prepare": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "headers-polyfill": "^3.0.7"
