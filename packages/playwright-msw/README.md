@@ -1,10 +1,10 @@
-<h1 align="center">playwright-msw</h1>
+<h1 align="center">Playwright MSW</h1>
 <p align="center">A <a href="https://mswjs.io/">Mock Service Worker</a> (MSW) integration layer for <a href="https://playwright.dev/">Playwright</a>.</p>
 
 <p align="center">
-<img src="https://img.shields.io/npm/v/playwright-msw?style=for-the-badge" />
-<img src="https://img.shields.io/github/license/valendres/playwright-msw?style=for-the-badge" />
-<img src="https://img.shields.io/npm/dw/playwright-msw?style=for-the-badge"/>
+<img src="https://img.shields.io/npm/v/playwright-msw?style=for-the-badge&label=Latest&color=black" alt="Package version" />
+<img src="https://img.shields.io/github/license/valendres/playwright-msw?style=for-the-badge&color=black" alt="License" />
+<img src="https://img.shields.io/npm/dm/playwright-msw?style=for-the-badge&color=black" alt="Downloads per month"/>
 </p>
 
 ## Features
