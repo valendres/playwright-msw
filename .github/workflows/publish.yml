@@ -36,7 +36,6 @@ jobs:
   version:
     if: github.ref == 'refs/heads/main'
     needs: build
-    environment: github
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -44,13 +43,14 @@ jobs:
         with:
           node-version: 16
       - name: Bump version
-        run: echo ::set-env name=TAG_NAME::$(npm --prefix packages/playwright-msw ${{ github.event.inputs.version }})
+        id: bump-version
+        run: echo ::set-output name=new-version::$(npm --prefix packages/playwright-msw version ${{ github.event.inputs.version }})
       - uses: EndBug/add-and-commit@v7
         with:
-          message: "chore: release ${{ env.TAG_NAME }} [skip ci]"
+          message: "chore: release ${{steps.bump-version.outputs.new-version}} [skip ci]"
           default_author: github_actions
           add: "packages/playwright-msw/package.json --force"
-          tag: "${{ env.TAG_NAME }} --force"
+          tag: "${{steps.bump-version.outputs.new-version}} --force"
   publish:
     if: github.ref == 'refs/heads/main'
     needs: version
