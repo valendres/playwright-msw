@@ -1,6 +1,7 @@
-import { PlaywrightTestArgs, TestFixture } from "@playwright/test";
+import type { PlaywrightTestArgs, TestFixture } from "@playwright/test";
 import { RequestHandler } from "msw";
-import { createServer, MockServiceWorker } from "./server";
+import { createServer } from "./server";
+import { MockServiceWorker } from "./types";
 
 export const createWorkerFixture = (
   ...handlers: RequestHandler[]
@@ -15,7 +16,9 @@ export const createWorkerFixture = (
   {
     /**
      * Scope this fixture on a per test basis to ensure that each test has a
-     * fresh copy of MSW.
+     * fresh copy of MSW. Note: the scope MUST be "test" to be able to use the
+     * `page` fixture as it is not possible to access it when scoped to the
+     * "worker".
      */
     scope: "test",
     /**

@@ -3,6 +3,7 @@ import type { RequestHandler } from "msw";
 import { Headers } from "headers-polyfill";
 import { handleRequest, parseIsomorphicRequest } from "msw";
 import EventEmitter from "events";
+import { MockServiceWorker } from "./types";
 
 const emitter = new EventEmitter();
 
@@ -49,18 +50,6 @@ const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
       },
     }
   );
-};
-
-export type MockServiceWorker = {
-  /**
-   * Prepends given request handlers to the list of existing handlers.
-   */
-  use: (...customHandlers: RequestHandler[]) => Promise<void>;
-  /**
-   * Resets request handlers to the initial list given to the createServer call,
-   * or to the explicit next request handlers list, if given.
-   */
-  resetHandlers: (...customHandlers: RequestHandler[]) => Promise<void>;
 };
 
 export const createServer = async (

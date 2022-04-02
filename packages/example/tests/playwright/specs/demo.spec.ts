@@ -1,3 +1,4 @@
+import { rest } from "msw";
 import { expect, test } from "../test";
 
 test.describe.parallel("A demo of playwright-msw's functionality", () => {
@@ -11,7 +12,6 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
   test("should allow mocks to be overridden on a per test basis", async ({
     page,
     worker,
-    rest,
   }) => {
     await worker.use(
       rest.get("/api/users", (_, response, context) =>

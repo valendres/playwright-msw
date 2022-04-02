@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { setupWorker } from "msw";
-import { handlers } from "./mocks/handlers";
+import handlers from "./mocks/handlers";
 
 const worker = setupWorker(...handlers);
 

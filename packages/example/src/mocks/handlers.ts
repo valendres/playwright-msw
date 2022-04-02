@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { UsersApiParams, UsersApiResponse } from "../types/api";
 
-export const handlers = [
+export default [
   rest.get<null, UsersApiParams, UsersApiResponse>(
     "/api/users",
     (_, response, context) =>
