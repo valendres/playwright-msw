@@ -1,7 +1,9 @@
 .yarn
 .yarnrc.yml
-
 yarn.lock
+
+monodeploy.config.js
+
 **/.gitignore
 **/.gitkeep
 **/*.css
@@ -9,4 +11,3 @@ yarn.lock
 **/*.md
 **/*.svg
 **/*.yml
-**/*.zip
