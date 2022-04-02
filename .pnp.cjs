@@ -49,6 +49,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@commitlint/cli", "npm:16.2.3"],\
             ["@commitlint/config-conventional", "npm:16.2.1"],\
+            ["@monodeploy/plugin-github", "npm:0.3.15"],\
             ["@tophat/conventional-changelog-config", "npm:0.6.1"],\
             ["@types/eslint", "npm:8.4.1"],\
             ["@types/prettier", "npm:2.4.4"],\
@@ -1527,10 +1528,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@monodeploy-changelog-virtual-a156bc69f8/0/cache/@monodeploy-changelog-npm-0.7.13-239a4a0a23-bb3fc2f0c6.zip/node_modules/@monodeploy/changelog/",\
           "packageDependencies": [\
             ["@monodeploy/changelog", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.7.13"],\
-            ["@monodeploy/git", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.3"],\
-            ["@monodeploy/io", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/git", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/monodeploy__git", null],\
             ["@types/monodeploy__io", null],\
             ["@types/monodeploy__logging", null],\
@@ -1572,8 +1573,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@monodeploy-dependencies-virtual-a3c2ade29a/0/cache/@monodeploy-dependencies-npm-0.3.12-c17c13531c-91ed9de327.zip/node_modules/@monodeploy/dependencies/",\
           "packageDependencies": [\
             ["@monodeploy/dependencies", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.3.12"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/monodeploy__logging", null],\
             ["@types/monodeploy__types", null],\
             ["@types/yarnpkg__core", null],\
@@ -1598,13 +1599,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.3", {\
-          "packageLocation": "./.yarn/__virtual__/@monodeploy-git-virtual-8bcff8d50c/0/cache/@monodeploy-git-npm-0.4.3-2a4674abc7-0ef78d93d3.zip/node_modules/@monodeploy/git/",\
+        ["virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3", {\
+          "packageLocation": "./.yarn/__virtual__/@monodeploy-git-virtual-bbf7e5dd87/0/cache/@monodeploy-git-npm-0.4.3-2a4674abc7-0ef78d93d3.zip/node_modules/@monodeploy/git/",\
           "packageDependencies": [\
-            ["@monodeploy/git", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.3"],\
-            ["@monodeploy/io", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/git", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/monodeploy__io", null],\
             ["@types/monodeploy__logging", null],\
             ["@types/monodeploy__types", null],\
@@ -1637,12 +1638,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1", {\
-          "packageLocation": "./.yarn/__virtual__/@monodeploy-io-virtual-4b12ca4d6e/0/cache/@monodeploy-io-npm-0.4.1-24bd6b8e47-3b3b3d8730.zip/node_modules/@monodeploy/io/",\
+        ["virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1", {\
+          "packageLocation": "./.yarn/__virtual__/@monodeploy-io-virtual-9830f2f07c/0/cache/@monodeploy-io-npm-0.4.1-24bd6b8e47-3b3b3d8730.zip/node_modules/@monodeploy/io/",\
           "packageDependencies": [\
-            ["@monodeploy/io", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/monodeploy__logging", null],\
             ["@types/monodeploy__types", null],\
             ["@types/yarnpkg__core", null],\
@@ -1675,10 +1676,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12", {\
-          "packageLocation": "./.yarn/__virtual__/@monodeploy-logging-virtual-3df978be54/0/cache/@monodeploy-logging-npm-0.1.12-3f74c41820-123120a0d0.zip/node_modules/@monodeploy/logging/",\
+        ["virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12", {\
+          "packageLocation": "./.yarn/__virtual__/@monodeploy-logging-virtual-2e31232a4d/0/cache/@monodeploy-logging-npm-0.1.12-3f74c41820-123120a0d0.zip/node_modules/@monodeploy/logging/",\
           "packageDependencies": [\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
             ["@types/yarnpkg__core", null],\
             ["@yarnpkg/core", "npm:3.2.0"]\
           ],\
@@ -1696,11 +1697,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@monodeploy/node", "npm:0.12.1"],\
             ["@monodeploy/changelog", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.7.13"],\
             ["@monodeploy/dependencies", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.3.12"],\
-            ["@monodeploy/git", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.3"],\
-            ["@monodeploy/io", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
+            ["@monodeploy/git", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
             ["@monodeploy/publish", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.6.5"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@monodeploy/versions", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.8.15"],\
             ["@yarnpkg/cli", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:3.2.0"],\
             ["@yarnpkg/core", "npm:3.2.0"],\
@@ -1709,6 +1710,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/plugin-pack", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:3.1.1"],\
             ["@yarnpkg/shell", "npm:3.2.0"],\
             ["tapable", "npm:2.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@monodeploy/plugin-github", [\
+        ["npm:0.3.15", {\
+          "packageLocation": "./.yarn/cache/@monodeploy-plugin-github-npm-0.3.15-23afcd3830-0190d639ac.zip/node_modules/@monodeploy/plugin-github/",\
+          "packageDependencies": [\
+            ["@monodeploy/plugin-github", "npm:0.3.15"],\
+            ["@monodeploy/git", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
+            ["@octokit/core", "npm:3.6.0"],\
+            ["@octokit/plugin-throttling", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:3.6.2"],\
+            ["@yarnpkg/core", "npm:3.2.0"],\
+            ["@yarnpkg/fslib", "npm:2.6.1"],\
+            ["@yarnpkg/shell", "npm:3.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1726,10 +1745,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@monodeploy/publish", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.6.5"],\
             ["@monodeploy/dependencies", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.3.12"],\
-            ["@monodeploy/git", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.3"],\
-            ["@monodeploy/io", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/git", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/monodeploy__dependencies", null],\
             ["@types/monodeploy__git", null],\
             ["@types/monodeploy__io", null],\
@@ -1780,10 +1799,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5", {\
-          "packageLocation": "./.yarn/__virtual__/@monodeploy-types-virtual-8083ef321e/0/cache/@monodeploy-types-npm-0.10.5-cf63329969-67df7afb56.zip/node_modules/@monodeploy/types/",\
+        ["virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5", {\
+          "packageLocation": "./.yarn/__virtual__/@monodeploy-types-virtual-87c4b7840e/0/cache/@monodeploy-types-npm-0.10.5-cf63329969-67df7afb56.zip/node_modules/@monodeploy/types/",\
           "packageDependencies": [\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/yarnpkg__core", null],\
             ["@yarnpkg/core", "npm:3.2.0"],\
             ["tapable", "npm:2.2.1"]\
@@ -1809,10 +1828,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@monodeploy/versions", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.8.15"],\
             ["@monodeploy/changelog", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.7.13"],\
             ["@monodeploy/dependencies", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.3.12"],\
-            ["@monodeploy/git", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.3"],\
-            ["@monodeploy/io", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.4.1"],\
-            ["@monodeploy/logging", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.1.12"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/git", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.3"],\
+            ["@monodeploy/io", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.4.1"],\
+            ["@monodeploy/logging", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.1.12"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@types/monodeploy__changelog", null],\
             ["@types/monodeploy__dependencies", null],\
             ["@types/monodeploy__git", null],\
@@ -1936,6 +1955,126 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@npmcli/move-file", "npm:1.1.2"],\
             ["mkdirp", "npm:1.0.4"],\
             ["rimraf", "npm:3.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/auth-token", [\
+        ["npm:2.5.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-auth-token-npm-2.5.0-a1c6ffb640-45949296c0.zip/node_modules/@octokit/auth-token/",\
+          "packageDependencies": [\
+            ["@octokit/auth-token", "npm:2.5.0"],\
+            ["@octokit/types", "npm:6.34.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/core", [\
+        ["npm:3.6.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-core-npm-3.6.0-1273c50268-f811601290.zip/node_modules/@octokit/core/",\
+          "packageDependencies": [\
+            ["@octokit/core", "npm:3.6.0"],\
+            ["@octokit/auth-token", "npm:2.5.0"],\
+            ["@octokit/graphql", "npm:4.8.0"],\
+            ["@octokit/request", "npm:5.6.3"],\
+            ["@octokit/request-error", "npm:2.1.0"],\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["before-after-hook", "npm:2.2.2"],\
+            ["universal-user-agent", "npm:6.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/endpoint", [\
+        ["npm:6.0.12", {\
+          "packageLocation": "./.yarn/cache/@octokit-endpoint-npm-6.0.12-d467db27fd-b48b29940a.zip/node_modules/@octokit/endpoint/",\
+          "packageDependencies": [\
+            ["@octokit/endpoint", "npm:6.0.12"],\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["is-plain-object", "npm:5.0.0"],\
+            ["universal-user-agent", "npm:6.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/graphql", [\
+        ["npm:4.8.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-graphql-npm-4.8.0-83d118b4da-f68afe53f6.zip/node_modules/@octokit/graphql/",\
+          "packageDependencies": [\
+            ["@octokit/graphql", "npm:4.8.0"],\
+            ["@octokit/request", "npm:5.6.3"],\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["universal-user-agent", "npm:6.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/openapi-types", [\
+        ["npm:11.2.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-openapi-types-npm-11.2.0-10b7a5c509-eb373ea496.zip/node_modules/@octokit/openapi-types/",\
+          "packageDependencies": [\
+            ["@octokit/openapi-types", "npm:11.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/plugin-throttling", [\
+        ["npm:3.6.2", {\
+          "packageLocation": "./.yarn/cache/@octokit-plugin-throttling-npm-3.6.2-141eaa82f8-69bd8b5166.zip/node_modules/@octokit/plugin-throttling/",\
+          "packageDependencies": [\
+            ["@octokit/plugin-throttling", "npm:3.6.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:3.6.2", {\
+          "packageLocation": "./.yarn/__virtual__/@octokit-plugin-throttling-virtual-6032bd8c63/0/cache/@octokit-plugin-throttling-npm-3.6.2-141eaa82f8-69bd8b5166.zip/node_modules/@octokit/plugin-throttling/",\
+          "packageDependencies": [\
+            ["@octokit/plugin-throttling", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:3.6.2"],\
+            ["@octokit/core", "npm:3.6.0"],\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["@types/octokit__core", null],\
+            ["bottleneck", "npm:2.19.5"]\
+          ],\
+          "packagePeers": [\
+            "@octokit/core",\
+            "@types/octokit__core"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/request", [\
+        ["npm:5.6.3", {\
+          "packageLocation": "./.yarn/cache/@octokit-request-npm-5.6.3-25a5f5382d-c0b4542eb4.zip/node_modules/@octokit/request/",\
+          "packageDependencies": [\
+            ["@octokit/request", "npm:5.6.3"],\
+            ["@octokit/endpoint", "npm:6.0.12"],\
+            ["@octokit/request-error", "npm:2.1.0"],\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["is-plain-object", "npm:5.0.0"],\
+            ["node-fetch", "virtual:25a5f5382d53dbf298bf7a1191760bc2e0a523a619eeb0e667b99a8649e8ad183f9e2e0b45f6fb831b92f4078b61622aa567cf79565f6aa5af9597e3c84864f6#npm:2.6.7"],\
+            ["universal-user-agent", "npm:6.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/request-error", [\
+        ["npm:2.1.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-request-error-npm-2.1.0-51ac624306-baec2b5700.zip/node_modules/@octokit/request-error/",\
+          "packageDependencies": [\
+            ["@octokit/request-error", "npm:2.1.0"],\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["deprecation", "npm:2.3.1"],\
+            ["once", "npm:1.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@octokit/types", [\
+        ["npm:6.34.0", {\
+          "packageLocation": "./.yarn/cache/@octokit-types-npm-6.34.0-1de469b7ee-f122b9aee8.zip/node_modules/@octokit/types/",\
+          "packageDependencies": [\
+            ["@octokit/types", "npm:6.34.0"],\
+            ["@octokit/openapi-types", "npm:11.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3775,6 +3914,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["before-after-hook", [\
+        ["npm:2.2.2", {\
+          "packageLocation": "./.yarn/cache/before-after-hook-npm-2.2.2-b463f0552f-dc2e1ffe38.zip/node_modules/before-after-hook/",\
+          "packageDependencies": [\
+            ["before-after-hook", "npm:2.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["big-integer", [\
         ["npm:1.6.51", {\
           "packageLocation": "./.yarn/cache/big-integer-npm-1.6.51-1a244d8e1f-3d444173d1.zip/node_modules/big-integer/",\
@@ -3801,6 +3949,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["buffer", "npm:5.7.1"],\
             ["inherits", "npm:2.0.4"],\
             ["readable-stream", "npm:3.6.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["bottleneck", [\
+        ["npm:2.19.5", {\
+          "packageLocation": "./.yarn/cache/bottleneck-npm-2.19.5-2c6092aa17-c5eef1bbea.zip/node_modules/bottleneck/",\
+          "packageDependencies": [\
+            ["bottleneck", "npm:2.19.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4664,6 +4821,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/depd-npm-1.1.2-b0c8414da7-6b406620d2.zip/node_modules/depd/",\
           "packageDependencies": [\
             ["depd", "npm:1.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["deprecation", [\
+        ["npm:2.3.1", {\
+          "packageLocation": "./.yarn/cache/deprecation-npm-2.3.1-e19c92d6e7-f56a05e182.zip/node_modules/deprecation/",\
+          "packageDependencies": [\
+            ["deprecation", "npm:2.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6301,6 +6467,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["is-plain-object", [\
+        ["npm:5.0.0", {\
+          "packageLocation": "./.yarn/cache/is-plain-object-npm-5.0.0-285b70faa3-e32d27061e.zip/node_modules/is-plain-object/",\
+          "packageDependencies": [\
+            ["is-plain-object", "npm:5.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["is-ssh", [\
         ["npm:1.3.3", {\
           "packageLocation": "./.yarn/cache/is-ssh-npm-1.3.3-dae2e96b9a-7a751facad.zip/node_modules/is-ssh/",\
@@ -7140,7 +7315,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["monodeploy", "npm:2.8.20"],\
             ["@monodeploy/node", "npm:0.12.1"],\
-            ["@monodeploy/types", "virtual:7ab72801d476f7f886cc83ff736a0a627e132e07f9bc28fcc7594435909e93eb7b58c2d9ae2539bd35f8bc56b977b2d0719809f9923047ef29030cc06e3d1445#npm:0.10.5"],\
+            ["@monodeploy/types", "virtual:23afcd3830c94b798dfcabd51345e92e438dbcf807b0d8ce7895bbd13f56d061c7af37191509c3309d031769014601aaaa1a848adbcf9d0ab49eb5f3adabc7c6#npm:0.10.5"],\
             ["@yarnpkg/core", "npm:3.2.0"],\
             ["@yarnpkg/fslib", "npm:2.6.1"],\
             ["ajv", "npm:8.11.0"],\
@@ -7183,7 +7358,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["inquirer", "npm:8.2.2"],\
             ["is-node-process", "npm:1.0.1"],\
             ["js-levenshtein", "npm:1.1.6"],\
-            ["node-fetch", "virtual:2a4aa5f1bc20631eaa6bc9fd75af6cb5a9916af8241b24b6d0c82453c816769b945a4b13e8789acb4c111ea4ed97b933e71ca2bb1549a1d44208903d300e77da#npm:2.6.7"],\
+            ["node-fetch", "virtual:25a5f5382d53dbf298bf7a1191760bc2e0a523a619eeb0e667b99a8649e8ad183f9e2e0b45f6fb831b92f4078b61622aa567cf79565f6aa5af9597e3c84864f6#npm:2.6.7"],\
             ["path-to-regexp", "npm:6.2.0"],\
             ["statuses", "npm:2.0.1"],\
             ["strict-event-emitter", "npm:0.2.0"],\
@@ -7265,10 +7440,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:2a4aa5f1bc20631eaa6bc9fd75af6cb5a9916af8241b24b6d0c82453c816769b945a4b13e8789acb4c111ea4ed97b933e71ca2bb1549a1d44208903d300e77da#npm:2.6.7", {\
-          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-ba37df84fa/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+        ["virtual:25a5f5382d53dbf298bf7a1191760bc2e0a523a619eeb0e667b99a8649e8ad183f9e2e0b45f6fb831b92f4078b61622aa567cf79565f6aa5af9597e3c84864f6#npm:2.6.7", {\
+          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-d3846f8e12/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
           "packageDependencies": [\
-            ["node-fetch", "virtual:2a4aa5f1bc20631eaa6bc9fd75af6cb5a9916af8241b24b6d0c82453c816769b945a4b13e8789acb4c111ea4ed97b933e71ca2bb1549a1d44208903d300e77da#npm:2.6.7"],\
+            ["node-fetch", "virtual:25a5f5382d53dbf298bf7a1191760bc2e0a523a619eeb0e667b99a8649e8ad183f9e2e0b45f6fb831b92f4078b61622aa567cf79565f6aa5af9597e3c84864f6#npm:2.6.7"],\
             ["@types/encoding", null],\
             ["encoding", null],\
             ["whatwg-url", "npm:5.0.0"]\
@@ -8412,6 +8587,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["root", "workspace:."],\
             ["@commitlint/cli", "npm:16.2.3"],\
             ["@commitlint/config-conventional", "npm:16.2.1"],\
+            ["@monodeploy/plugin-github", "npm:0.3.15"],\
             ["@tophat/conventional-changelog-config", "npm:0.6.1"],\
             ["@types/eslint", "npm:8.4.1"],\
             ["@types/prettier", "npm:2.4.4"],\
@@ -9322,6 +9498,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["unique-slug", "npm:2.0.2"],\
             ["imurmurhash", "npm:0.1.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["universal-user-agent", [\
+        ["npm:6.0.0", {\
+          "packageLocation": "./.yarn/cache/universal-user-agent-npm-6.0.0-b148fb997a-5092bbc80d.zip/node_modules/universal-user-agent/",\
+          "packageDependencies": [\
+            ["universal-user-agent", "npm:6.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
