@@ -88,7 +88,7 @@ const test = base.extend<{
   worker: createWorkerFixture(...handlers),
 });
 
-export { text, expect };
+export { test, expect };
 ```
 
 ### Use the custom test fixture
