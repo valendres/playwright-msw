@@ -2,6 +2,15 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [0.2.2](https://github.com/valendres/playwright-msw/compare/playwright-msw@0.2.1...playwright-msw@0.2.2) "playwright-msw" (2022-04-25)<a name="0.2.2"></a>
+
+### Bug Fixes
+
+* updates server path to catch all (#9) ([5ebc7d8](https://github.com/valendres/playwright-msw/commits/5ebc7d8))
+
+
+
+
 ## [0.2.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@0.2.0...playwright-msw@0.2.1) "playwright-msw" (2022-04-03)<a name="0.2.1"></a>
 
 ## [0.2.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@0.1.0...playwright-msw@0.2.0) "playwright-msw" (2022-04-02)<a name="0.2.0"></a>
