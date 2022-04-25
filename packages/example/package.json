@@ -13,15 +13,15 @@
     "msw": "0.39.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-query": "^3.34.19"
+    "react-query": "^3.38.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.20.2",
-    "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
-    "@vitejs/plugin-react": "^1.3.0",
+    "@playwright/test": "^1.21.1",
+    "@types/react": "^18.0.7",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.1",
     "playwright-msw": "workspace:*",
     "typescript": "^4.6.3",
-    "vite": "^2.9.1"
+    "vite": "^2.9.5"
   }
 }
