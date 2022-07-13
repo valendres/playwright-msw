@@ -1,5 +1,6 @@
 # Ignore artifacts:
 .pnp.cjs
+.pnp.loader.mjs
 .yarn
 yarn.lock
 dist

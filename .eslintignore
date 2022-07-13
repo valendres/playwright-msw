@@ -1,4 +1,5 @@
 .pnp.cjs
+.pnp.loader.mjs
 .yarn
 .yarnrc.yml
 yarn.lock
