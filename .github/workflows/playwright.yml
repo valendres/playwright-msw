@@ -21,8 +21,8 @@ jobs:
         run: yarn packages/playwright-msw run build
       - name: Build the example app
         run: yarn packages/example run build
-      - name: Run the example app's Playwright tests
-        run: yarn packages/example run test:playwright
+      - name: Run the example app's tests
+        run: yarn packages/example run test
       - uses: actions/upload-artifact@v2
         if: always()
         with:
