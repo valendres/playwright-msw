@@ -1,9 +1,10 @@
 # Ignore artifacts:
+.pnp.cjs
 .yarn
+yarn.lock
 dist
 node_modules
 .husky
-yarn.lock
 .editorconfig
 .eslintignore
 .prettierignore
@@ -11,3 +12,4 @@ yarn.lock
 .gitkeep
 .github/CODEOWNERS
 *.svg
+*.zip
