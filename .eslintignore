@@ -1,3 +1,5 @@
+.pnp.cjs
+.pnp.loader.mjs
 .yarn
 .yarnrc.yml
 yarn.lock
@@ -11,3 +13,4 @@ monodeploy.config.js
 **/*.md
 **/*.svg
 **/*.yml
+**/*.zip
