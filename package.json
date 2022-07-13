@@ -18,7 +18,7 @@
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@tophat/conventional-changelog-config": "^0.6.2",
-    "@types/eslint": "^8.4.1",
+    "@types/eslint": "^8.4.5",
     "@types/prettier": "^2.6.3",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
