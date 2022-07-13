@@ -1,6 +1,5 @@
 import type { Page, Route } from "@playwright/test";
 import type { RequestHandler } from "msw";
-import { Headers } from "headers-polyfill";
 import { handleRequest, MockedRequest } from "msw";
 import EventEmitter from "events";
 import { MockServiceWorker } from "./types";
@@ -11,7 +10,7 @@ const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   const request = route.request();
   const method = request.method();
   const url = new URL(request.url());
-  const headers = new Headers(await request.allHeaders());
+  const headers = await request.allHeaders();
   const postData = request.postData();
 
   const mockedRequest = new MockedRequest(url, {
