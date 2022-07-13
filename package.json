@@ -8,8 +8,10 @@
     ]
   },
   "scripts": {
+    "build": "yarn workspaces foreach run build",
     "deploy": "monodeploy --config-file  monodeploy.config.js",
     "lint": "eslint \"**/src/**/*.ts\"",
+    "test": "yarn workspaces foreach run test",
     "postinstall": "husky install"
   },
   "devDependencies": {
