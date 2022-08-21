@@ -4,3 +4,12 @@ export type UsersApiResponse = Array<{
   firstName: string;
   lastName: string;
 }>;
+
+export type LoginApiRequestBody = {
+  username: string;
+  password: string;
+};
+export type LoginApiParams = Record<string, string>;
+export type LoginApiResponse = {
+  userId: string;
+};

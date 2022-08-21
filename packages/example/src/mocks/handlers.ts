@@ -1,5 +1,11 @@
 import { rest } from "msw";
-import { UsersApiParams, UsersApiResponse } from "../types/api";
+import {
+  UsersApiParams,
+  UsersApiResponse,
+  LoginApiRequestBody,
+  LoginApiParams,
+  LoginApiResponse,
+} from "../types/api";
 
 export default [
   rest.get<null, UsersApiParams, UsersApiResponse>(
@@ -26,5 +32,22 @@ export default [
           },
         ])
       )
+  ),
+  rest.post<LoginApiRequestBody, LoginApiParams, LoginApiResponse>(
+    "/api/login",
+    async (request, response, context) => {
+      const { username, password } = await request.json<LoginApiRequestBody>();
+      if (username === "peter" && password === "secret") {
+        return response(
+          context.delay(500),
+          context.status(200),
+          context.json({
+            userId: "9138123",
+          })
+        );
+      }
+
+      return response(context.delay(500), context.status(401));
+    }
   ),
 ];
