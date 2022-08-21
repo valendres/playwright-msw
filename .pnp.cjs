@@ -1270,12 +1270,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@playwright/test", [\
-        ["npm:1.23.2", {\
-          "packageLocation": "./.yarn/unplugged/@playwright-test-npm-1.23.2-9ab1615f6e/node_modules/@playwright/test/",\
+        ["npm:1.25.0", {\
+          "packageLocation": "./.yarn/unplugged/@playwright-test-npm-1.25.0-e9ff7170db/node_modules/@playwright/test/",\
           "packageDependencies": [\
-            ["@playwright/test", "npm:1.23.2"],\
+            ["@playwright/test", "npm:1.25.0"],\
             ["@types/node", "npm:18.0.3"],\
-            ["playwright-core", "npm:1.23.2"]\
+            ["playwright-core", "npm:1.25.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4399,7 +4399,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/example/",\
           "packageDependencies": [\
             ["example", "workspace:packages/example"],\
-            ["@playwright/test", "npm:1.23.2"],\
+            ["@playwright/test", "npm:1.25.0"],\
             ["@types/react", "npm:18.0.15"],\
             ["@types/react-dom", "npm:18.0.6"],\
             ["@vitejs/plugin-react", "npm:1.3.2"],\
@@ -6911,10 +6911,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["playwright-core", [\
-        ["npm:1.23.2", {\
-          "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.23.2-d123558314/node_modules/playwright-core/",\
+        ["npm:1.25.0", {\
+          "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.25.0-25216e7f57/node_modules/playwright-core/",\
           "packageDependencies": [\
-            ["playwright-core", "npm:1.23.2"]\
+            ["playwright-core", "npm:1.25.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6924,7 +6924,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/playwright-msw-virtual-81e84f57fa/1/packages/playwright-msw/",\
           "packageDependencies": [\
             ["playwright-msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#workspace:packages/playwright-msw"],\
-            ["@playwright/test", "npm:1.23.2"],\
+            ["@playwright/test", "npm:1.25.0"],\
             ["@types/msw", null],\
             ["@types/node", "npm:18.0.3"],\
             ["@types/playwright__test", null],\
@@ -6945,7 +6945,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/playwright-msw/",\
           "packageDependencies": [\
             ["playwright-msw", "workspace:packages/playwright-msw"],\
-            ["@playwright/test", "npm:1.23.2"],\
+            ["@playwright/test", "npm:1.25.0"],\
             ["@types/node", "npm:18.0.3"],\
             ["@types/rimraf", "npm:3.0.2"],\
             ["msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.44.0"],\

@@ -28,7 +28,7 @@
     "msw": ">=0.44.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.23.2",
+    "@playwright/test": "^1.25.0",
     "@types/node": "^18.0.3",
     "@types/rimraf": "^3.0.2",
     "msw": "0.44.0",
