@@ -10,7 +10,7 @@
     "test:report": "yarn playwright show-report tests/playwright/report"
   },
   "dependencies": {
-    "msw": "0.44.0",
+    "msw": "0.47.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.1",
