@@ -40,7 +40,7 @@ const RAW_RUNTIME_STATE =
           ["@commitlint/config-conventional", "npm:17.1.0"],\
           ["@tophat/conventional-changelog-config", "npm:0.6.2"],\
           ["@types/eslint", "npm:8.4.6"],\
-          ["@types/prettier", "npm:2.6.3"],\
+          ["@types/prettier", "npm:2.7.1"],\
           ["@typescript-eslint/eslint-plugin", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:5.39.0"],\
           ["@typescript-eslint/parser", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:5.39.0"],\
           ["eslint", "npm:8.24.0"],\
@@ -1638,6 +1638,13 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:18.0.3"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:18.8.2", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-node-npm-18.8.2-3df86443f1-9.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:18.8.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@types/normalize-package-data", [\
@@ -1659,10 +1666,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/prettier", [\
-      ["npm:2.6.3", {\
-        "packageLocation": "../../../.yarn/berry/cache/@types-prettier-npm-2.6.3-8d27063d48-9.zip/node_modules/@types/prettier/",\
+      ["npm:2.7.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-prettier-npm-2.7.1-d46ada27e6-9.zip/node_modules/@types/prettier/",\
         "packageDependencies": [\
-          ["@types/prettier", "npm:2.6.3"]\
+          ["@types/prettier", "npm:2.7.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4372,7 +4379,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-prettier", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:4.2.1"],\
           ["@types/eslint", "npm:8.4.6"],\
           ["@types/eslint-config-prettier", null],\
-          ["@types/prettier", "npm:2.6.3"],\
+          ["@types/prettier", "npm:2.7.1"],\
           ["eslint", "npm:8.24.0"],\
           ["eslint-config-prettier", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:8.5.0"],\
           ["prettier", "npm:2.7.1"],\
@@ -7080,7 +7087,7 @@ const RAW_RUNTIME_STATE =
           ["playwright-msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#workspace:packages/playwright-msw"],\
           ["@playwright/test", "npm:1.26.1"],\
           ["@types/msw", null],\
-          ["@types/node", "npm:18.0.3"],\
+          ["@types/node", "npm:18.8.2"],\
           ["@types/playwright__test", null],\
           ["@types/rimraf", "npm:3.0.2"],\
           ["msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.47.4"],\
@@ -7100,7 +7107,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["playwright-msw", "workspace:packages/playwright-msw"],\
           ["@playwright/test", "npm:1.26.1"],\
-          ["@types/node", "npm:18.0.3"],\
+          ["@types/node", "npm:18.8.2"],\
           ["@types/rimraf", "npm:3.0.2"],\
           ["msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.47.4"],\
           ["rimraf", "npm:3.0.2"],\
@@ -7708,7 +7715,7 @@ const RAW_RUNTIME_STATE =
           ["@commitlint/config-conventional", "npm:17.1.0"],\
           ["@tophat/conventional-changelog-config", "npm:0.6.2"],\
           ["@types/eslint", "npm:8.4.6"],\
-          ["@types/prettier", "npm:2.6.3"],\
+          ["@types/prettier", "npm:2.7.1"],\
           ["@typescript-eslint/eslint-plugin", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:5.39.0"],\
           ["@typescript-eslint/parser", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:5.39.0"],\
           ["eslint", "npm:8.24.0"],\

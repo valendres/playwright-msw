@@ -1156,7 +1156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.0.3":
+"@types/node@npm:*":
   version: 18.0.3
   resolution: "@types/node@npm:18.0.3"
   checksum: 2b50e8bd0208dc099424eb1192415b76a6530b24bf7d28344f4be8f59ad1c45bd8788db15ef6e67873bd9e499f2ff235c698f33c5a6d1465012e620580085064
@@ -1177,6 +1177,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^18.8.2":
+  version: 18.8.2
+  resolution: "@types/node@npm:18.8.2"
+  checksum: 2a199f877777148eb536f92ca19543e2cff54cfbf966642325f10cffcbeb3ef0a0b456cc766287e1e560946c5c3024f0d310a6345d566d3918d4c9bfcede4c7d
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
@@ -1191,10 +1198,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.6.3":
-  version: 2.6.3
-  resolution: "@types/prettier@npm:2.6.3"
-  checksum: 8a25ff9ebd6e2d2614cc351894c332b01d306ddb7363e0b1fa56ae5ff5b5639ae58905e213608dff311ef987d6834f532c92964860272e4fc3e95b4824d76e58
+"@types/prettier@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "@types/prettier@npm:2.7.1"
+  checksum: 7edc43b829b0047573c1328259a1ccfee3e0127b031b8e5a4b7115e9f375abed195d1f42ee350590372041cc0f0d5b529e2dbac1198989a050f38e1ec5e19760
   languageName: node
   linkType: hard
 
@@ -5698,7 +5705,7 @@ __metadata:
   resolution: "playwright-msw@workspace:packages/playwright-msw"
   dependencies:
     "@playwright/test": "npm:^1.26.1"
-    "@types/node": "npm:^18.0.3"
+    "@types/node": "npm:^18.8.2"
     "@types/rimraf": "npm:^3.0.2"
     msw: "npm:0.47.4"
     rimraf: "npm:^3.0.2"
@@ -6196,7 +6203,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^17.1.0"
     "@tophat/conventional-changelog-config": "npm:^0.6.2"
     "@types/eslint": "npm:^8.4.6"
-    "@types/prettier": "npm:^2.6.3"
+    "@types/prettier": "npm:^2.7.1"
     "@typescript-eslint/eslint-plugin": "npm:^5.39.0"
     "@typescript-eslint/parser": "npm:^5.39.0"
     eslint: "npm:^8.24.0"

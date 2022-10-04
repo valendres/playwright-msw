@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.26.1",
-    "@types/node": "^18.0.3",
+    "@types/node": "^18.8.2",
     "@types/rimraf": "^3.0.2",
     "msw": "0.47.4",
     "rimraf": "^3.0.2",
