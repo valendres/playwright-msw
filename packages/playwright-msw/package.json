@@ -33,6 +33,6 @@
     "@types/rimraf": "^3.0.2",
     "msw": "0.47.3",
     "rimraf": "^3.0.2",
-    "typescript": "^4.7.4"
+    "typescript": "^4.8.4"
   }
 }

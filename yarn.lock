@@ -3404,7 +3404,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-query: "npm:^3.39.1"
     react-router-dom: "npm:^6.3.0"
-    typescript: "npm:^4.7.4"
+    typescript: "npm:^4.8.4"
     vite: "npm:^3.1.4"
   languageName: unknown
   linkType: soft
@@ -5668,7 +5668,7 @@ __metadata:
     "@types/rimraf": "npm:^3.0.2"
     msw: "npm:0.47.3"
     rimraf: "npm:^3.0.2"
-    typescript: "npm:^4.7.4"
+    typescript: "npm:^4.8.4"
   peerDependencies:
     "@playwright/test": ">=1.20.0"
     msw: ">=0.47.3"
@@ -6172,7 +6172,7 @@ __metadata:
     lint-staged: "npm:^13.0.3"
     monodeploy: "npm:^3.1.0"
     prettier: "npm:^2.7.1"
-    typescript: "npm:^4.7.4"
+    typescript: "npm:^4.8.4"
   dependenciesMeta:
     "@playwright/test":
       unplugged: true
@@ -6920,7 +6920,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4, typescript@npm:^4.7.4":
+"typescript@npm:^4.6.4":
   version: 4.7.4
   resolution: "typescript@npm:4.7.4"
   bin:
@@ -6930,13 +6930,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^4.6.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.7.4#optional!builtin<compat/typescript>":
+"typescript@npm:^4.8.4":
+  version: 4.8.4
+  resolution: "typescript@npm:4.8.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 008c336ed785130b6e13254adbfc4084f5dbbe62851df9bac3eaf62fc29e0a396839c00ce47e0d92db44fa9a08b9f7ba4d31304f2b10cf7d42a0817728e822a1
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^4.6.4#optional!builtin<compat/typescript>":
   version: 4.7.4
   resolution: "typescript@patch:typescript@npm%3A4.7.4#optional!builtin<compat/typescript>::version=4.7.4&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 19bcd9153bbacaabed753b39fbd6adb5417690230b07db63f02e22588865b444b7504da9b9fcdcca5b4ac34be19904271a266bfa54d75fcfb0f5d699cb1e2314
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^4.8.4#optional!builtin<compat/typescript>":
+  version: 4.8.4
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#optional!builtin<compat/typescript>::version=4.8.4&hash=701156"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 72574875bac1c13aec22010780d4841a10a88342d73744dbbad538bb0ed601f2024187f197239f2dcbf2442f83ecc4de04a80941d49730c403969fbba035ed81
   languageName: node
   linkType: hard
 
