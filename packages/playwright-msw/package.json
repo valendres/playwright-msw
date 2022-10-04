@@ -25,7 +25,7 @@
   },
   "peerDependencies": {
     "@playwright/test": ">=1.20.0",
-    "msw": ">=0.47.3"
+    "msw": ">=0.44.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.26.1",

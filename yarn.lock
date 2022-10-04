@@ -5639,7 +5639,7 @@ __metadata:
     typescript: 4.7.4
   peerDependencies:
     "@playwright/test": ">=1.20.0"
-    msw: ">=0.47.3"
+    msw: ">=0.44.0"
   languageName: unknown
   linkType: soft
 
