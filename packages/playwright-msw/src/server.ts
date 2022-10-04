@@ -1,5 +1,5 @@
 import type { Page, Route } from "@playwright/test";
-import type { RequestHandler } from "msw";
+import type { MockedResponse, RequestHandler } from "msw";
 import { handleRequest, MockedRequest } from "msw";
 import EventEmitter from "events";
 import { MockServiceWorker } from "./types";
@@ -20,6 +20,15 @@ const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
     body: postData ? Buffer.from(postData) : undefined,
   });
 
+  const handleMockResponse = ({ status, headers, body }: MockedResponse) => {
+    route.fulfill({
+      status,
+      body: body ?? undefined,
+      contentType: headers.get("content-type") ?? undefined,
+      headers: headers.all(),
+    });
+  };
+
   await handleRequest(
     mockedRequest,
     handlers,
@@ -37,15 +46,9 @@ const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
          */
         baseUrl: url.origin,
       },
-      onMockedResponse(mockedResponse) {
-        const { status, headers, body } = mockedResponse;
-        route.fulfill({
-          status,
-          body: body ?? undefined,
-          contentType: headers.get("content-type") ?? undefined,
-          headers: headers.all(),
-        });
-      },
+      onMockedResponse: handleMockResponse,
+      // @ts-expect-error -- for compatibility with MSW < 0.47.1
+      onMockedResponseSent: handleMockResponse,
     }
   );
 };
