@@ -935,15 +935,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.25.0":
-  version: 1.25.0
-  resolution: "@playwright/test@npm:1.25.0"
+"@playwright/test@npm:^1.26.1":
+  version: 1.26.1
+  resolution: "@playwright/test@npm:1.26.1"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.25.0"
+    playwright-core: "npm:1.26.1"
   bin:
     playwright: cli.js
-  checksum: 511934342d78935d85ffb0aa0940776cb34f59bb9f70b1c48a3df97150e896efa786cd5fa8bc7a7cb963bb9b1efecdf80b10efba29092f0e49aa28ff8b8f4ec2
+  checksum: 47f0a7899b031ff75fa97a9ab25ab68960099db139793f814068a3744ac04b50e76fda5edcca301e92d8c390e1bc63da2b22f7bfdc3522ca9c7e8caa8462c7e3
   languageName: node
   linkType: hard
 
@@ -3394,11 +3394,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example@workspace:packages/example"
   dependencies:
-    "@playwright/test": "npm:^1.25.0"
+    "@playwright/test": "npm:^1.26.1"
     "@types/react": "npm:^18.0.15"
     "@types/react-dom": "npm:^18.0.6"
     "@vitejs/plugin-react": "npm:^2.1.0"
-    msw: "npm:0.47.3"
+    msw: "npm:0.47.4"
     playwright-msw: "workspace:*"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -5142,9 +5142,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:0.47.3":
-  version: 0.47.3
-  resolution: "msw@npm:0.47.3"
+"msw@npm:0.47.4":
+  version: 0.47.4
+  resolution: "msw@npm:0.47.4"
   dependencies:
     "@mswjs/cookies": "npm:^0.2.2"
     "@mswjs/interceptors": "npm:^0.17.5"
@@ -5163,7 +5163,7 @@ __metadata:
     outvariant: "npm:^1.3.0"
     path-to-regexp: "npm:^6.2.0"
     statuses: "npm:^2.0.0"
-    strict-event-emitter: "npm:^0.2.0"
+    strict-event-emitter: "npm:^0.2.6"
     type-fest: "npm:^2.19.0"
     yargs: "npm:^17.3.1"
   peerDependencies:
@@ -5173,7 +5173,7 @@ __metadata:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: 3309e10a4eaba63f94798aa19de1bd192b1ca807931cdb1efbe1b1bc2caff0803559d9f090492049d7f48221857d59bcfdd89d4ae32605101020cc6d368c4e98
+  checksum: c772fbf691c168ea69cf81c6e887a36e6435c028033ecf2b09e1a46e345860a10dbb38d139975d93f77ffe6613516ba9dd3f22d8aca074bb8038a0e581252d37
   languageName: node
   linkType: hard
 
@@ -5650,12 +5650,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.25.0":
-  version: 1.25.0
-  resolution: "playwright-core@npm:1.25.0"
+"playwright-core@npm:1.26.1":
+  version: 1.26.1
+  resolution: "playwright-core@npm:1.26.1"
   bin:
     playwright: cli.js
-  checksum: e103d857f2f340f68b9fe354653c17a93d3e16ff48401d6d925d57e5b14cd78bd85defd0d2151eb95b71bc4bb7880d681df0e059dfbcc79c903a03b36155fd84
+  checksum: b4bf350ec3e66186ba31c95991f28bdb87fbe0a0c2ac5fd951c6f585bdb246c174ae44aee95d82537743357f179468e69daaee1c1623724418e0e5e374310786
   languageName: node
   linkType: hard
 
@@ -5663,10 +5663,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "playwright-msw@workspace:packages/playwright-msw"
   dependencies:
-    "@playwright/test": "npm:^1.25.0"
+    "@playwright/test": "npm:^1.26.1"
     "@types/node": "npm:^18.0.3"
     "@types/rimraf": "npm:^3.0.2"
-    msw: "npm:0.47.3"
+    msw: "npm:0.47.4"
     rimraf: "npm:^3.0.2"
     typescript: "npm:^4.8.4"
   peerDependencies:
