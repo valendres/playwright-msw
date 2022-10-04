@@ -15,8 +15,8 @@
     "postinstall": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
     "@tophat/conventional-changelog-config": "^0.6.2",
     "@types/eslint": "^8.4.6",
     "@types/prettier": "^2.6.3",
