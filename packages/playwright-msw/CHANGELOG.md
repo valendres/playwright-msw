@@ -2,6 +2,17 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [1.0.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.0...playwright-msw@1.0.1) "playwright-msw" (2022-10-04)<a name="1.0.1"></a>
+
+### Bug Fixes
+
+* fix server method
+
+Co-authored-by: pei.fan <fanpei920@gmail.com> ([a75c3d1](https://github.com/valendres/playwright-msw/commits/a75c3d1))
+
+
+
+
 ## [1.0.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@0.2.2...playwright-msw@1.0.0) "playwright-msw" (2022-07-13)<a name="1.0.0"></a>
 
 ### Breaking Changes
