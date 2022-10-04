@@ -745,7 +745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@monodeploy/node@npm:^3.1.0":
+"@monodeploy/node@npm:^3.3.0":
   version: 3.3.0
   resolution: "@monodeploy/node@npm:3.3.0"
   dependencies:
@@ -788,7 +788,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@monodeploy/types@npm:^3.1.0, @monodeploy/types@npm:^3.2.0":
+"@monodeploy/types@npm:^3.2.0":
   version: 3.2.0
   resolution: "@monodeploy/types@npm:3.2.0"
   dependencies:
@@ -1407,7 +1407,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.2.1, @yarnpkg/core@npm:^3.2.2, @yarnpkg/core@npm:^3.2.3, @yarnpkg/core@npm:^3.2.4":
+"@yarnpkg/core@npm:^3.2.2, @yarnpkg/core@npm:^3.2.3, @yarnpkg/core@npm:^3.2.4":
   version: 3.2.4
   resolution: "@yarnpkg/core@npm:3.2.4"
   dependencies:
@@ -5084,20 +5084,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monodeploy@npm:3.1.0":
-  version: 3.1.0
-  resolution: "monodeploy@npm:3.1.0"
+"monodeploy@npm:3.3.0":
+  version: 3.3.0
+  resolution: "monodeploy@npm:3.3.0"
   dependencies:
-    "@monodeploy/node": ^3.1.0
-    "@monodeploy/types": ^3.1.0
-    "@yarnpkg/core": ^3.2.1
-    "@yarnpkg/fslib": ^2.6.2
+    "@monodeploy/logging": ^3.3.0
+    "@monodeploy/node": ^3.3.0
+    "@monodeploy/types": ^3.2.0
+    "@yarnpkg/core": ^3.2.3
+    "@yarnpkg/fslib": ^2.7.0
     ajv: ^8.11.0
     clipanion: ^3.2.0-rc.11
     typanion: ^3.9.0
   bin:
     monodeploy: ./lib/index.js
-  checksum: 68c065fd6f62a207e2ecf4ace70d91e48269234668d92debfe87f9a5ac1ddaa6e625ac62c702b3eb11303747473978da58cd41ab15761348a6ac406cd136b2ef
+  checksum: 0ef6b43a18c72076aeb57bb8cfac97b1f24975851b252684a03f39954c3fbda2cb1e64e98fea76b708ae2efac7935774f05f63d71f30da9a1b7e4f7f2fc8375e
   languageName: node
   linkType: hard
 
@@ -6109,7 +6110,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     husky: ^8.0.1
     lint-staged: ^13.0.3
-    monodeploy: 3.1.0
+    monodeploy: 3.3.0
     prettier: ^2.7.1
     typescript: 4.7.4
   dependenciesMeta:

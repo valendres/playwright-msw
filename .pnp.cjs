@@ -55,7 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:4.2.1"],\
             ["husky", "npm:8.0.1"],\
             ["lint-staged", "npm:13.0.3"],\
-            ["monodeploy", "npm:3.1.0"],\
+            ["monodeploy", "npm:3.3.0"],\
             ["prettier", "npm:2.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"]\
           ],\
@@ -3382,10 +3382,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:6fe0b1b4d71be9f5f0980f133858ab048046f6780dfb509a5eb9b728780a114535700a4e6d4f97550c3d7c5699177d516f76f108fbf8412e5671770ce9ea2e47#npm:3.2.0-rc.12", {\
-          "packageLocation": "./.yarn/__virtual__/clipanion-virtual-1f45ac91f8/0/cache/clipanion-npm-3.2.0-rc.12-7316b54503-a49acffb4e.zip/node_modules/clipanion/",\
+        ["virtual:ee6a1d4c2a1e55f0b292d66e0d94b3bc5d9c57feb7e6f9f270dd3c198d4cf21f5d94032b9be6903d37e0500fd0660503798b8a11d96b7d00089354de64e7a65e#npm:3.2.0-rc.12", {\
+          "packageLocation": "./.yarn/__virtual__/clipanion-virtual-8e53e6a5b4/0/cache/clipanion-npm-3.2.0-rc.12-7316b54503-a49acffb4e.zip/node_modules/clipanion/",\
           "packageDependencies": [\
-            ["clipanion", "virtual:6fe0b1b4d71be9f5f0980f133858ab048046f6780dfb509a5eb9b728780a114535700a4e6d4f97550c3d7c5699177d516f76f108fbf8412e5671770ce9ea2e47#npm:3.2.0-rc.12"],\
+            ["clipanion", "virtual:ee6a1d4c2a1e55f0b292d66e0d94b3bc5d9c57feb7e6f9f270dd3c198d4cf21f5d94032b9be6903d37e0500fd0660503798b8a11d96b7d00089354de64e7a65e#npm:3.2.0-rc.12"],\
             ["@types/typanion", null],\
             ["typanion", "npm:3.12.0"]\
           ],\
@@ -6408,16 +6408,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["monodeploy", [\
-        ["npm:3.1.0", {\
-          "packageLocation": "./.yarn/cache/monodeploy-npm-3.1.0-6fe0b1b4d7-68c065fd6f.zip/node_modules/monodeploy/",\
+        ["npm:3.3.0", {\
+          "packageLocation": "./.yarn/cache/monodeploy-npm-3.3.0-ee6a1d4c2a-0ef6b43a18.zip/node_modules/monodeploy/",\
           "packageDependencies": [\
-            ["monodeploy", "npm:3.1.0"],\
+            ["monodeploy", "npm:3.3.0"],\
+            ["@monodeploy/logging", "virtual:dcea21897ba214ac4c4803c7962db59c53c4f6db785dd11708eff91651614a0606bcc265c07688367d4f4c3219497643b0d8d67776acbbfc674921fb25bdf36b#npm:3.3.0"],\
             ["@monodeploy/node", "npm:3.3.0"],\
             ["@monodeploy/types", "virtual:dcea21897ba214ac4c4803c7962db59c53c4f6db785dd11708eff91651614a0606bcc265c07688367d4f4c3219497643b0d8d67776acbbfc674921fb25bdf36b#npm:3.2.0"],\
             ["@yarnpkg/core", "npm:3.2.4"],\
             ["@yarnpkg/fslib", "npm:2.7.1"],\
             ["ajv", "npm:8.11.0"],\
-            ["clipanion", "virtual:6fe0b1b4d71be9f5f0980f133858ab048046f6780dfb509a5eb9b728780a114535700a4e6d4f97550c3d7c5699177d516f76f108fbf8412e5671770ce9ea2e47#npm:3.2.0-rc.12"],\
+            ["clipanion", "virtual:ee6a1d4c2a1e55f0b292d66e0d94b3bc5d9c57feb7e6f9f270dd3c198d4cf21f5d94032b9be6903d37e0500fd0660503798b8a11d96b7d00089354de64e7a65e#npm:3.2.0-rc.12"],\
             ["typanion", "npm:3.12.0"]\
           ],\
           "linkType": "HARD"\
@@ -7634,7 +7635,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:36a01d8083315b8a6e8362097258ea8bc0f9dfb672cb210742e054760850c673a1038f542a6b7156397b5275ace8ee0482231cac5e8898044fa1a1c29f78ee5b#npm:4.2.1"],\
             ["husky", "npm:8.0.1"],\
             ["lint-staged", "npm:13.0.3"],\
-            ["monodeploy", "npm:3.1.0"],\
+            ["monodeploy", "npm:3.3.0"],\
             ["prettier", "npm:2.7.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"]\
           ],\
