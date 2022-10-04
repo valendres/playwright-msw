@@ -37,7 +37,7 @@ const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
          */
         baseUrl: url.origin,
       },
-      onMockedResponseSent(mockedResponse) {
+      onMockedResponse(mockedResponse) {
         const { status, headers, body } = mockedResponse;
         route.fulfill({
           status,
