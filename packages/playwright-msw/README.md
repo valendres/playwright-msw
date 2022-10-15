@@ -71,7 +71,7 @@ export default [
 ];
 ```
 
-#### Create a the worker fixture
+#### Create a worker fixture
 
 The next step is to [create a custom fixture](https://playwright.dev/docs/test-fixtures#creating-a-fixture) using the [createWorkerFixture](#createworkerfixture) function from `playwright-msw`. e.g. within a custom [test.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/test.ts) file:
 
@@ -93,7 +93,7 @@ export { test, expect };
 
 ### Use the custom test fixture
 
-The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [demo.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/demo.spec.ts) file:
+The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [users.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/users.spec.ts) file:
 
 ```typescript
 import { rest } from "msw";
@@ -107,7 +107,7 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeVisible();
   });
 
-  test.only("should allow mocks to be overridden on a per test basis", async ({
+  test("should allow mocks to be overridden on a per test basis", async ({
     page,
     worker,
   }) => {
@@ -127,9 +127,9 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
 
 ### createWorkerFixture
 
-The `createWorkerFixture(...handlers)` function creates a fixture that mocks api calls on a per-test basis that is automatically started even if the test does not use it directly. The provided handlers will be used by all tests by default. The created [MockServiceWorker](#mockserviceworker) fixture can be optionally used to customise mocks on a per-test basis.
+The `createWorkerFixture(...handlers)` function creates a fixture that mocks API calls on a per-test basis that is automatically started even if the test does not use it directly. The provided handlers will be used by all tests by default. The created [MockServiceWorker](#mockserviceworker) fixture can be optionally used to customize mocks on a per-test basis.
 
-Refer to the [Getting Started: Create a the worker fixture](#create-a-the-worker-fixture) for a usage example. If this abstraction layer is over-simplified for your use case, the [createServer](#createserver) function can be used instead.
+Refer to the [Getting Started: Create a worker fixture](#create-a-worker-fixture) for a usage example. If this abstraction layer is over-simplified for your use case, the [createServer](#createserver) function can be used instead.
 
 ### createServer
 
@@ -177,7 +177,7 @@ export { test, expect };
 
 ### MockServiceWorker
 
-The `MockServiceWorker` instance exposes a number of utility functions to facilitate additional customisations:
+The `MockServiceWorker` instance exposes a number of utility functions to facilitate additional customizations:
 
-- `use(...customHandlers: RequestHandler[])`: Prepends given request handlers to the list of existing handlers. This is useful for overriding mocks on a per test behaviour, e.g. testing what happens if a particular API call fails.
-- `resetHandlers(...customHandlers: RequestHandler[])`: Resets request handlers to the initial list given to the createServer call, or to the explicit next request handlers list, if given.
+- `use(...customHandlers: RequestHandler[])`: Prepends given request handlers to the list of existing handlers. This is useful for overriding mocks on a per test behavior, e.g. testing what happens if a particular API call fails.
+- `resetHandlers(...customHandlers: RequestHandler[])`: Resets request handlers to the initial list given to the `createServer` call, or to the explicit next request handlers list, if given.
