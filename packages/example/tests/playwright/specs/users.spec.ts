@@ -1,5 +1,4 @@
 import { rest } from "msw";
-import { LoginForm } from "../models/login-form";
 import { expect, test } from "../test";
 
 test.describe.parallel("A demo of playwright-msw's functionality", () => {
