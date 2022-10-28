@@ -59,9 +59,9 @@ export const createServer = async (
 ): Promise<MockServiceWorker> => {
   let cachedHandlers: RequestHandler[] = originalHandlers;
 
-  await page.route("**/*", (route) => {
+  await page.route("**/*", async (route) => {
     try {
-      void handleRoute(route, cachedHandlers);
+      await handleRoute(route, cachedHandlers);
     } catch (error: unknown) {
       void route.fulfill({
         status: 502,
