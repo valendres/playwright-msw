@@ -1246,7 +1246,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mswjs/interceptors", "npm:0.17.5"],\
             ["@open-draft/until", "npm:1.0.3"],\
             ["@types/debug", "npm:4.1.7"],\
-            ["@xmldom/xmldom", "npm:0.7.5"],\
+            ["@xmldom/xmldom", "npm:0.7.6"],\
             ["debug", "virtual:fd8de37609258cc0a542fd94a84d3a92a7a50fe97add0d0ad2eb2de7df7a01a41d03004536a361279c31772f9825e9f1c1db0cf143d0ea8269bb824c9db84c63#npm:4.3.4"],\
             ["headers-polyfill", "npm:3.1.0"],\
             ["outvariant", "npm:1.3.0"],\
@@ -1942,10 +1942,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@xmldom/xmldom", [\
-        ["npm:0.7.5", {\
-          "packageLocation": "./.yarn/cache/@xmldom-xmldom-npm-0.7.5-f6fb7cf202-8d7ec35c1e.zip/node_modules/@xmldom/xmldom/",\
+        ["npm:0.7.6", {\
+          "packageLocation": "./.yarn/cache/@xmldom-xmldom-npm-0.7.6-f88f0bfdcb-3c31dcd909.zip/node_modules/@xmldom/xmldom/",\
           "packageDependencies": [\
-            ["@xmldom/xmldom", "npm:0.7.5"]\
+            ["@xmldom/xmldom", "npm:0.7.6"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4018,7 +4018,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["esbuild", [\
         ["npm:0.15.10", {\
-          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.15.10-cd7bf58045/node_modules/esbuild/",\
+          "packageLocation": "./.yarn/cache/esbuild-npm-0.15.10-cd7bf58045-bc2daadb95.zip/node_modules/esbuild/",\
           "packageDependencies": [\
             ["esbuild", "npm:0.15.10"],\
             ["@esbuild/android-arm", "npm:0.15.10"],\
@@ -6442,14 +6442,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["msw", [\
         ["npm:0.47.4", {\
-          "packageLocation": "./.yarn/unplugged/msw-virtual-1955989f23/node_modules/msw/",\
+          "packageLocation": "./.yarn/cache/msw-npm-0.47.4-c11a8d2944-10ff632641.zip/node_modules/msw/",\
           "packageDependencies": [\
             ["msw", "npm:0.47.4"]\
           ],\
           "linkType": "SOFT"\
         }],\
         ["virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.47.4", {\
-          "packageLocation": "./.yarn/unplugged/msw-virtual-1955989f23/node_modules/msw/",\
+          "packageLocation": "./.yarn/__virtual__/msw-virtual-1955989f23/0/cache/msw-npm-0.47.4-c11a8d2944-10ff632641.zip/node_modules/msw/",\
           "packageDependencies": [\
             ["msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.47.4"],\
             ["@mswjs/cookies", "npm:0.2.2"],\
