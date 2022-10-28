@@ -16,7 +16,6 @@ const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   const mockedRequest = new MockedRequest(url, {
     method,
     headers,
-    credentials: "omit",
     body: postData ? Buffer.from(postData) : undefined,
   });
 
