@@ -4018,7 +4018,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["esbuild", [\
         ["npm:0.15.10", {\
-          "packageLocation": "./.yarn/cache/esbuild-npm-0.15.10-cd7bf58045-bc2daadb95.zip/node_modules/esbuild/",\
+          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.15.10-cd7bf58045/node_modules/esbuild/",\
           "packageDependencies": [\
             ["esbuild", "npm:0.15.10"],\
             ["@esbuild/android-arm", "npm:0.15.10"],\
@@ -6442,14 +6442,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["msw", [\
         ["npm:0.47.4", {\
-          "packageLocation": "./.yarn/cache/msw-npm-0.47.4-c11a8d2944-10ff632641.zip/node_modules/msw/",\
+          "packageLocation": "./.yarn/unplugged/msw-virtual-1955989f23/node_modules/msw/",\
           "packageDependencies": [\
             ["msw", "npm:0.47.4"]\
           ],\
           "linkType": "SOFT"\
         }],\
         ["virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.47.4", {\
-          "packageLocation": "./.yarn/__virtual__/msw-virtual-1955989f23/0/cache/msw-npm-0.47.4-c11a8d2944-10ff632641.zip/node_modules/msw/",\
+          "packageLocation": "./.yarn/unplugged/msw-virtual-1955989f23/node_modules/msw/",\
           "packageDependencies": [\
             ["msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:0.47.4"],\
             ["@mswjs/cookies", "npm:0.2.2"],\

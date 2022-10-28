@@ -2,6 +2,16 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [1.0.3](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.2...playwright-msw@1.0.3) "playwright-msw" (2022-10-28)<a name="1.0.3"></a>
+
+### Bug Fixes
+
+* trying to get headers after page is closed (#27) ([d222fbb](https://github.com/valendres/playwright-msw/commits/d222fbb))
+* cookies not being sent for webkit ([26d3902](https://github.com/valendres/playwright-msw/commits/26d3902))
+
+
+
+
 ## [1.0.2](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.1...playwright-msw@1.0.2) "playwright-msw" (2022-10-04)<a name="1.0.2"></a>
 
 ### Bug Fixes
