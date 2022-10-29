@@ -10,4 +10,8 @@ export type MockServiceWorker = {
    * or to the explicit next request handlers list, if given.
    */
   resetHandlers: (...customHandlers: RequestHandler[]) => Promise<void>;
+  /**
+   * Resets MSW's internal cookie store by removing all cookies from it.
+   */
+  resetCookieStore: () => void;
 };

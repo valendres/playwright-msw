@@ -12,6 +12,7 @@ export const createWorkerFixture = (
   async ({ page }, use) => {
     const server = await createServer(page, ...handlers);
     await use(server);
+    server.resetCookieStore();
   },
   {
     /**
