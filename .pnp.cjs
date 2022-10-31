@@ -2522,6 +2522,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/jest", [\
+        ["npm:29.2.0", {\
+          "packageLocation": "./.yarn/cache/@types-jest-npm-29.2.0-08120e58d2-6779e63d8d.zip/node_modules/@types/jest/",\
+          "packageDependencies": [\
+            ["@types/jest", "npm:29.2.0"],\
+            ["expect", "npm:29.2.2"],\
+            ["pretty-format", "npm:29.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/js-levenshtein", [\
         ["npm:1.1.1", {\
           "packageLocation": "./.yarn/cache/@types-js-levenshtein-npm-1.1.1-304aa359d0-1d1ff1ee2a.zip/node_modules/@types/js-levenshtein/",\
@@ -9087,6 +9098,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["playwright-msw", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#workspace:packages/playwright-msw"],\
             ["@jest/globals", "npm:29.2.2"],\
             ["@playwright/test", "npm:1.26.1"],\
+            ["@types/jest", "npm:29.2.0"],\
             ["@types/msw", null],\
             ["@types/node", "npm:18.8.2"],\
             ["@types/playwright__test", null],\
@@ -9111,6 +9123,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["playwright-msw", "workspace:packages/playwright-msw"],\
             ["@jest/globals", "npm:29.2.2"],\
             ["@playwright/test", "npm:1.26.1"],\
+            ["@types/jest", "npm:29.2.0"],\
             ["@types/node", "npm:18.8.2"],\
             ["@types/rimraf", "npm:3.0.2"],\
             ["jest", "virtual:81e84f57fa8e967b3b162703e5057cdac08d6fffa1494a9d35b8fc215cf3d85e02ae2c97381db7e842e5dd28fe17db1e7247bffe7defa04ca59fdc3a8493212b#npm:29.2.2"],\
@@ -10550,7 +10563,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/babel-jest", null],\
             ["@types/babel__core", null],\
             ["@types/esbuild", null],\
-            ["@types/jest", null],\
+            ["@types/jest", "npm:29.2.0"],\
             ["@types/jest__types", null],\
             ["@types/typescript", null],\
             ["babel-jest", null],\
