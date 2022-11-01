@@ -1,13 +1,7 @@
 {
-  "preset": "ts-jest",
+  "roots": ["<rootDir>"],
   "testEnvironment": "node",
-  "transform": {
-    "^.+\\.ts$": [
-      "ts-jest",
-      {
-        "tsconfig": "./tsconfig.test.json"
-      }
-    ]
-  },
-  "testMatch": ["<rootDir>/src/**/*.(test).{js,ts}"]
+  "transform": {},
+  "moduleFileExtensions": ["ts", "js", "json", "node"],
+  "testMatch": ["(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$"]
 }
