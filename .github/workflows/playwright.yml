@@ -19,6 +19,8 @@ jobs:
         run: yarn packages/playwright-msw playwright install --with-deps
       - name: Build playwright-msw
         run: yarn packages/playwright-msw run build
+      - name: Test playwright-msw
+        run: yarn packages/playwright-msw run test
       - name: Build the example app
         run: yarn packages/example run build
       - name: Run the example app's tests
