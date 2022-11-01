@@ -22,7 +22,7 @@
     "build": "tsc",
     "clean": "rimraf lib",
     "prepack": "yarn clean && yarn build",
-    "test": "jest config --config jest.config.js"
+    "test": "jest"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.20.0",
