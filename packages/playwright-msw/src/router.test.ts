@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { describe, jest, it, expect } from "@jest/globals";
 import { RouteUrl, RouteHandler } from "./types";
-import { setupServer } from "./server";
+import { Router } from "./router";
 import { rest, graphql, ResponseResolver } from "msw";
 
 const successResolver: ResponseResolver = (_, response, context) =>
@@ -20,13 +20,13 @@ const mockPage = (overrides: Partial<Page> = {}): Page => {
   return page as Page;
 };
 
-describe("server", () => {
+describe("router", () => {
   describe("rest", () => {
     describe("initialise", () => {
-      it("should allow a server to be created without any handlers", async () => {
+      it("should allow a router to be created without any handlers", async () => {
         const page = mockPage();
-        const server = await setupServer(page);
-        expect(server).toBeTruthy();
+        const router = new Router(page);
+        expect(router).toBeTruthy();
       });
 
       it("should register a route for each of the initial handlers", async () => {
@@ -35,7 +35,8 @@ describe("server", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        await setupServer(page, ...initialHandlers);
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenNthCalledWith(
           1,
@@ -55,7 +56,8 @@ describe("server", () => {
           rest.put("/profile", successResolver),
         ];
         const page = mockPage();
-        await setupServer(page, ...initialHandlers);
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
         expect(page.route).toHaveBeenCalledTimes(1);
       });
     });
@@ -63,8 +65,8 @@ describe("server", () => {
     describe("resetHandlers", () => {
       it("should not attempt to unroute at all if there are no initial handlers or custom handlers", async () => {
         const page = mockPage();
-        const server = await setupServer(page);
-        await server.resetHandlers();
+        const router = new Router(page);
+        await router.resetHandlers();
         expect(page.unroute).toHaveBeenCalledTimes(0);
       });
 
@@ -74,9 +76,9 @@ describe("server", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const server = await setupServer(page, ...initialHandlers);
-
-        await server.resetHandlers();
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
+        await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(0);
       });
@@ -87,11 +89,12 @@ describe("server", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const server = await setupServer(page, ...initialHandlers);
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
 
-        await server.use(rest.get("/potato", successResolver));
+        await router.use(rest.get("/potato", successResolver));
 
-        await server.resetHandlers();
+        await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenNthCalledWith(
@@ -107,23 +110,24 @@ describe("server", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const server = await setupServer(page, ...initialHandlers);
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
 
-        await server.use(rest.get("/profile", successResolver));
+        await router.use(rest.get("/profile", successResolver));
 
-        await server.resetHandlers();
+        await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(0);
       });
 
-      it("should call unroute for all custom handlers, even if there were no initial handlers when server was created", async () => {
+      it("should call unroute for all custom handlers, even if there were no initial handlers when router was created", async () => {
         const page = mockPage();
-        const server = await setupServer(page);
+        const router = new Router(page);
 
-        await server.use(rest.get("/goat", successResolver));
-        await server.use(rest.get("/camel", successResolver));
+        await router.use(rest.get("/goat", successResolver));
+        await router.use(rest.get("/camel", successResolver));
 
-        await server.resetHandlers();
+        await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(2);
         expect(page.unroute).toHaveBeenNthCalledWith(
@@ -140,11 +144,11 @@ describe("server", () => {
 
       it("should allow resetHandlers to be called multiple times without adding any new handlers in between", async () => {
         const page = mockPage();
-        const server = await setupServer(page);
+        const router = new Router(page);
 
-        await server.use(rest.get("/apple", successResolver));
+        await router.use(rest.get("/apple", successResolver));
 
-        await server.resetHandlers();
+        await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenNthCalledWith(
@@ -153,19 +157,19 @@ describe("server", () => {
           expect.any(Function)
         );
 
-        await server.resetHandlers();
-        await server.resetHandlers();
+        await router.resetHandlers();
+        await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(1);
       });
 
       it("should call unroute for newer handlers if additional handlers are added after having previously reset", async () => {
         const page = mockPage();
-        const server = await setupServer(page);
+        const router = new Router(page);
 
         // First handler
-        await server.use(rest.get("/car", successResolver));
-        await server.resetHandlers();
+        await router.use(rest.get("/car", successResolver));
+        await router.resetHandlers();
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
@@ -174,8 +178,8 @@ describe("server", () => {
         );
 
         // Second handler
-        await server.use(rest.get("/plane", successResolver));
-        await server.resetHandlers();
+        await router.use(rest.get("/plane", successResolver));
+        await router.resetHandlers();
         expect(page.unroute).toHaveBeenCalledTimes(2);
         expect(page.unroute).toHaveBeenNthCalledWith(
           2,
@@ -188,10 +192,11 @@ describe("server", () => {
 
   describe("graphql", () => {
     describe("initialisation", () => {
-      it('should throw a "Not Yet Implemented" error if creating a server with GraphQL handlers', async () => {
+      it('should throw a "Not Yet Implemented" error if creating a router with GraphQL handlers', async () => {
         const handlers = [graphql.query("GetUsers", successResolver)];
         const page = mockPage();
-        await expect(() => setupServer(page, ...handlers)).rejects.toEqual(
+        const router = new Router(page);
+        await expect(() => router.initialise(...handlers)).rejects.toEqual(
           new Error("Support for GraphQL is not yet implemented.")
         );
       });
@@ -201,8 +206,8 @@ describe("server", () => {
       it('should throw a "Not Yet Implemented" error if attempting to add GraphQL handler at later point in time', async () => {
         const handlers = [graphql.query("GetUsers", successResolver)];
         const page = mockPage();
-        const server = await setupServer(page);
-        await expect(() => server.use(...handlers)).rejects.toEqual(
+        const router = new Router(page);
+        await expect(() => router.use(...handlers)).rejects.toEqual(
           new Error("Support for GraphQL is not yet implemented.")
         );
       });

@@ -8,9 +8,9 @@ export const setupServer = async (
   ...initialRequestHandlers: RequestHandler[]
 ): Promise<MockServiceWorker> => {
   const router = new Router(page);
-  await router.initialise(initialRequestHandlers);
+  await router.initialise(...initialRequestHandlers);
   return {
-    use: async (...handlers) => router.use(handlers),
-    resetHandlers: async (...handlers) => router.resetHandlers(handlers),
+    use: async (...handlers) => router.use(...handlers),
+    resetHandlers: async (...handlers) => router.resetHandlers(...handlers),
   };
 };

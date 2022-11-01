@@ -22,20 +22,20 @@ export class Router {
     this.page = page;
   }
 
-  public async initialise(initialHandlers: RequestHandler[]): Promise<void> {
+  public async initialise(...initialHandlers: RequestHandler[]): Promise<void> {
     for (const initialHandler of initialHandlers) {
       await this.registerMswHandler(initialHandler, true);
     }
   }
 
-  public async use(additionalHandlers: RequestHandler[]): Promise<void> {
+  public async use(...additionalHandlers: RequestHandler[]): Promise<void> {
     for (const additionalHandler of additionalHandlers) {
       await this.registerMswHandler(additionalHandler, false);
     }
   }
 
   public async resetHandlers(
-    specificHandlers: RequestHandler[] = []
+    ...specificHandlers: RequestHandler[]
   ): Promise<void> {
     if (specificHandlers.length > 0) {
       throw new Error("Resetting specific handlers is not yet implemented.");

@@ -48,7 +48,6 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
       ),
       rest.get("/api/users", (_, response, context) =>
         response(
-          context.delay(100),
           context.status(200),
           context.json([
             {
