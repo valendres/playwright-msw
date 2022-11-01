@@ -22,7 +22,7 @@ const mockPage = (overrides: Partial<Page> = {}): Page => {
 
 describe("server", () => {
   describe("rest", () => {
-    describe("initialization", () => {
+    describe("initialise", () => {
       it("should allow a server to be created without any handlers", async () => {
         const page = mockPage();
         const server = await setupServer(page);
@@ -101,7 +101,7 @@ describe("server", () => {
         );
       });
 
-      it("should call unroute even if a extra handler path matches one of the initial request handler paths", async () => {
+      it("should not attempt to unroute if the extra handler matches one of the initial handlers", async () => {
         const initialHandlers = [
           rest.get("/profile", successResolver),
           rest.get("/friends", successResolver),
@@ -113,12 +113,7 @@ describe("server", () => {
 
         await server.resetHandlers();
 
-        expect(page.unroute).toHaveBeenCalledTimes(1);
-        expect(page.unroute).toHaveBeenNthCalledWith(
-          1,
-          "/profile",
-          expect.any(Function)
-        );
+        expect(page.unroute).toHaveBeenCalledTimes(0);
       });
 
       it("should call unroute for all custom handlers, even if there were no initial handlers when server was created", async () => {
@@ -127,6 +122,8 @@ describe("server", () => {
 
         await server.use(rest.get("/goat", successResolver));
         await server.use(rest.get("/camel", successResolver));
+
+        await server.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(2);
         expect(page.unroute).toHaveBeenNthCalledWith(

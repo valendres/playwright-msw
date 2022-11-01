@@ -1,11 +1,11 @@
 import type { Route } from "@playwright/test";
-import type { MockedResponse, RestHandler } from "msw";
+import type { MockedResponse, RequestHandler } from "msw";
 import { handleRequest, MockedRequest } from "msw";
 import EventEmitter from "events";
 
 const emitter = new EventEmitter();
 
-export const handleRoute = async (route: Route, handler: RestHandler) => {
+export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   const request = route.request();
   const method = request.method();
   const url = new URL(request.url());
@@ -27,26 +27,30 @@ export const handleRoute = async (route: Route, handler: RestHandler) => {
     });
   };
 
-  await handleRequest(
-    mockedRequest,
-    [handler],
-    {
-      onUnhandledRequest: () => {
-        route.continue();
+  try {
+    await handleRequest(
+      mockedRequest,
+      handlers,
+      {
+        onUnhandledRequest: () => {
+          route.continue();
+        },
       },
-    },
-    emitter,
-    {
-      resolutionContext: {
-        /**
-         * @note Resolve relative request handler URLs against
-         * the server's origin (no relative URLs in Node.js).
-         */
-        baseUrl: url.origin,
-      },
-      onMockedResponse: handleMockResponse,
-      // @ts-expect-error -- for compatibility with MSW < 0.47.1
-      onMockedResponseSent: handleMockResponse,
-    }
-  );
+      emitter,
+      {
+        resolutionContext: {
+          /**
+           * @note Resolve relative request handler URLs against
+           * the server's origin (no relative URLs in Node.js).
+           */
+          baseUrl: url.origin,
+        },
+        onMockedResponse: handleMockResponse,
+        // @ts-expect-error -- for compatibility with MSW < 0.47.1
+        onMockedResponseSent: handleMockResponse,
+      }
+    );
+  } catch {
+    route.abort("error");
+  }
 };

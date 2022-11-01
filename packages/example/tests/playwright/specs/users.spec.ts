@@ -37,4 +37,37 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     await page.goto("/users");
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeVisible();
   });
+
+  test("should allow multiple mocks for the same url with different methods", async ({
+    page,
+    worker,
+  }) => {
+    await worker.use(
+      rest.put("/api/users", (_, response, context) =>
+        response(context.status(200))
+      ),
+      rest.get("/api/users", (_, response, context) =>
+        response(
+          context.delay(100),
+          context.status(200),
+          context.json([
+            {
+              id: "fake",
+              firstName: "Potato",
+              lastName: "McTaterson",
+            },
+          ])
+        )
+      ),
+      rest.patch("/api/users", (_, response, context) =>
+        response(context.status(200))
+      ),
+      rest.delete("/api/users", (_, response, context) =>
+        response(context.status(200))
+      )
+    );
+
+    await page.goto("/users");
+    await expect(page.locator('text="Potato McTaterson"')).toBeVisible();
+  });
 });
