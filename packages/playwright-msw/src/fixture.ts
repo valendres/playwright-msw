@@ -1,6 +1,6 @@
 import type { PlaywrightTestArgs, TestFixture } from "@playwright/test";
 import { RequestHandler } from "msw";
-import { createServer } from "./server";
+import { setupServer } from "./server";
 import { MockServiceWorker } from "./types";
 
 export const createWorkerFixture = (
@@ -10,7 +10,7 @@ export const createWorkerFixture = (
   { scope: "test"; auto: boolean }
 ] => [
   async ({ page }, use) => {
-    const server = await createServer(page, ...handlers);
+    const server = await setupServer(page, ...handlers);
     await use(server);
   },
   {

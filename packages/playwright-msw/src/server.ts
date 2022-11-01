@@ -1,81 +1,94 @@
 import type { Page, Route } from "@playwright/test";
-import type { MockedResponse, RequestHandler } from "msw";
-import { handleRequest, MockedRequest } from "msw";
-import EventEmitter from "events";
-import { MockServiceWorker } from "./types";
+import type { GraphQLHandler, RestHandler, RequestHandler } from "msw";
+import {
+  RegisteredHandler,
+  MockServiceWorker,
+  RouteHandler,
+  RouteUrl,
+} from "./types";
+import { handleRoute } from "./handler";
+import { getHandlerUrl, isRestHandler } from "./utils";
 
-const emitter = new EventEmitter();
-
-const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
-  const request = route.request();
-  const method = request.method();
-  const url = new URL(request.url());
-  const headers = await request.allHeaders();
-  const postData = request.postData();
-
-  const mockedRequest = new MockedRequest(url, {
-    method,
-    headers,
-    body: postData ? Buffer.from(postData) : undefined,
-  });
-
-  const handleMockResponse = ({ status, headers, body }: MockedResponse) => {
-    route.fulfill({
-      status,
-      body: body ?? undefined,
-      contentType: headers.get("content-type") ?? undefined,
-      headers: headers.all(),
-    });
+const registerRestHandler = async (
+  page: Page,
+  requestHandler: RestHandler
+): Promise<RegisteredHandler> => {
+  const routeUrl: RouteUrl = getHandlerUrl(requestHandler);
+  const routeHandler: RouteHandler = async (route: Route) => {
+    try {
+      await handleRoute(route, requestHandler);
+    } catch (error: unknown) {
+      void route.abort("failed");
+    }
   };
 
-  await handleRequest(
-    mockedRequest,
-    handlers,
-    {
-      onUnhandledRequest: () => {
-        route.continue();
-      },
-    },
-    emitter,
-    {
-      resolutionContext: {
-        /**
-         * @note Resolve relative request handler URLs against
-         * the server's origin (no relative URLs in Node.js).
-         */
-        baseUrl: url.origin,
-      },
-      onMockedResponse: handleMockResponse,
-      // @ts-expect-error -- for compatibility with MSW < 0.47.1
-      onMockedResponseSent: handleMockResponse,
-    }
+  page.route(routeUrl, routeHandler);
+  return { routeUrl, routeHandler, requestHandler };
+};
+
+const registerGraphQLHandler = async (
+  page: Page,
+  handler: GraphQLHandler
+): Promise<RegisteredHandler> => {
+  console.log(page, handler);
+  return Promise.reject(
+    new Error("Support for GraphQL is not yet implemented.")
   );
 };
 
-export const createServer = async (
+const registerRequestHandler = async (
   page: Page,
-  ...originalHandlers: RequestHandler[]
-): Promise<MockServiceWorker> => {
-  let cachedHandlers: RequestHandler[] = originalHandlers;
+  handler: RequestHandler
+): Promise<RegisteredHandler> =>
+  isRestHandler(handler)
+    ? registerRestHandler(page, handler as RestHandler)
+    : registerGraphQLHandler(page, handler as GraphQLHandler);
 
-  await page.route("**/*", async (route) => {
-    try {
-      await handleRoute(route, cachedHandlers);
-    } catch (error: unknown) {
-      void route.fulfill({
-        status: 502,
-        body: (error as Error).message,
-      });
-    }
-  });
+const registerRequestHandlers = async (
+  page: Page,
+  handlers: RequestHandler[]
+): Promise<RegisteredHandler[]> =>
+  await Promise.all(
+    handlers.map((handler) => registerRequestHandler(page, handler))
+  );
+
+export const setupServer = async (
+  page: Page,
+  ...initialRequestHandlers: RequestHandler[]
+): Promise<MockServiceWorker> => {
+  // const initialRegisteredHandlers: RegisteredHandler[] =
+  await registerRequestHandlers(page, initialRequestHandlers);
+
+  /**
+   * An array of handlers that were registered using `worker.use()`.
+   * NOTE: the initial handlers are not included within this array.
+   */
+  let extraRegisteredHandlers: RegisteredHandler[] = [];
 
   return {
-    use: async (...customHandlers) => {
-      cachedHandlers = [...customHandlers, ...cachedHandlers];
+    use: async (...newRequestHandlers) => {
+      const recentlyRegisteredHandlers = await registerRequestHandlers(
+        page,
+        newRequestHandlers
+      );
+      extraRegisteredHandlers = [
+        ...extraRegisteredHandlers,
+        ...recentlyRegisteredHandlers,
+      ];
     },
-    resetHandlers: async (...customHandlers) => {
-      cachedHandlers =
-        customHandlers.length > 0 ? customHandlers : originalHandlers;
+    resetHandlers: async (...specificHandlers) => {
+      // TODO: add support for passing in custom handlers to reset
+      if (specificHandlers.length > 0) {
+        throw new Error("Resetting specific handlers is not yet implemented.");
+      }
+
+      // Process in reverse order to prevent shifting indexes while iterating
+      await Promise.all(
+        extraRegisteredHandlers.map(({ routeUrl, routeHandler }) => {
+          page.unroute(routeUrl, routeHandler);
+        })
+      );
+      extraRegisteredHandlers = [];
     },
   };
 };
