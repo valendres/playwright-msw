@@ -1,5 +1,5 @@
 import { RequestHandler } from "msw";
-import type { Route } from "@playwright/test";
+import type { Route, Request } from "@playwright/test";
 
 export type MockServiceWorker = {
   /**
@@ -15,7 +15,7 @@ export type MockServiceWorker = {
 
 export type RouteUrl = string | RegExp;
 
-export type RouteHandler = (route: Route) => Promise<void>;
+export type RouteHandler = (route: Route, request: Request) => void;
 
 export type RegisteredHandler = {
   /** The URL that will trigger the execution of the corresponding `routeHandler`. */
