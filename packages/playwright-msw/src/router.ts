@@ -1,12 +1,14 @@
 import { RequestHandler } from "msw";
-import { Page, Route } from "@playwright/test";
+import { Page, Route, Request } from "@playwright/test";
 
-import { RouteHandler } from "./types";
 import { getHandlerUrl, isRestHandler } from "./utils";
 import { handleRoute } from "./handler";
 
-type RouteUrl = string;
-type RouteMeta = {
+export type RouteUrl = string;
+
+export type RouteHandler = (route: Route, request: Request) => void;
+
+export type RouteMeta = {
   readonly routeHandler: RouteHandler;
   readonly requestHandlers: ReadonlyArray<{
     readonly handler: RequestHandler;

@@ -1,7 +1,6 @@
 import { Page } from "@playwright/test";
 import { describe, jest, it, expect } from "@jest/globals";
-import { RouteUrl, RouteHandler } from "./types";
-import { Router } from "./router";
+import { Router, RouteUrl, RouteHandler } from "./router";
 import { rest, graphql, ResponseResolver } from "msw";
 
 const successResolver: ResponseResolver = (_, response, context) =>
