@@ -30,7 +30,8 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   try {
     await handleRequest(
       mockedRequest,
-      handlers,
+      // Reverse array so that handlers that were most recently appended are processed first
+      handlers.slice().reverse(),
       {
         onUnhandledRequest: () => {
           route.continue();

@@ -1,27 +1,34 @@
+import { describe, it, expect, beforeEach, jest } from "@jest/globals";
+jest.mock("./handler", () => ({
+  handleRoute: jest.fn(),
+}));
+
+import { RouteHandler, Router, RouteUrl } from "./router";
+import { handleRoute } from "./handler";
+import { rest, graphql } from "msw";
+import { mockPage, mockRoute, mockRequest } from "../mocks/playwright";
+import { successResolver } from "../mocks/msw";
 import { Page } from "@playwright/test";
-import { describe, jest, it, expect } from "@jest/globals";
-import { Router, RouteUrl, RouteHandler } from "./router";
-import { rest, graphql, ResponseResolver } from "msw";
 
-const successResolver: ResponseResolver = (_, response, context) =>
-  response(context.status(200));
-
-const mockPage = (overrides: Partial<Page> = {}): Page => {
-  const page: Partial<Page> = {
-    route: jest
-      .fn<(url: RouteUrl, handler: RouteHandler) => Promise<void>>()
-      .mockResolvedValue(undefined),
-    unroute: jest
-      .fn<(url: RouteUrl, handler: RouteHandler) => Promise<void>>()
-      .mockResolvedValue(undefined),
-    ...overrides,
-  };
-  return page as Page;
+const getRouteHandlerForUrl = (
+  targetUrl: RouteUrl,
+  page: Page
+): RouteHandler | null => {
+  const possibleRouteHandler = jest
+    .mocked(page.route)
+    .mock.calls.find(
+      ([routeUrl]) => routeUrl === targetUrl
+    )?.[1] as RouteHandler;
+  return possibleRouteHandler ?? null;
 };
 
 describe("router", () => {
+  beforeEach(() => {
+    jest.mocked(handleRoute).mockReset();
+  });
+
   describe("rest", () => {
-    describe("initialise", () => {
+    describe("initialisation", () => {
       it("should allow a router to be created without any handlers", async () => {
         const page = mockPage();
         const router = new Router(page);
@@ -58,6 +65,118 @@ describe("router", () => {
         const router = new Router(page);
         await router.initialise(...initialHandlers);
         expect(page.route).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe("routing", () => {
+      it("should include all of the corresponding initial handlers when calling handleRoute", async () => {
+        const userUrl = "/user";
+        const initialHandlers = [
+          rest.get(userUrl, successResolver),
+          rest.put(userUrl, successResolver),
+        ];
+
+        const page = mockPage();
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
+
+        const executeRoute = getRouteHandlerForUrl(userUrl, page);
+        executeRoute(mockRoute(), mockRequest());
+
+        expect(handleRoute).toHaveBeenCalledTimes(1);
+        expect(handleRoute).toHaveBeenCalledWith(
+          expect.objectContaining({}),
+          // Should be all of the initial handlers since we haven't added any non-user handlers
+          initialHandlers
+        );
+      });
+
+      it("should include all of the corresponding initial handlers and subsequently added handlers when calling handleRoute", async () => {
+        const userUrl = "/user";
+        const initialUserHandler = rest.get(userUrl, successResolver);
+        const subsequentUserHandler = rest.get(userUrl, successResolver);
+
+        const page = mockPage();
+        const router = new Router(page);
+        await router.initialise(initialUserHandler);
+        await router.use(subsequentUserHandler);
+
+        const executeRoute = getRouteHandlerForUrl(userUrl, page);
+        executeRoute(mockRoute(), mockRequest());
+        expect(handleRoute).toHaveBeenCalledWith(expect.objectContaining({}), [
+          initialUserHandler,
+          subsequentUserHandler,
+        ]);
+      });
+
+      it("should include all of the corresponding subsequently added handlers (without having provided initial handlers) when calling handleRoute", async () => {
+        const userUrl = "/user";
+        const subsequentUserHandler1 = rest.get(userUrl, successResolver);
+        const subsequentUserHandler2 = rest.get(userUrl, successResolver);
+
+        const page = mockPage();
+        const router = new Router(page);
+        await router.initialise();
+        await router.use(subsequentUserHandler1, subsequentUserHandler2);
+
+        const executeRoute = getRouteHandlerForUrl(userUrl, page);
+        executeRoute(mockRoute(), mockRequest());
+        expect(handleRoute).toHaveBeenCalledWith(expect.objectContaining({}), [
+          subsequentUserHandler1,
+          subsequentUserHandler2,
+        ]);
+      });
+
+      it("should not include handlers from other routes when calling handleRoute", async () => {
+        const userUrl = "/user";
+        const userHandlers = [
+          rest.get(userUrl, successResolver),
+          rest.put(userUrl, successResolver),
+        ];
+        const friendUrl = "/friend";
+        const friendHandlers = [
+          rest.get(friendUrl, successResolver),
+          rest.patch(friendUrl, successResolver),
+        ];
+        const initialHandlers = [...userHandlers, ...friendHandlers];
+
+        const page = mockPage();
+        const router = new Router(page);
+        await router.initialise(...initialHandlers);
+
+        const executeRoute = getRouteHandlerForUrl(userUrl, page);
+        executeRoute(mockRoute(), mockRequest());
+
+        expect(handleRoute).toHaveBeenCalledTimes(1);
+        expect(handleRoute).toHaveBeenCalledWith(
+          expect.objectContaining({}),
+          // Note the omission of friend handlers
+          userHandlers
+        );
+      });
+
+      it("should not include handlers from subsequently added handlers that were reset", async () => {
+        const userUrl = "/user";
+        const initialUserHandler1 = rest.get(userUrl, successResolver);
+        const initialUserHandler2 = rest.get(userUrl, successResolver);
+        const subsequentUserHandler1 = rest.get(userUrl, successResolver);
+        const subsequentUserHandler2 = rest.get(userUrl, successResolver);
+
+        const page = mockPage();
+        const router = new Router(page);
+        await router.initialise(initialUserHandler1, initialUserHandler2);
+        await router.use(subsequentUserHandler1, subsequentUserHandler2);
+        await router.resetHandlers();
+
+        const executeRoute = getRouteHandlerForUrl(userUrl, page);
+        executeRoute(mockRoute(), mockRequest());
+
+        expect(handleRoute).toHaveBeenCalledTimes(1);
+        expect(handleRoute).toHaveBeenCalledWith(
+          expect.objectContaining({}),
+          // Note the omission of subsequently added handlers
+          [initialUserHandler1, initialUserHandler2]
+        );
       });
     });
 

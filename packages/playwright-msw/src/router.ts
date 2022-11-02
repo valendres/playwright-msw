@@ -1,7 +1,7 @@
 import { RequestHandler } from "msw";
 import { Page, Route, Request } from "@playwright/test";
 
-import { getHandlerUrl, isRestHandler } from "./utils";
+import { getHandlerUrl, getHandlerType } from "./utils";
 import { handleRoute } from "./handler";
 
 export type RouteUrl = string;
@@ -65,7 +65,7 @@ export class Router {
     handler: RequestHandler,
     initial: boolean
   ): Promise<void> {
-    if (!isRestHandler(handler)) {
+    if (getHandlerType(handler) === "graphql") {
       return Promise.reject(
         new Error("Support for GraphQL is not yet implemented.")
       );
@@ -77,11 +77,11 @@ export class Router {
       this.routes[url] = {
         ...existingRoute,
         requestHandlers: [
+          ...existingRoute.requestHandlers,
           {
             handler,
             initial,
           },
-          ...existingRoute.requestHandlers,
         ],
       };
     } else {
@@ -97,18 +97,18 @@ export class Router {
     }
   }
 
-  private async registerPlaywrightRoute(url: string): Promise<RouteHandler> {
-    const routeHandler: RouteHandler = async (route: Route) => {
+  private async registerPlaywrightRoute(url: RouteUrl): Promise<RouteHandler> {
+    const routeHandler: RouteHandler = (route: Route) => {
       const requestHandlers = (this.routes[url]?.requestHandlers ?? []).map(
         ({ handler }) => handler
       );
-      await handleRoute(route, requestHandlers);
+      handleRoute(route, requestHandlers);
     };
     await this.page.route(url, routeHandler);
     return routeHandler;
   }
 
-  private async unregisterPlaywrightRoute(url: string): Promise<void> {
+  private async unregisterPlaywrightRoute(url: RouteUrl): Promise<void> {
     const route = this.routes[url];
     if (route) {
       this.page.unroute(url, route.routeHandler);
