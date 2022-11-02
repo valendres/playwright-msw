@@ -41,8 +41,8 @@ describe("router", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenNthCalledWith(
           1,
@@ -62,8 +62,8 @@ describe("router", () => {
           rest.put("/profile", successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
         expect(page.route).toHaveBeenCalledTimes(1);
       });
     });
@@ -77,8 +77,8 @@ describe("router", () => {
         ];
 
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
 
         const executeRoute = getRouteHandlerForUrl(userUrl, page);
         executeRoute(mockRoute(), mockRequest());
@@ -97,8 +97,8 @@ describe("router", () => {
         const subsequentUserHandler = rest.get(userUrl, successResolver);
 
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(initialUserHandler);
+        const router = new Router(page, initialUserHandler);
+        await router.start();
         await router.use(subsequentUserHandler);
 
         const executeRoute = getRouteHandlerForUrl(userUrl, page);
@@ -116,7 +116,7 @@ describe("router", () => {
 
         const page = mockPage();
         const router = new Router(page);
-        await router.initialise();
+        await router.start();
         await router.use(subsequentUserHandler1, subsequentUserHandler2);
 
         const executeRoute = getRouteHandlerForUrl(userUrl, page);
@@ -141,8 +141,8 @@ describe("router", () => {
         const initialHandlers = [...userHandlers, ...friendHandlers];
 
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
 
         const executeRoute = getRouteHandlerForUrl(userUrl, page);
         executeRoute(mockRoute(), mockRequest());
@@ -163,8 +163,12 @@ describe("router", () => {
         const subsequentUserHandler2 = rest.get(userUrl, successResolver);
 
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(initialUserHandler1, initialUserHandler2);
+        const router = new Router(
+          page,
+          initialUserHandler1,
+          initialUserHandler2
+        );
+        await router.start();
         await router.use(subsequentUserHandler1, subsequentUserHandler2);
         await router.resetHandlers();
 
@@ -194,8 +198,8 @@ describe("router", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
         await router.resetHandlers();
 
         expect(page.unroute).toHaveBeenCalledTimes(0);
@@ -207,8 +211,8 @@ describe("router", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
 
         await router.use(rest.get("/potato", successResolver));
 
@@ -228,8 +232,8 @@ describe("router", () => {
           rest.get("/friends", successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page);
-        await router.initialise(...initialHandlers);
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
 
         await router.use(rest.get("/profile", successResolver));
 
@@ -305,6 +309,129 @@ describe("router", () => {
           expect.any(Function)
         );
       });
+
+      it("should call unroute for urls which are no longer needed when resetting to a specific set of handlers", async () => {
+        const profileUrl = "/profile";
+        const settingsUrl = "/settings";
+        const initialHandlers = [
+          rest.get(profileUrl, successResolver),
+          rest.get(settingsUrl, successResolver),
+        ];
+        const page = mockPage();
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
+
+        // Snapshot this before resetting mocks
+        const settingsRouteHandler = getRouteHandlerForUrl(settingsUrl, page);
+
+        // Reset call counts so it's easier to assert what happens when resetting
+        jest.mocked(page.route).mockReset();
+        jest.mocked(page.unroute).mockReset();
+
+        await router.resetHandlers(
+          // URL that was present in initial handlers
+          rest.get(profileUrl, successResolver)
+          // Note the omission of `settingsUrl` here
+        );
+
+        // Should have only unrouted settings
+        expect(page.unroute).toHaveBeenCalledTimes(1);
+        expect(page.unroute).toHaveBeenCalledWith(
+          settingsUrl,
+          settingsRouteHandler
+        );
+
+        // Should not have added any additional routes
+        expect(page.route).toHaveBeenCalledTimes(0);
+      });
+
+      it("should call route for urls which are now required when resetting to a specific set of handlers", async () => {
+        const profileUrl = "/profile";
+        const settingsUrl = "/settings";
+        const initialHandlers = [
+          rest.get(profileUrl, successResolver),
+          // Note the omission of `settingsUrl` here
+        ];
+        const page = mockPage();
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
+
+        // Reset call counts so it's easier to assert what happens when resetting
+        jest.mocked(page.route).mockReset();
+        jest.mocked(page.unroute).mockReset();
+
+        await router.resetHandlers(
+          rest.get(profileUrl, successResolver),
+          rest.get(settingsUrl, successResolver)
+        );
+
+        // Should not have unrouted anything
+        expect(page.unroute).toHaveBeenCalledTimes(0);
+
+        // Should have added a route for settings
+        expect(page.route).toHaveBeenCalledTimes(1);
+        expect(page.route).toHaveBeenCalledWith(
+          settingsUrl,
+          getRouteHandlerForUrl(settingsUrl, page)
+        );
+      });
+
+      it("should not call route or unroute if all the urls already exist when resetting to a specific set of handlers", async () => {
+        const profileUrl = "/profile";
+        const settingsUrl = "/settings";
+        const initialHandlers = [
+          rest.get(profileUrl, successResolver),
+          rest.delete(profileUrl, successResolver),
+          rest.get(settingsUrl, successResolver),
+          rest.patch(settingsUrl, successResolver),
+        ];
+        const page = mockPage();
+        const router = new Router(page, ...initialHandlers);
+        await router.start();
+
+        // Reset call counts so it's easier to assert what happens when resetting
+        jest.mocked(page.route).mockReset();
+        jest.mocked(page.unroute).mockReset();
+
+        await router.resetHandlers(
+          rest.get(profileUrl, successResolver),
+          rest.get(settingsUrl, successResolver)
+        );
+
+        expect(page.unroute).toHaveBeenCalledTimes(0);
+        expect(page.route).toHaveBeenCalledTimes(0);
+      });
+
+      it("should call route for all urls when resetting to a specific set of handlers after having not previously initialised with any handlers", async () => {
+        const profileUrl = "/profile";
+        const settingsUrl = "/settings";
+        const page = mockPage();
+        const router = new Router(page);
+        await router.start();
+
+        // Reset call counts so it's easier to assert what happens when resetting
+        jest.mocked(page.route).mockReset();
+        jest.mocked(page.unroute).mockReset();
+
+        await router.resetHandlers(
+          rest.get(profileUrl, successResolver),
+          rest.get(settingsUrl, successResolver)
+        );
+
+        // Should not have unrouted anything
+        expect(page.unroute).toHaveBeenCalledTimes(0);
+
+        // Should have added a route for profile and settings
+        expect(page.route).toHaveBeenCalledTimes(2);
+        expect(page.route).toHaveBeenCalledWith(
+          profileUrl,
+          getRouteHandlerForUrl(profileUrl, page)
+        );
+        expect(page.route).toHaveBeenCalledWith(
+          settingsUrl,
+          getRouteHandlerForUrl(settingsUrl, page)
+        );
+      });
     });
   });
 
@@ -313,8 +440,8 @@ describe("router", () => {
       it('should throw a "Not Yet Implemented" error if creating a router with GraphQL handlers', async () => {
         const handlers = [graphql.query("GetUsers", successResolver)];
         const page = mockPage();
-        const router = new Router(page);
-        await expect(() => router.initialise(...handlers)).rejects.toEqual(
+        const router = new Router(page, ...handlers);
+        await expect(() => router.start()).rejects.toEqual(
           new Error("Support for GraphQL is not yet implemented.")
         );
       });
