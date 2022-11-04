@@ -32,7 +32,7 @@
     "@mswjs/cookies": "^0.2.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.26.1",
+    "@playwright/test": "^1.27.1",
     "@types/jest": "^29.2.0",
     "@types/node": "^18.8.2",
     "@types/rimraf": "^3.0.2",
