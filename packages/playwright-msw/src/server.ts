@@ -1,6 +1,7 @@
 import type { Page, Route } from "@playwright/test";
 import type { MockedResponse, RequestHandler } from "msw";
 import { handleRequest, MockedRequest } from "msw";
+import { store } from "@mswjs/cookies";
 import EventEmitter from "events";
 import { MockServiceWorker } from "./types";
 
@@ -76,6 +77,9 @@ export const createServer = async (
     resetHandlers: async (...customHandlers) => {
       cachedHandlers =
         customHandlers.length > 0 ? customHandlers : originalHandlers;
+    },
+    resetCookieStore: () => {
+      store.clear();
     },
   };
 };
