@@ -25,6 +25,18 @@ export class LoginForm {
     await this.page.getByRole("button", { name: "Sign in" }).click();
   }
 
+  async loginWithValidCredentials() {
+    await this.setUsername("peter");
+    await this.setPassword("secret");
+    await this.submit();
+  }
+
+  async loginWithInvalidCredentials() {
+    await this.setUsername("peter");
+    await this.setPassword("incorrect");
+    await this.submit();
+  }
+
   async logout() {
     await this.page.getByRole("button", { name: "Logout" }).click();
   }

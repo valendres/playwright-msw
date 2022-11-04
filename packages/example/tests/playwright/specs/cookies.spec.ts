@@ -18,10 +18,7 @@ test.describe.serial("cookies", () => {
     await page.goto("/login");
 
     const loginForm = new LoginForm(page);
-    await loginForm.setUsername("peter");
-    await loginForm.setPassword("secret");
-    await loginForm.submit();
-
+    await loginForm.loginWithValidCredentials();
     await loginForm.assertSessionStatus(200);
   });
 
@@ -31,9 +28,7 @@ test.describe.serial("cookies", () => {
     await page.goto("/login");
 
     const loginForm = new LoginForm(page);
-    await loginForm.setUsername("peter");
-    await loginForm.setPassword("secret");
-    await loginForm.submit();
+    await loginForm.loginWithValidCredentials();
 
     // Reload the page
     await page.reload();
@@ -47,7 +42,6 @@ test.describe.serial("cookies", () => {
     await page.goto("/login");
 
     const loginForm = new LoginForm(page);
-
     await loginForm.assertSessionStatus(401);
   });
 
@@ -57,11 +51,7 @@ test.describe.serial("cookies", () => {
     await page.goto("/login");
 
     const loginForm = new LoginForm(page);
-
-    await loginForm.setUsername("peter");
-    await loginForm.setPassword("secret");
-    await loginForm.submit();
-
+    await loginForm.loginWithValidCredentials();
     await loginForm.assertSessionStatus(200);
     await loginForm.logout();
     await loginForm.assertSessionStatus(401);
