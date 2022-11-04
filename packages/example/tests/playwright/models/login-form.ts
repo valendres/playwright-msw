@@ -14,18 +14,19 @@ export class LoginForm {
   }
 
   async setUsername(username: string) {
-    // Type into an input by its label
-    await this.page.locator('label:text("Username")').type(username);
+    await this.page.getByLabel("Username").fill(username);
   }
 
   async setPassword(password: string) {
-    // Type into an input by its label
-    await this.page.locator('label:text("Password")').type(password);
+    await this.page.getByLabel("Password").fill(password);
   }
 
   async submit() {
-    // Click a button by its accessibility role
-    await this.page.locator('role=button[name="Sign in"]').click();
+    await this.page.getByRole("button", { name: "Sign in" }).click();
+  }
+
+  async logout() {
+    await this.page.getByRole("button", { name: "Logout" }).click();
   }
 
   async assertError(error: LoginFormError) {
@@ -37,6 +38,12 @@ export class LoginForm {
   async assertSuccessful() {
     await expect(
       this.page.locator("text=Successfully signed in!")
+    ).toBeVisible();
+  }
+
+  async assertSessionStatus(status: number) {
+    await expect(
+      this.page.locator(`text=Session status: ${status}`)
     ).toBeVisible();
   }
 }

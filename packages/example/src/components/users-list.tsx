@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useQuery } from "react-query";
-import { UsersApiResponse } from "../types/api";
+import { GetUsersResponse } from "../types/users";
 
 export type UsersListProps = unknown;
 
 export const UsersList: FC<UsersListProps> = () => {
-  const { data: users, isError } = useQuery<UsersApiResponse>(
+  const { data: users, isError } = useQuery<GetUsersResponse>(
     "users",
     async () => {
       const response = await fetch("/api/users");

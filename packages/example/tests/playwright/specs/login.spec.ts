@@ -8,7 +8,7 @@ test.describe.parallel("login form", () => {
     worker,
   }) => {
     await worker.use(
-      rest.post("/api/login", (_, response, context) =>
+      rest.post("/api/session", (_, response, context) =>
         response(context.delay(250), context.status(401))
       )
     );
