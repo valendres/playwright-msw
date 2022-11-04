@@ -8,11 +8,9 @@ export const serializePath = (path: Path): SerializedPath =>
 
 export const deserializePath = (serializedPath: SerializedPath): Path => {
   const match = (serializedPath ?? "").match(/(?<type>[^:]+):(?<path>.+)/);
-
   if (!match) {
     return serializedPath;
   }
-
   const { type, path } = <{ type: SerializedPathType; path: string }>(
     match.groups
   );
@@ -24,3 +22,6 @@ export const getHandlerType = (handler: RequestHandler): "rest" | "graphql" =>
 
 export const getHandlerPath = (handler: RequestHandler): Path =>
   getHandlerType(handler) === "rest" ? (handler as RestHandler).info.path : "";
+
+export const convertMswPathToPlaywrightUrl = (path: Path): string | RegExp =>
+  path instanceof RegExp ? path : path.replace(/\/:[^/]+/g, "/*");

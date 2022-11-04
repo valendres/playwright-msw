@@ -92,4 +92,37 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     await page.goto("/users");
     await expect(page.locator('text="Regular Expression"')).toBeVisible();
   });
+
+  test("should allow navigating to a specific user page without overriding mocks", async ({
+    page,
+  }) => {
+    await page.goto("/users/6e369942-6b5d-4159-9b39-729646549183");
+    await expect(
+      page.locator('text="erika.richards@example.com"')
+    ).toBeVisible();
+  });
+
+  test("should allow paths with route parameters to be mocked", async ({
+    page,
+    worker,
+  }) => {
+    await page.goto("/users/testmytestface");
+    await worker.use(
+      rest.get("/api/users/:userId", (_, response, context) =>
+        response(
+          context.status(200),
+          context.json({
+            id: "testmytestface",
+            firstName: "Testy",
+            lastName: "Mctestface",
+            dob: "1969-6-9",
+            email: "test.mc@test.face",
+            address: "111 Testy Way",
+            phoneNumber: "(123) 456-7890",
+          })
+        )
+      )
+    );
+    await expect(page.locator('text="test.mc@test.face"')).toBeVisible();
+  });
 });

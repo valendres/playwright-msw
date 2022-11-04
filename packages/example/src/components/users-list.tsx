@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { useQuery } from "react-query";
-import { UsersApiResponse } from "../types/api";
+import { Link } from "react-router-dom";
+import { GetUsersCollectionApiResponse } from "../types/api";
 
 export type UsersListProps = unknown;
 
 export const UsersList: FC<UsersListProps> = () => {
-  const { data: users, isError } = useQuery<UsersApiResponse>(
+  const { data: users, isError } = useQuery<GetUsersCollectionApiResponse>(
     "users",
     async () => {
       const response = await fetch("/api/users");
@@ -21,7 +22,9 @@ export const UsersList: FC<UsersListProps> = () => {
       ) : users ? (
         <ul>
           {users.map(({ id, firstName, lastName }) => (
-            <li key={id}>{`${firstName} ${lastName}`}</li>
+            <li key={id}>
+              <Link to={`/users/${id}`}>{`${firstName} ${lastName}`}</Link>
+            </li>
           ))}
         </ul>
       ) : (

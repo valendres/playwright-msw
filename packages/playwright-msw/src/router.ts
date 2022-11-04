@@ -8,7 +8,7 @@ import {
   deserializePath,
 } from "./utils";
 import { handleRoute } from "./handler";
-import { SerializedPath } from "./utils";
+import { SerializedPath, convertMswPathToPlaywrightUrl } from "./utils";
 
 export type RouteHandler = (route: Route, request: Request) => void;
 
@@ -133,14 +133,17 @@ export class Router {
       const requestHandlers = this.getRouteData(path)?.requestHandlers ?? [];
       handleRoute(route, requestHandlers);
     };
-    await this.page.route(path, routeHandler);
+    await this.page.route(convertMswPathToPlaywrightUrl(path), routeHandler);
     return routeHandler;
   }
 
   private async unregisterPlaywrightRoute(path: Path): Promise<void> {
     const data = this.getRouteData(path);
     if (data) {
-      this.page.unroute(data.path, data.routeHandler);
+      this.page.unroute(
+        convertMswPathToPlaywrightUrl(data.path),
+        data.routeHandler
+      );
     }
   }
 

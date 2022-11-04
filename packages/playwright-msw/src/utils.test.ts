@@ -7,6 +7,7 @@ import {
 } from "./utils";
 import { rest, graphql, ResponseResolver, Path } from "msw";
 import { describe, it, expect } from "@jest/globals";
+import { convertMswPathToPlaywrightUrl } from "./utils";
 
 const successResolver: ResponseResolver = (_, response, context) =>
   response(context.status(200));
@@ -76,6 +77,48 @@ describe("utils", () => {
       expect(getHandlerPath(rest.get(path, successResolver))).toStrictEqual(
         expected
       );
+    });
+  });
+
+  describe("convertMswPathToPlaywrightUrl", () => {
+    it.each([
+      [
+        "should return a regex without modifying it",
+        {
+          path: /^\/api\/.*/,
+          expected: /^\/api\/.*/,
+        },
+      ],
+      [
+        "should return path as is if there are no route parameters in it",
+        {
+          path: "/users/123",
+          expected: "/users/123",
+        },
+      ],
+      [
+        "should replace a single route parameter if provided",
+        {
+          path: "/users/:userId",
+          expected: "/users/*",
+        },
+      ],
+      [
+        "should replace multiple sequential route parameters if provided",
+        {
+          path: "/users/:userId/:something",
+          expected: "/users/*/*",
+        },
+      ],
+      [
+        "should replace multiple disjointed route parameters if provided",
+        {
+          path: "/users/:userId/photos/:photoId",
+          expected: "/users/*/photos/*",
+        },
+      ],
+    ])("%s", (_, { path, expected }) => {
+      expect(convertMswPathToPlaywrightUrl(path)).toStrictEqual(expected);
     });
   });
 });
