@@ -3,3 +3,6 @@
 
 # Build
 /lib
+
+# Test
+/coverage

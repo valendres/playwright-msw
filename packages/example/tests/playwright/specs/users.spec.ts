@@ -1,5 +1,4 @@
 import { rest } from "msw";
-import { LoginForm } from "../models/login-form";
 import { expect, test } from "../test";
 
 test.describe.parallel("A demo of playwright-msw's functionality", () => {
@@ -22,5 +21,75 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     await page.goto("/users");
     await expect(page.locator('text="Failed to load users"')).toBeVisible();
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeHidden();
+  });
+
+  test("should allow mock handlers to be reset", async ({ page, worker }) => {
+    // Set the status code to 500 temporarily
+    await worker.use(
+      rest.get("/api/users", (_, response, context) =>
+        response(context.delay(250), context.status(500))
+      )
+    );
+
+    // Reset the handlers so that we go back to using the default ones
+    await worker.resetHandlers();
+
+    await page.goto("/users");
+    await expect(page.locator('text="Alessandro Metcalfe"')).toBeVisible();
+  });
+
+  test("should allow multiple mocks for the same url with different methods", async ({
+    page,
+    worker,
+  }) => {
+    await worker.use(
+      rest.put("/api/users", (_, response, context) =>
+        response(context.status(200))
+      ),
+      rest.get("/api/users", (_, response, context) =>
+        response(
+          context.status(200),
+          context.json([
+            {
+              id: "fake",
+              firstName: "Potato",
+              lastName: "McTaterson",
+            },
+          ])
+        )
+      ),
+      rest.patch("/api/users", (_, response, context) =>
+        response(context.status(200))
+      ),
+      rest.delete("/api/users", (_, response, context) =>
+        response(context.status(200))
+      )
+    );
+
+    await page.goto("/users");
+    await expect(page.locator('text="Potato McTaterson"')).toBeVisible();
+  });
+
+  test("should allow regex patterns to be used for matching the request path", async ({
+    page,
+    worker,
+  }) => {
+    await worker.use(
+      rest.get(/\/a.{1}i\/us[a-z]{2}s/, (_, response, context) =>
+        response(
+          context.status(200),
+          context.json([
+            {
+              id: "regex",
+              firstName: "Regular",
+              lastName: "Expression",
+            },
+          ])
+        )
+      )
+    );
+
+    await page.goto("/users");
+    await expect(page.locator('text="Regular Expression"')).toBeVisible();
   });
 });
