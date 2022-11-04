@@ -1,14 +1,19 @@
-import { RequestHandler } from "msw";
+import { RequestHandler, Path } from "msw";
 import { Page, Route, Request } from "@playwright/test";
 
-import { getHandlerUrl, getHandlerType } from "./utils";
+import {
+  getHandlerPath,
+  getHandlerType,
+  serializePath,
+  deserializePath,
+} from "./utils";
 import { handleRoute } from "./handler";
-
-export type RouteUrl = string;
+import { SerializedPath } from "./utils";
 
 export type RouteHandler = (route: Route, request: Request) => void;
 
-export type RouteMeta = {
+export type RouteData = {
+  readonly path: Path;
   readonly routeHandler: RouteHandler;
   readonly requestHandlers: RequestHandler[];
 };
@@ -16,7 +21,7 @@ export type RouteMeta = {
 export class Router {
   private page: Page;
   private initialRequestHandlers: RequestHandler[];
-  private routes: Record<RouteUrl, RouteMeta> = {};
+  private routes: Record<SerializedPath, RouteData> = {};
   private isStarted = false;
 
   public constructor(page: Page, ...initialRequestHandlers: RequestHandler[]) {
@@ -54,47 +59,49 @@ export class Router {
 
     // Determine the target routes
     const targetRoutes = targetRestHandlers.reduce<
-      Record<RouteUrl, RequestHandler[]>
+      Record<SerializedPath, RequestHandler[]>
     >((accumulator, targetRestHandler) => {
-      const url = getHandlerUrl(targetRestHandler);
-      if (url in accumulator) {
-        accumulator[url].push(targetRestHandler);
+      const serializedPath = serializePath(getHandlerPath(targetRestHandler));
+      if (serializedPath in accumulator) {
+        accumulator[serializedPath].push(targetRestHandler);
       } else {
-        accumulator[url] = [targetRestHandler];
+        accumulator[serializedPath] = [targetRestHandler];
       }
       return accumulator;
     }, {});
 
     // Unregister routes which are no longer required
-    const urlsToPurge = [...Object.keys(this.routes)].filter(
-      (url) => !(url in targetRoutes)
-    );
-    for (const url of urlsToPurge) {
-      const { [url]: _, ...remainingRoutes } = this.routes;
-      await this.unregisterPlaywrightRoute(url);
+    const serializedPathsToPurge = [...Object.keys(this.routes)].filter(
+      (serializedPath) => !(serializedPath in targetRoutes)
+    ) as SerializedPath[];
+    for (const serializedPath of serializedPathsToPurge) {
+      const { [serializedPath]: data, ...remainingRoutes } = this.routes;
+      await this.unregisterPlaywrightRoute(data.path);
       this.routes = remainingRoutes;
     }
 
     // Register new routes
-    const urlsToRegister = [...Object.keys(targetRoutes)].filter(
-      (url) => !(url in this.routes)
-    );
-    for (const url of urlsToRegister) {
-      this.routes[url] = {
-        routeHandler: await this.registerPlaywrightRoute(url),
-        requestHandlers: targetRoutes[url],
-      };
+    const serializedPathsToRegister = [...Object.keys(targetRoutes)].filter(
+      (serializedPath) => !(serializedPath in this.routes)
+    ) as SerializedPath[];
+    for (const serializedPath of serializedPathsToRegister) {
+      const path = deserializePath(serializedPath);
+      this.setRouteData({
+        path,
+        routeHandler: await this.registerPlaywrightRoute(path),
+        requestHandlers: targetRoutes[serializedPath],
+      });
     }
 
     // Synchronize all other routes
-    const urlsToSynchronize = [...Object.keys(this.routes)].filter(
-      (url) => url in targetRoutes
-    );
-    for (const url of urlsToSynchronize) {
-      this.routes[url] = {
-        ...this.routes[url],
-        requestHandlers: targetRoutes[url],
-      };
+    const serializedPathsToSynchronize = [...Object.keys(this.routes)].filter(
+      (serializedPath) => serializedPath in targetRoutes
+    ) as SerializedPath[];
+    for (const serializedPath of serializedPathsToSynchronize) {
+      this.setRouteData({
+        ...this.routes[serializedPath],
+        requestHandlers: targetRoutes[serializedPath],
+      });
     }
   }
 
@@ -105,34 +112,43 @@ export class Router {
       );
     }
 
-    const url = getHandlerUrl(handler);
-    if (url in this.routes) {
-      const existingRoute = this.routes[url];
-      this.routes[url] = {
-        ...existingRoute,
-        requestHandlers: [...existingRoute.requestHandlers, handler],
-      };
+    const path = getHandlerPath(handler);
+    const existingRouteData = this.getRouteData(path);
+    if (existingRouteData) {
+      this.setRouteData({
+        ...existingRouteData,
+        requestHandlers: [...existingRouteData.requestHandlers, handler],
+      });
     } else {
-      this.routes[url] = {
-        routeHandler: await this.registerPlaywrightRoute(url),
+      this.setRouteData({
+        path,
+        routeHandler: await this.registerPlaywrightRoute(path),
         requestHandlers: [handler],
-      };
+      });
     }
   }
 
-  private async registerPlaywrightRoute(url: RouteUrl): Promise<RouteHandler> {
+  private async registerPlaywrightRoute(path: Path): Promise<RouteHandler> {
     const routeHandler: RouteHandler = (route: Route) => {
-      const requestHandlers = this.routes[url]?.requestHandlers ?? [];
+      const requestHandlers = this.getRouteData(path)?.requestHandlers ?? [];
       handleRoute(route, requestHandlers);
     };
-    await this.page.route(url, routeHandler);
+    await this.page.route(path, routeHandler);
     return routeHandler;
   }
 
-  private async unregisterPlaywrightRoute(url: RouteUrl): Promise<void> {
-    const route = this.routes[url];
-    if (route) {
-      this.page.unroute(url, route.routeHandler);
+  private async unregisterPlaywrightRoute(path: Path): Promise<void> {
+    const data = this.getRouteData(path);
+    if (data) {
+      this.page.unroute(data.path, data.routeHandler);
     }
+  }
+
+  private getRouteData(path: Path): RouteData | null {
+    return this.routes[serializePath(path)];
+  }
+
+  private setRouteData(data: RouteData) {
+    this.routes[serializePath(data.path)] = data;
   }
 }

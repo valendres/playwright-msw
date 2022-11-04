@@ -69,4 +69,27 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     await page.goto("/users");
     await expect(page.locator('text="Potato McTaterson"')).toBeVisible();
   });
+
+  test("should allow regex patterns to be used for matching the request path", async ({
+    page,
+    worker,
+  }) => {
+    await worker.use(
+      rest.get(/\/a.{1}i\/us[a-z]{2}s/, (_, response, context) =>
+        response(
+          context.status(200),
+          context.json([
+            {
+              id: "regex",
+              firstName: "Regular",
+              lastName: "Expression",
+            },
+          ])
+        )
+      )
+    );
+
+    await page.goto("/users");
+    await expect(page.locator('text="Regular Expression"')).toBeVisible();
+  });
 });
