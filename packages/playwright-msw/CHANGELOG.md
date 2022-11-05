@@ -2,6 +2,15 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [1.0.4](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.3...playwright-msw@1.0.4) "playwright-msw" (2022-11-05)<a name="1.0.4"></a>
+
+### Bug Fixes
+
+* internal cookie storage isn't reset on test teardown (#30) ([8ed4504](https://github.com/valendres/playwright-msw/commits/8ed4504))
+
+
+
+
 ## [1.0.3](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.2...playwright-msw@1.0.3) "playwright-msw" (2022-10-28)<a name="1.0.3"></a>
 
 ### Bug Fixes
