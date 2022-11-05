@@ -1,6 +1,10 @@
 import { FC, FormEvent, useCallback } from "react";
-import { useMutation } from "react-query";
-import { LoginApiResponse, LoginApiRequestBody } from "../types/api";
+import { useMutation, useQuery } from "react-query";
+import {
+  GetSessionResponse,
+  PostSessionResponse,
+  PostSessionRequestBody,
+} from "../types/session";
 
 const getLoginFormValues = ({ elements }: HTMLFormElement) => {
   const usernameElement = elements.namedItem("username") as HTMLInputElement;
@@ -20,15 +24,29 @@ const getLoginErrorMessage = ({ status }: Response) => {
   }
 };
 
+const useSessionQuery = () => {
+  return useQuery<{ status: number; session: GetSessionResponse | null }>(
+    ["session"],
+    async () => {
+      const response = await fetch("/api/session");
+      return {
+        status: response.status,
+        session: response.status === 200 ? await response.json() : null,
+      };
+    },
+    { retry: false, refetchOnWindowFocus: false, refetchOnMount: false }
+  );
+};
+
 const useLoginMutation = () => {
   return useMutation<
-    LoginApiResponse,
+    PostSessionResponse,
     { message: string },
-    LoginApiRequestBody
+    PostSessionRequestBody
   >(
     ["login"],
     async (credentials: { username: string; password: string }) => {
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/session", {
         method: "POST",
         body: JSON.stringify(credentials),
       });
@@ -43,46 +61,94 @@ const useLoginMutation = () => {
   );
 };
 
-export const LoginForm: FC = () => {
-  const loginMutation = useLoginMutation();
+const useLogoutMutation = () => {
+  return useMutation(
+    ["login"],
+    async () => {
+      const response = await fetch("/api/session", {
+        method: "DELETE",
+      });
 
+      if (response.status !== 200) {
+        throw new Error("Failed to logout");
+      }
+    },
+    { retry: false }
+  );
+};
+
+export const LoginForm: FC = () => {
+  const sessionQuery = useSessionQuery();
+  const loginMutation = useLoginMutation();
+  const logoutMutation = useLogoutMutation();
   const handleFormSubmit = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      loginMutation.mutate(getLoginFormValues(event.target as HTMLFormElement));
+      loginMutation.mutate(
+        getLoginFormValues(event.target as HTMLFormElement),
+        {
+          onSuccess: () => {
+            sessionQuery.refetch();
+          },
+        }
+      );
     },
     [loginMutation.mutate]
   );
 
-  if (loginMutation.isSuccess) {
-    return <div role="alert">Successfully signed in!</div>;
+  const handleLogoutButtonPress = useCallback(() => {
+    if (loginMutation.isIdle) {
+      logoutMutation.mutate(undefined, {
+        onSuccess: () => {
+          sessionQuery.refetch();
+        },
+      });
+    }
+  }, [logoutMutation.mutate]);
+
+  if (sessionQuery.isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <form onSubmit={handleFormSubmit}>
-        {loginMutation.isError && (
-          <div role="alert">
-            <b>Failed to login</b>
-            <div>{loginMutation.error?.message}</div>
-          </div>
-        )}
-        <div className="username">
-          <label htmlFor="username">Username</label>
-          <div>
-            <input type="text" name="username" id="username" required />
-          </div>
+      {sessionQuery.data?.session ? (
+        <div>
+          <div role="alert">Successfully signed in!</div>
+          <button onClick={handleLogoutButtonPress}>Logout</button>
         </div>
-        <div className="password">
-          <label htmlFor="password">Password</label>
-          <div>
-            <input type="password" name="password" id="password" required />
+      ) : (
+        <form onSubmit={handleFormSubmit}>
+          {loginMutation.isError && (
+            <div role="alert">
+              <b>Failed to login</b>
+              <div>{loginMutation.error?.message}</div>
+            </div>
+          )}
+          <div className="username">
+            <label htmlFor="username">Username</label>
+            <div>
+              <input type="text" name="username" id="username" required />
+            </div>
           </div>
-        </div>
-        <button type="submit">
-          {loginMutation.isLoading ? "Signing in..." : "Sign in"}
-        </button>
-      </form>
+          <div className="password">
+            <label htmlFor="password">Password</label>
+            <div>
+              <input type="password" name="password" id="password" required />
+            </div>
+          </div>
+          <button type="submit">
+            {loginMutation.isLoading ? "Signing in..." : "Sign in"}
+          </button>
+        </form>
+      )}
+      <br />
+      <div>
+        Session status:{" "}
+        <span data-testid="session-status">
+          {sessionQuery.isLoading ? "loading" : sessionQuery.data?.status}
+        </span>
+      </div>
     </div>
   );
 };

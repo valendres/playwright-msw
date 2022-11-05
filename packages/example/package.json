@@ -10,6 +10,7 @@
     "test:report": "yarn playwright show-report tests/playwright/report"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
     "msw": "0.47.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.27.1",
+    "@types/node": "^18.11.9",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
