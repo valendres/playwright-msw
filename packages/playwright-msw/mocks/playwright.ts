@@ -1,7 +1,7 @@
 /* istanbul ignore file */
-import { jest } from "@jest/globals";
-import { Page, Route, Request } from "@playwright/test";
-import { RouteUrl, RouteHandler } from "../src/router";
+import { jest } from '@jest/globals';
+import { Page, Route, Request } from '@playwright/test';
+import { RouteUrl, RouteHandler } from '../src/router';
 
 export const mockPage = (overrides: Partial<Page> = {}): Page => {
   const page: Partial<Page> = {

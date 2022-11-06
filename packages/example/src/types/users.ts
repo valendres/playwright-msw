@@ -11,5 +11,5 @@ export type GetUsersItemApiResponse = {
 
 export type GetUsersCollectionApiParams = Record<string, string>;
 export type GetUsersCollectionApiResponse = Array<
-  Pick<GetUsersItemApiResponse, "id" | "firstName" | "lastName">
+  Pick<GetUsersItemApiResponse, 'id' | 'firstName' | 'lastName'>
 >;

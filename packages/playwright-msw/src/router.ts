@@ -1,14 +1,14 @@
-import { RequestHandler, Path } from "msw";
-import { Page, Route, Request } from "@playwright/test";
+import { RequestHandler, Path } from 'msw';
+import { Page, Route, Request } from '@playwright/test';
 
 import {
   getHandlerPath,
   getHandlerType,
   serializePath,
   deserializePath,
-} from "./utils";
-import { handleRoute } from "./handler";
-import { SerializedPath, convertMswPathToPlaywrightUrl } from "./utils";
+} from './utils';
+import { handleRoute } from './handler';
+import { SerializedPath, convertMswPathToPlaywrightUrl } from './utils';
 
 export type RouteHandler = (route: Route, request: Request) => void;
 
@@ -31,7 +31,7 @@ export class Router {
 
   public async start(): Promise<void> {
     if (this.isStarted) {
-      throw new Error("Router can only be started once");
+      throw new Error('Router can only be started once');
     }
 
     for (const initialHandler of this.initialRequestHandlers) {
@@ -106,9 +106,9 @@ export class Router {
   }
 
   private async registerMswHandler(handler: RequestHandler): Promise<void> {
-    if (getHandlerType(handler) === "graphql") {
+    if (getHandlerType(handler) === 'graphql') {
       return Promise.reject(
-        new Error("Support for GraphQL is not yet implemented.")
+        new Error('Support for GraphQL is not yet implemented.')
       );
     }
 

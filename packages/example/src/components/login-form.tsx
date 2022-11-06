@@ -1,14 +1,14 @@
-import { FC, FormEvent, useCallback } from "react";
-import { useMutation, useQuery } from "react-query";
+import { FC, FormEvent, useCallback } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import {
   GetSessionResponse,
   PostSessionResponse,
   PostSessionRequestBody,
-} from "../types/session";
+} from '../types/session';
 
 const getLoginFormValues = ({ elements }: HTMLFormElement) => {
-  const usernameElement = elements.namedItem("username") as HTMLInputElement;
-  const passwordElement = elements.namedItem("password") as HTMLInputElement;
+  const usernameElement = elements.namedItem('username') as HTMLInputElement;
+  const passwordElement = elements.namedItem('password') as HTMLInputElement;
   return {
     username: usernameElement.value,
     password: passwordElement.value,
@@ -18,17 +18,17 @@ const getLoginFormValues = ({ elements }: HTMLFormElement) => {
 const getLoginErrorMessage = ({ status }: Response) => {
   switch (status) {
     case 401:
-      return "Invalid username or password";
+      return 'Invalid username or password';
     default:
-      return "Unknown error";
+      return 'Unknown error';
   }
 };
 
 const useSessionQuery = () => {
   return useQuery<{ status: number; session: GetSessionResponse | null }>(
-    ["session"],
+    ['session'],
     async () => {
-      const response = await fetch("/api/session");
+      const response = await fetch('/api/session');
       return {
         status: response.status,
         session: response.status === 200 ? await response.json() : null,
@@ -44,10 +44,10 @@ const useLoginMutation = () => {
     { message: string },
     PostSessionRequestBody
   >(
-    ["login"],
+    ['login'],
     async (credentials: { username: string; password: string }) => {
-      const response = await fetch("/api/session", {
-        method: "POST",
+      const response = await fetch('/api/session', {
+        method: 'POST',
         body: JSON.stringify(credentials),
       });
 
@@ -63,14 +63,14 @@ const useLoginMutation = () => {
 
 const useLogoutMutation = () => {
   return useMutation(
-    ["login"],
+    ['login'],
     async () => {
-      const response = await fetch("/api/session", {
-        method: "DELETE",
+      const response = await fetch('/api/session', {
+        method: 'DELETE',
       });
 
       if (response.status !== 200) {
-        throw new Error("Failed to logout");
+        throw new Error('Failed to logout');
       }
     },
     { retry: false }
@@ -138,15 +138,15 @@ export const LoginForm: FC = () => {
             </div>
           </div>
           <button type="submit">
-            {loginMutation.isLoading ? "Signing in..." : "Sign in"}
+            {loginMutation.isLoading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
       )}
       <br />
       <div>
-        Session status:{" "}
+        Session status:{' '}
         <span data-testid="session-status">
-          {sessionQuery.isLoading ? "loading" : sessionQuery.data?.status}
+          {sessionQuery.isLoading ? 'loading' : sessionQuery.data?.status}
         </span>
       </div>
     </div>

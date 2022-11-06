@@ -1,14 +1,14 @@
-import { FC } from "react";
-import { useQuery } from "react-query";
-import { useParams, Link } from "react-router-dom";
-import { GetUsersItemApiResponse } from "../types/users";
+import { FC } from 'react';
+import { useQuery } from 'react-query';
+import { useParams, Link } from 'react-router-dom';
+import { GetUsersItemApiResponse } from '../types/users';
 
 export type UserProfileProps = unknown;
 
 export const UserProfile: FC<UserProfileProps> = () => {
   const { userId } = useParams();
   const { data: user, isError } = useQuery<GetUsersItemApiResponse>(
-    ["user", userId],
+    ['user', userId],
     async () => {
       const response = await fetch(`/api/users/${userId}`);
       return await response.json();

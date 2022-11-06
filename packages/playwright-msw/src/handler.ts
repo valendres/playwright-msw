@@ -1,7 +1,7 @@
-import type { Route } from "@playwright/test";
-import type { MockedResponse, RequestHandler } from "msw";
-import { handleRequest, MockedRequest } from "msw";
-import EventEmitter from "events";
+import type { Route } from '@playwright/test';
+import type { MockedResponse, RequestHandler } from 'msw';
+import { handleRequest, MockedRequest } from 'msw';
+import EventEmitter from 'events';
 
 const emitter = new EventEmitter();
 
@@ -22,7 +22,7 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
     route.fulfill({
       status,
       body: body ?? undefined,
-      contentType: headers.get("content-type") ?? undefined,
+      contentType: headers.get('content-type') ?? undefined,
       headers: headers.all(),
     });
   };
@@ -52,6 +52,6 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
       }
     );
   } catch {
-    route.abort("error");
+    route.abort('error');
   }
 };

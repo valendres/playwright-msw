@@ -41,29 +41,29 @@ yarn add playwright-msw --dev
 If you haven't already done so, [create some mock handlers](https://mswjs.io/docs/getting-started/mocks) for API calls that your app will perform. e.g. within a [handlers.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/src/mocks/handlers.ts) file:
 
 ```typescript
-import { rest } from "msw";
+import { rest } from 'msw';
 
 /** A collection of handlers to be used by default for all tests. */
 export default [
-  rest.get("/api/users", (_, response, context) =>
+  rest.get('/api/users', (_, response, context) =>
     response(
       context.delay(500),
       context.status(200),
       context.json([
         {
-          id: "bcff5c0e-10b6-407b-94d1-90d741363885",
-          firstName: "Rhydian",
-          lastName: "Greig",
+          id: 'bcff5c0e-10b6-407b-94d1-90d741363885',
+          firstName: 'Rhydian',
+          lastName: 'Greig',
         },
         {
-          id: "b44e89e4-3254-415e-b14a-441166616b20",
-          firstName: "Alessandro",
-          lastName: "Metcalfe",
+          id: 'b44e89e4-3254-415e-b14a-441166616b20',
+          firstName: 'Alessandro',
+          lastName: 'Metcalfe',
         },
         {
-          id: "6e369942-6b5d-4159-9b39-729646549183",
-          firstName: "Erika",
-          lastName: "Richards",
+          id: '6e369942-6b5d-4159-9b39-729646549183',
+          firstName: 'Erika',
+          lastName: 'Richards',
         },
       ])
     )
@@ -76,11 +76,11 @@ export default [
 The next step is to [create a custom fixture](https://playwright.dev/docs/test-fixtures#creating-a-fixture) using the [createWorkerFixture](#createworkerfixture) function from `playwright-msw`. e.g. within a custom [test.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/test.ts) file:
 
 ```typescript
-import { test as base, expect } from "@playwright/test";
-import type { MockServiceWorker } from "playwright-msw";
-import { createWorkerFixture } from "playwright-msw";
+import { test as base, expect } from '@playwright/test';
+import type { MockServiceWorker } from 'playwright-msw';
+import { createWorkerFixture } from 'playwright-msw';
 
-import handlers from "./handlers";
+import handlers from './handlers';
 
 const test = base.extend<{
   worker: MockServiceWorker;
@@ -96,27 +96,27 @@ export { test, expect };
 The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [demo.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/demo.spec.ts) file:
 
 ```typescript
-import { rest } from "msw";
-import { expect, test } from "../test";
+import { rest } from 'msw';
+import { expect, test } from '../test';
 
 test.describe.parallel("A demo of playwright-msw's functionality", () => {
-  test("should use the default handlers without requiring handlers to be specified on a per-test basis", async ({
+  test('should use the default handlers without requiring handlers to be specified on a per-test basis', async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto('/');
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeVisible();
   });
 
-  test.only("should allow mocks to be overridden on a per test basis", async ({
+  test.only('should allow mocks to be overridden on a per test basis', async ({
     page,
     worker,
   }) => {
     await worker.use(
-      rest.get("/api/users", (_, response, context) =>
+      rest.get('/api/users', (_, response, context) =>
         response(context.delay(250), context.status(403))
       )
     );
-    await page.goto("/");
+    await page.goto('/');
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeHidden();
     await expect(page.locator('text="Failed to load users"')).toBeVisible();
   });
@@ -138,10 +138,10 @@ The `createServer(page: Page, ...handlers: RequestHandler[])` function creates a
 Usage example:
 
 ```typescript
-import { test as base, expect } from "@playwright/test";
-import { createServer, MockServiceWorker } from "playwright-msw";
+import { test as base, expect } from '@playwright/test';
+import { createServer, MockServiceWorker } from 'playwright-msw';
 
-import handlers from "./handlers";
+import handlers from './handlers';
 
 const test = base.extend<{
   worker: MockServiceWorker;
@@ -161,7 +161,7 @@ const test = base.extend<{
        * `page` fixture as it is not possible to access it when scoped to the
        * "worker".
        */
-      scope: "test",
+      scope: 'test',
       /**
        * By default, fixtures are lazy; they will not be initalised unless they're
        * used by the test. Setting `true` here means that the fixture will be auto-

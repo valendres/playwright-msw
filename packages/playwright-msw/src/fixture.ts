@@ -1,12 +1,12 @@
-import type { PlaywrightTestArgs, TestFixture } from "@playwright/test";
-import { RequestHandler } from "msw";
-import { setupWorker, MockServiceWorker } from "./worker";
+import type { PlaywrightTestArgs, TestFixture } from '@playwright/test';
+import { RequestHandler } from 'msw';
+import { setupWorker, MockServiceWorker } from './worker';
 
 export const createWorkerFixture = (
   ...handlers: RequestHandler[]
 ): [
   TestFixture<MockServiceWorker, PlaywrightTestArgs>,
-  { scope: "test"; auto: boolean }
+  { scope: 'test'; auto: boolean }
 ] => [
   async ({ page }, use) => {
     const worker = await setupWorker(page, ...handlers);
@@ -20,7 +20,7 @@ export const createWorkerFixture = (
      * `page` fixture as it is not possible to access it when scoped to the
      * "worker".
      */
-    scope: "test",
+    scope: 'test',
     /**
      * By default, fixtures are lazy; they will not be initalised unless they're
      * used by the test. Setting `true` here means that the fixture will be auto-

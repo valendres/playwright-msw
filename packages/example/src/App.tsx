@@ -1,9 +1,9 @@
-import { FC } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LoginForm } from "./components/login-form";
-import { UserProfile } from "./components/user-profile";
-import { UsersList } from "./components/users-list";
+import { FC } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { LoginForm } from './components/login-form';
+import { UserProfile } from './components/user-profile';
+import { UsersList } from './components/users-list';
 
 const queryClient = new QueryClient();
 

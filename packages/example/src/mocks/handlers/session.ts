@@ -5,27 +5,27 @@ import {
   PostSessionRequestBody,
   PostSessionParams,
   PostSessionResponse,
-} from "../../types/session";
-import { rest } from "msw";
+} from '../../types/session';
+import { rest } from 'msw';
 
-const VALID_USERNAME = "peter";
-const VALID_PASSWORD = "secret";
-const SESSION_COOKIE_KEY = "x-session";
+const VALID_USERNAME = 'peter';
+const VALID_PASSWORD = 'secret';
+const SESSION_COOKIE_KEY = 'x-session';
 
 const sessionData: SessionData = {
-  userId: "9138123",
+  userId: '9138123',
 };
 
 const encodeSessionCookie = (username: string, password: string) =>
   // This isn't secure, please don't do this in production code 😇
-  Buffer.from(`${username}:${password}`).toString("base64");
+  Buffer.from(`${username}:${password}`).toString('base64');
 
 const decodeSessionCookie = (
   cookie: string
 ): { username: string; password: string } => {
-  const [username, password] = Buffer.from(cookie ?? "", "base64")
+  const [username, password] = Buffer.from(cookie ?? '', 'base64')
     .toString()
-    .split(":");
+    .split(':');
   return {
     username: username ?? null,
     password: password ?? null,
@@ -42,7 +42,7 @@ const isValidSession = (cookie: string): boolean => {
 
 export default [
   rest.get<null, GetSessionParams, GetSessionResponse>(
-    "/api/session",
+    '/api/session',
     async (request, response, context) => {
       const sessionCookie = request.cookies[SESSION_COOKIE_KEY];
       return isValidSession(sessionCookie)
@@ -55,7 +55,7 @@ export default [
     }
   ),
   rest.post<PostSessionRequestBody, PostSessionParams, PostSessionResponse>(
-    "/api/session",
+    '/api/session',
     async (request, response, context) => {
       const { username, password } =
         await request.json<PostSessionRequestBody>();
@@ -74,10 +74,10 @@ export default [
       return response(context.delay(500), context.status(401));
     }
   ),
-  rest.delete("/api/session", async (request, response, context) => {
+  rest.delete('/api/session', async (request, response, context) => {
     const sessionCookie = request.cookies[SESSION_COOKIE_KEY];
     return isValidSession(sessionCookie)
-      ? response(context.status(200), context.cookie(SESSION_COOKIE_KEY, ""))
+      ? response(context.status(200), context.cookie(SESSION_COOKIE_KEY, ''))
       : response(context.status(401));
   }),
 ];

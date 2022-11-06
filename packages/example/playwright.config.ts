@@ -1,9 +1,9 @@
-import type { PlaywrightTestConfig } from "@playwright/test";
-import { devices } from "@playwright/test";
-import { resolve } from "path";
+import type { PlaywrightTestConfig } from '@playwright/test';
+import { devices } from '@playwright/test';
+import { resolve } from 'path';
 
 const playwrightDir = (partialPath: string) =>
-  resolve(__dirname, "./tests/playwright", partialPath);
+  resolve(__dirname, './tests/playwright', partialPath);
 
 const WEB_SERVER_PORT = 4173;
 
@@ -11,8 +11,8 @@ const WEB_SERVER_PORT = 4173;
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: playwrightDir("./specs"),
-  outputDir: playwrightDir("./results"),
+  testDir: playwrightDir('./specs'),
+  outputDir: playwrightDir('./results'),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -31,10 +31,10 @@ const config: PlaywrightTestConfig = {
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     [
-      "html",
+      'html',
       {
-        outputFolder: playwrightDir("./report"),
-        open: process.env.CI ? "never" : "on-failure",
+        outputFolder: playwrightDir('./report'),
+        open: process.env.CI ? 'never' : 'on-failure',
       },
     ],
   ],
@@ -47,27 +47,27 @@ const config: PlaywrightTestConfig = {
     baseURL: `http://localhost:${WEB_SERVER_PORT}/`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "retain-on-failure",
+    trace: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
+      name: 'chromium',
       use: {
-        ...devices["Desktop Chrome"],
+        ...devices['Desktop Chrome'],
       },
     },
     {
-      name: "firefox",
+      name: 'firefox',
       use: {
-        ...devices["Desktop Firefox"],
+        ...devices['Desktop Firefox'],
       },
     },
     {
-      name: "webkit",
+      name: 'webkit',
       use: {
-        ...devices["Desktop Safari"],
+        ...devices['Desktop Safari'],
       },
     },
   ],
