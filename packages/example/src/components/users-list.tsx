@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { GetUsersCollectionApiResponse } from "../types/api";
+import { GetUsersCollectionApiResponse } from "../types/users";
 
 export type UsersListProps = unknown;
 

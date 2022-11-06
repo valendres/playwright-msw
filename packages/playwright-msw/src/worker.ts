@@ -1,4 +1,5 @@
 import type { Page } from "@playwright/test";
+import { store } from "@mswjs/cookies";
 import type { RequestHandler } from "msw";
 import { Router } from "./router";
 
@@ -12,6 +13,10 @@ export type MockServiceWorker = {
    * or to the explicit next request handlers list, if given.
    */
   resetHandlers: (...customHandlers: RequestHandler[]) => Promise<void>;
+  /**
+   * Resets MSW's internal cookie store by removing all cookies from it.
+   */
+  resetCookieStore: () => void;
 };
 
 export const setupWorker = async (
@@ -23,5 +28,8 @@ export const setupWorker = async (
   return {
     use: async (...handlers) => router.use(...handlers),
     resetHandlers: async (...handlers) => router.resetHandlers(...handlers),
+    resetCookieStore: () => {
+      store.clear();
+    },
   };
 };

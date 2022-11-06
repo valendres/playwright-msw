@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
-import { GetUsersItemApiResponse } from "../types/api";
+import { GetUsersItemApiResponse } from "../types/users";
 
 export type UserProfileProps = unknown;
 

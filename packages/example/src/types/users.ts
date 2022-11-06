@@ -13,12 +13,3 @@ export type GetUsersCollectionApiParams = Record<string, string>;
 export type GetUsersCollectionApiResponse = Array<
   Pick<GetUsersItemApiResponse, "id" | "firstName" | "lastName">
 >;
-
-export type LoginApiRequestBody = {
-  username: string;
-  password: string;
-};
-export type LoginApiParams = Record<string, string>;
-export type LoginApiResponse = {
-  userId: string;
-};

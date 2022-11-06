@@ -1,6 +1,6 @@
 {
   "name": "playwright-msw",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Mock Service Worker API for Playwright.",
   "main": "lib/index.js",
   "files": [
@@ -28,12 +28,15 @@
     "@playwright/test": ">=1.20.0",
     "msw": ">=0.44.0"
   },
+  "dependencies": {
+    "@mswjs/cookies": "^0.2.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-typescript": "^7.18.6",
     "@jest/globals": "^29.2.2",
-    "@playwright/test": "^1.26.1",
+    "@playwright/test": "^1.27.1",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
     "@types/jest": "^29.2.0",

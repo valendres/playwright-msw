@@ -181,3 +181,4 @@ The `MockServiceWorker` instance exposes a number of utility functions to facili
 
 - `use(...customHandlers: RequestHandler[])`: Prepends given request handlers to the list of existing handlers. This is useful for overriding mocks on a per test behaviour, e.g. testing what happens if a particular API call fails.
 - `resetHandlers(...customHandlers: RequestHandler[])`: Resets request handlers to the initial list given to the createServer call, or to the explicit next request handlers list, if given.
+- `resetCookieStore()`: Resets MSW's internal cookie store by removing all cookies from it.
