@@ -1,4 +1,5 @@
 import { Path, RequestHandler, RestHandler } from 'msw';
+import { Config } from './config';
 
 export type SerializedPathType = 'regexp' | 'string';
 export type SerializedPath = `${SerializedPathType}:${string}`;
@@ -20,8 +21,21 @@ export const deserializePath = (serializedPath: SerializedPath): Path => {
 export const getHandlerType = (handler: RequestHandler): 'rest' | 'graphql' =>
   'path' in handler.info ? 'rest' : 'graphql';
 
-export const getHandlerPath = (handler: RequestHandler): Path =>
-  getHandlerType(handler) === 'rest' ? (handler as RestHandler).info.path : '';
+export const getHandlerPath = (
+  handler: RequestHandler,
+  config: Config
+): Path => {
+  if (getHandlerType(handler) === 'graphql') {
+    const { graphqlUrl } = config;
+    if (!graphqlUrl) {
+      throw new Error(
+        'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".'
+      );
+    }
+    return graphqlUrl;
+  }
+  return (<RestHandler>handler).info.path;
+};
 
 export const convertMswPathToPlaywrightUrl = (path: Path): string | RegExp =>
   path instanceof RegExp ? path : path.replace(/\/:[^/]+/g, '/*');

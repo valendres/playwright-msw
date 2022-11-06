@@ -1,7 +1,8 @@
 import { rest } from 'msw';
 import { expect, test } from '../test';
 
-test.describe.parallel("A demo of playwright-msw's functionality", () => {
+test.describe
+  .parallel("A demo of overriding REST API's on a per-test basis using playwright-msw", () => {
   test('should use the default handlers without requiring handlers to be specified on a per-test basis', async ({
     page,
   }) => {
@@ -106,7 +107,6 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     page,
     worker,
   }) => {
-    await page.goto('/users/testmytestface');
     await worker.use(
       rest.get('/api/users/:userId', (_, response, context) =>
         response(
@@ -123,6 +123,7 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
         )
       )
     );
+    await page.goto('/users/testmytestface');
     await expect(page.locator('text="test.mc@test.face"')).toBeVisible();
   });
 });

@@ -2,6 +2,7 @@ import type { Page } from '@playwright/test';
 import { store } from '@mswjs/cookies';
 import type { RequestHandler } from 'msw';
 import { Router } from './router';
+import { Config } from './config';
 
 export type MockServiceWorker = {
   /**
@@ -19,11 +20,12 @@ export type MockServiceWorker = {
   resetCookieStore: () => void;
 };
 
-export const setupWorker = async (
-  page: Page,
-  ...initialRequestHandlers: RequestHandler[]
-): Promise<MockServiceWorker> => {
-  const router = new Router(page, ...initialRequestHandlers);
+export const setupWorker = async (init: {
+  page: Page;
+  requestHandlers?: RequestHandler[];
+  config?: Config;
+}): Promise<MockServiceWorker> => {
+  const router = new Router(init);
   await router.start();
   return {
     use: async (...handlers) => router.use(...handlers),

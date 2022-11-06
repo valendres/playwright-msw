@@ -9,6 +9,7 @@ import { rest, graphql, Path } from 'msw';
 import { mockPage, mockRoute, mockRequest } from '../mocks/playwright';
 import { successResolver } from '../mocks/msw';
 import { Page } from '@playwright/test';
+import { Config } from './config';
 
 const getRouteHandlerForPath = (
   targetPath: Path,
@@ -31,17 +32,20 @@ describe('router', () => {
     describe('initialisation', () => {
       test('should allow a router to be created without any handlers', async () => {
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
         expect(router).toBeTruthy();
       });
 
       test('should register a route for each of the initial handlers', async () => {
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get('/profile', successResolver),
           rest.get('/friends', successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenNthCalledWith(
@@ -57,12 +61,15 @@ describe('router', () => {
       });
 
       test('should register a single route for multiple handlers with the same route, but different methods', async () => {
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get('/profile', successResolver),
           rest.put('/profile', successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
         expect(page.route).toHaveBeenCalledTimes(1);
       });
@@ -71,13 +78,16 @@ describe('router', () => {
     describe('routing', () => {
       test('should include all of the corresponding initial handlers when calling handleRoute', async () => {
         const userPath = '/user';
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get(userPath, successResolver),
           rest.put(userPath, successResolver),
         ];
 
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         const executeRoute = getRouteHandlerForPath(userPath, page);
@@ -87,7 +97,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Should be all of the initial handlers since we haven't added any non-user handlers
-          initialHandlers
+          requestHandlers
         );
       });
 
@@ -97,7 +107,10 @@ describe('router', () => {
         const subsequentUserHandler = rest.get(userPath, successResolver);
 
         const page = mockPage();
-        const router = new Router(page, initialUserHandler);
+        const router = new Router({
+          page,
+          requestHandlers: [initialUserHandler],
+        });
         await router.start();
         await router.use(subsequentUserHandler);
 
@@ -115,7 +128,7 @@ describe('router', () => {
         const subsequentUserHandler2 = rest.get(userPath, successResolver);
 
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
         await router.start();
         await router.use(subsequentUserHandler1, subsequentUserHandler2);
 
@@ -138,10 +151,13 @@ describe('router', () => {
           rest.get(friendPath, successResolver),
           rest.patch(friendPath, successResolver),
         ];
-        const initialHandlers = [...userHandlers, ...friendHandlers];
+        const requestHandlers = [...userHandlers, ...friendHandlers];
 
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         const executeRoute = getRouteHandlerForPath(userPath, page);
@@ -163,11 +179,10 @@ describe('router', () => {
         const subsequentUserHandler2 = rest.get(userPath, successResolver);
 
         const page = mockPage();
-        const router = new Router(
+        const router = new Router({
           page,
-          initialUserHandler1,
-          initialUserHandler2
-        );
+          requestHandlers: [initialUserHandler1, initialUserHandler2],
+        });
         await router.start();
         await router.use(subsequentUserHandler1, subsequentUserHandler2);
         await router.resetHandlers();
@@ -187,18 +202,21 @@ describe('router', () => {
     describe('resetHandlers', () => {
       test('should not attempt to unroute at all if there are no initial handlers or custom handlers', async () => {
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
         await router.resetHandlers();
         expect(page.unroute).toHaveBeenCalledTimes(0);
       });
 
       test('should not attempt to unroute at all if there are initial handlers, but no custom handlers', async () => {
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get('/profile', successResolver),
           rest.get('/friends', successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
         await router.resetHandlers();
 
@@ -206,12 +224,15 @@ describe('router', () => {
       });
 
       test('should not attempt to unroute the initial handlers when resetting', async () => {
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get('/profile', successResolver),
           rest.get('/friends', successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         await router.use(rest.get('/potato', successResolver));
@@ -227,12 +248,15 @@ describe('router', () => {
       });
 
       test('should not attempt to unroute if the extra handler matches one of the initial handlers', async () => {
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get('/profile', successResolver),
           rest.get('/friends', successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         await router.use(rest.get('/profile', successResolver));
@@ -244,7 +268,7 @@ describe('router', () => {
 
       test('should call unroute for all custom handlers, even if there were no initial handlers when router was created', async () => {
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
 
         await router.use(rest.get('/goat', successResolver));
         await router.use(rest.get('/camel', successResolver));
@@ -266,7 +290,7 @@ describe('router', () => {
 
       test('should allow resetHandlers to be called multiple times without adding any new handlers in between', async () => {
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
 
         await router.use(rest.get('/apple', successResolver));
 
@@ -287,7 +311,7 @@ describe('router', () => {
 
       test('should call unroute for newer handlers if additional handlers are added after having previously reset', async () => {
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
 
         // First handler
         await router.use(rest.get('/car', successResolver));
@@ -313,12 +337,15 @@ describe('router', () => {
       test('should call unroute for paths which are no longer needed when resetting to a specific set of handlers', async () => {
         const profilePath = '/profile';
         const settingsPath = '/settings';
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get(profilePath, successResolver),
           rest.get(settingsPath, successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         // Snapshot this before resetting mocks
@@ -348,12 +375,15 @@ describe('router', () => {
       test('should call route for paths which are now required when resetting to a specific set of handlers', async () => {
         const profilePath = '/profile';
         const settingsPath = '/settings';
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get(profilePath, successResolver),
           // Note the omission of `settingsPath` here
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         // Reset call counts so it's easier to assert what happens when resetting
@@ -379,14 +409,17 @@ describe('router', () => {
       test('should not call route or unroute if all the paths already exist when resetting to a specific set of handlers', async () => {
         const profilePath = '/profile';
         const settingsPath = '/settings';
-        const initialHandlers = [
+        const requestHandlers = [
           rest.get(profilePath, successResolver),
           rest.delete(profilePath, successResolver),
           rest.get(settingsPath, successResolver),
           rest.patch(settingsPath, successResolver),
         ];
         const page = mockPage();
-        const router = new Router(page, ...initialHandlers);
+        const router = new Router({
+          page,
+          requestHandlers,
+        });
         await router.start();
 
         // Reset call counts so it's easier to assert what happens when resetting
@@ -406,7 +439,7 @@ describe('router', () => {
         const profilePath = '/profile';
         const settingsPath = '/settings';
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
         await router.start();
 
         // Reset call counts so it's easier to assert what happens when resetting
@@ -436,25 +469,87 @@ describe('router', () => {
   });
 
   describe('graphql', () => {
+    const config: Config = { graphqlUrl: '/graphql' };
+
     describe('initialisation', () => {
-      test('should throw a "Not Yet Implemented" error if creating a router with GraphQL handlers', async () => {
-        const handlers = [graphql.query('GetUsers', successResolver)];
+      test('should not throw an error when adding GraphQL handlers during initialisation if a graphqlUrl was not provided', async () => {
+        const requestHandlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
-        const router = new Router(page, ...handlers);
-        await expect(() => router.start()).rejects.toEqual(
-          new Error('Support for GraphQL is not yet implemented.')
+        const router = new Router({ page, requestHandlers });
+        await expect(() => router.start()).rejects.toMatchObject({
+          message: /Missing "graphqlUrl"/,
+        });
+      });
+
+      test('should throw an error when adding GraphQL handlers during initialisation if a graphqlUrl was provided', async () => {
+        const requestHandlers = [graphql.query('GetUsers', successResolver)];
+        const page = mockPage();
+        const router = new Router({
+          page,
+          requestHandlers,
+          config,
+        });
+        expect.assertions(1);
+        const result = await router.start();
+        expect(result).toBeUndefined();
+      });
+
+      test('should register a single route using the provided graphQL url if a GraphQL handler is provided', async () => {
+        const requestHandlers = [graphql.query('GetUsers', successResolver)];
+        const page = mockPage();
+        const router = new Router({
+          page,
+          requestHandlers,
+          config: { graphqlUrl: '/graphql' },
+        });
+        await router.start();
+        expect(page.route).toHaveBeenCalledTimes(1);
+        expect(page.route).toHaveBeenCalledWith(
+          '/graphql',
+          expect.any(Function)
+        );
+      });
+
+      test('should register a single route using the provided graphQL url if multiple GraphQL handlers are provided', async () => {
+        const requestHandlers = [
+          graphql.query('GetUsers', successResolver),
+          graphql.query('GetSettings', successResolver),
+          graphql.mutation('UpdateSettings', successResolver),
+        ];
+        const page = mockPage();
+        const router = new Router({
+          page,
+          requestHandlers,
+          config: { graphqlUrl: '/graphql' },
+        });
+        await router.start();
+        expect(page.route).toHaveBeenCalledTimes(1);
+        expect(page.route).toHaveBeenCalledWith(
+          '/graphql',
+          expect.any(Function)
         );
       });
     });
 
     describe('extending', () => {
-      test('should throw a "Not Yet Implemented" error if attempting to add GraphQL handler at later point in time', async () => {
+      test('should throw an error when adding additional GraphQL handlers if a graphqlUrl was not provided during initialisation', async () => {
         const handlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
-        const router = new Router(page);
+        const router = new Router({ page });
         await expect(() => router.use(...handlers)).rejects.toEqual(
-          new Error('Support for GraphQL is not yet implemented.')
+          new Error(
+            'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".'
+          )
         );
+      });
+      test('should not throw an error when adding additional GraphQL handlers if a graphqlUrl was provided during initialisation', async () => {
+        const handlers = [graphql.query('GetUsers', successResolver)];
+        const page = mockPage();
+        const router = new Router({ page, config: { graphqlUrl: '/graphql' } });
+        await router.start();
+        expect.assertions(1);
+        const result = await router.use(...handlers);
+        expect(result).toBeUndefined();
       });
     });
   });
