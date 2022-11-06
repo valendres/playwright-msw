@@ -3,12 +3,13 @@ import { Page, Route, Request } from '@playwright/test';
 
 import {
   getHandlerPath,
-  getHandlerType,
   serializePath,
   deserializePath,
+  SerializedPath,
+  convertMswPathToPlaywrightUrl,
 } from './utils';
 import { handleRoute } from './handler';
-import { SerializedPath, convertMswPathToPlaywrightUrl } from './utils';
+import { Config } from './config';
 
 export type RouteHandler = (route: Route, request: Request) => void;
 
@@ -20,13 +21,23 @@ export type RouteData = {
 
 export class Router {
   private page: Page;
+  private config: Config;
   private initialRequestHandlers: RequestHandler[];
   private routes: Record<SerializedPath, RouteData> = {};
   private isStarted = false;
 
-  public constructor(page: Page, ...initialRequestHandlers: RequestHandler[]) {
+  public constructor({
+    config,
+    page,
+    requestHandlers,
+  }: {
+    page: Page;
+    requestHandlers?: RequestHandler[];
+    config?: Config;
+  }) {
     this.page = page;
-    this.initialRequestHandlers = initialRequestHandlers;
+    this.initialRequestHandlers = requestHandlers ?? [];
+    this.config = config ?? {};
   }
 
   public async start(): Promise<void> {
@@ -61,7 +72,9 @@ export class Router {
     const targetRoutes = targetRestHandlers.reduce<
       Record<SerializedPath, RequestHandler[]>
     >((accumulator, targetRestHandler) => {
-      const serializedPath = serializePath(getHandlerPath(targetRestHandler));
+      const serializedPath = serializePath(
+        getHandlerPath(targetRestHandler, this.config)
+      );
       if (serializedPath in accumulator) {
         accumulator[serializedPath].push(targetRestHandler);
       } else {
@@ -106,13 +119,7 @@ export class Router {
   }
 
   private async registerMswHandler(handler: RequestHandler): Promise<void> {
-    if (getHandlerType(handler) === 'graphql') {
-      return Promise.reject(
-        new Error('Support for GraphQL is not yet implemented.')
-      );
-    }
-
-    const path = getHandlerPath(handler);
+    const path = getHandlerPath(handler, this.config);
     const existingRouteData = this.getRouteData(path);
     if (existingRouteData) {
       this.setRouteData({
