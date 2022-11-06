@@ -4062,7 +4062,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mswjs/interceptors", "npm:0.17.5"],\
             ["@open-draft/until", "npm:1.0.3"],\
             ["@types/debug", "npm:4.1.7"],\
-            ["@xmldom/xmldom", "npm:0.7.6"],\
+            ["@xmldom/xmldom", "npm:0.7.9"],\
             ["debug", "virtual:9e3a462140b35a19ddb3d48ebde58d66740d97f4c0386bc195c327fc2c44fa59f43cbcb382dd9f194b16d0dd6c0a138aadd4a9de84088f88e25946598f97cb88#npm:4.3.4"],\
             ["headers-polyfill", "npm:3.1.0"],\
             ["outvariant", "npm:1.3.0"],\
@@ -4980,10 +4980,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@xmldom/xmldom", [\
-        ["npm:0.7.6", {\
-          "packageLocation": "./.yarn/cache/@xmldom-xmldom-npm-0.7.6-f88f0bfdcb-3c31dcd909.zip/node_modules/@xmldom/xmldom/",\
+        ["npm:0.7.9", {\
+          "packageLocation": "./.yarn/cache/@xmldom-xmldom-npm-0.7.9-89b068f3c8-66e37b7800.zip/node_modules/@xmldom/xmldom/",\
           "packageDependencies": [\
-            ["@xmldom/xmldom", "npm:0.7.6"]\
+            ["@xmldom/xmldom", "npm:0.7.9"]\
           ],\
           "linkType": "HARD"\
         }]\
