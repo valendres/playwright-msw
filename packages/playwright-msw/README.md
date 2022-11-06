@@ -11,7 +11,7 @@
 
 - **Powerful**. Intercept and mock network requests that are performed by browsers during Playwright test execution.
 - **Customizable**. Runs within context of an individual test, mocks can be safely manipulated on a per-test basis without interfering with others that are executing in parallel.
-- **Flexible**. Like the [official MSW library](https://github.com/mswjs/msw) that runs within the browser, playwright-msw supports both [REST](#rest) and [GraphQL](#graphql).
+- **Flexible**. Like the [official MSW library](https://github.com/mswjs/msw) that runs within the browser, playwright-msw supports both REST and GraphQL.
 - **Easy to implement**. No code changes are required to your app. [^implementation]
 
 [^implementation]: If the target application is already running MSW in the browser (e.g. a local dev server), this will need to be disabled while the Playwright tests are executing. It is recommended to test against the production bundle.
@@ -74,9 +74,7 @@ export default [
 
 #### Create a the worker fixture
 
-The next step is to [create a custom fixture](https://playwright.dev/docs/test-fixtures#creating-a-fixture) using the [createWorkerFixture](#createworkerfixture) function from `playwright-msw`. The implementation differs slightly if you're using REST or GraphQL mocks.
-
-##### REST
+The next step is to [create a custom fixture](https://playwright.dev/docs/test-fixtures#creating-a-fixture) using the [createWorkerFixture](#createworkerfixture) function from `playwright-msw`. e.g. within a custom [test.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/test.ts) file:
 
 If you're using REST API's, all you need to do is provide your handlers to `createWorkerFixture`, no config object is required:
 
@@ -96,17 +94,7 @@ const test = base.extend<{
 export { test, expect };
 ```
 
-##### GraphQL
-
-If you're using GraphQL, then a `graphqlUri` must be provided when calling `createWorkerFixture`:
-
-```typescript
-const test = base.extend<{
-  worker: MockServiceWorker;
-}>({
-  worker: createWorkerFixture({}, ...handlers),
-});
-```
+**Note:** if you're using GraphQL, then it is assumed that the calls are made over HTTP. The default uri for the graphql endpoint is `/graphql`. This can be customized via [configuration](#configuration) object when creating the worker.
 
 ### Use the custom test fixture
 
@@ -152,9 +140,9 @@ Refer to the [Getting Started: Create a the worker fixture](#create-a-the-worker
 
 The `createWorkerFixture` function supports the following configuration:
 
-| key        | required | default | description                                                                                |
-| ---------- | -------- | ------- | ------------------------------------------------------------------------------------------ |
-| graphqlUrl | false    | -       | The URL of the GraphQL endpoint to send requests to. _Required if using GraphQL handlers._ |
+| key        | required | default    | description                                          |
+| ---------- | -------- | ---------- | ---------------------------------------------------- |
+| graphqlUrl | false    | `/graphql` | The URL of the GraphQL endpoint to send requests to. |
 
 ### `createServer`
 

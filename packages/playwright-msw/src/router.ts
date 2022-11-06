@@ -11,6 +11,10 @@ import {
 import { handleRoute } from './handler';
 import { Config } from './config';
 
+const DEFAULT_CONFIG: Config = {
+  graphqlUrl: '/graphql',
+};
+
 export type RouteHandler = (route: Route, request: Request) => void;
 
 export type RouteData = {
@@ -37,7 +41,7 @@ export class Router {
   }) {
     this.page = page;
     this.initialRequestHandlers = requestHandlers ?? [];
-    this.config = config ?? {};
+    this.config = { ...DEFAULT_CONFIG, ...(config ?? {}) };
   }
 
   public async start(): Promise<void> {
