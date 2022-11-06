@@ -472,16 +472,22 @@ describe('router', () => {
     const config: Config = { graphqlUrl: '/graphql' };
 
     describe('initialisation', () => {
-      test('should not throw an error when adding GraphQL handlers during initialisation if a graphqlUrl was not provided', async () => {
+      test('should throw an error when adding GraphQL handlers during initialisation if the graphqlUrl was falsy', async () => {
         const requestHandlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
-        const router = new Router({ page, requestHandlers });
+        const router = new Router({
+          page,
+          requestHandlers,
+          config: {
+            graphqlUrl: null,
+          },
+        });
         await expect(() => router.start()).rejects.toMatchObject({
           message: /Missing "graphqlUrl"/,
         });
       });
 
-      test('should throw an error when adding GraphQL handlers during initialisation if a graphqlUrl was provided', async () => {
+      test('should not throw an error when adding GraphQL handlers during initialisation if a explicit graphqlUrl was provided', async () => {
         const requestHandlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
         const router = new Router({
@@ -529,20 +535,38 @@ describe('router', () => {
           expect.any(Function)
         );
       });
+
+      test('should utilise the default graphqlUrl for initial GraphQL handlers if one was not provided during initialisation', async () => {
+        const requestHandlers = [graphql.query('GetUsers', successResolver)];
+        const page = mockPage();
+        const router = new Router({ page, requestHandlers });
+        await router.start();
+        expect(page.route).toHaveBeenCalledTimes(1);
+        expect(page.route).toHaveBeenCalledWith(
+          '/graphql',
+          expect.any(Function)
+        );
+      });
     });
 
     describe('extending', () => {
-      test('should throw an error when adding additional GraphQL handlers if a graphqlUrl was not provided during initialisation', async () => {
+      test('should throw an error when adding additional GraphQL handlers if the explicit graphqlUrl that was provided during initialisation is falsy', async () => {
         const handlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
-        const router = new Router({ page });
+        const router = new Router({
+          page,
+          config: {
+            graphqlUrl: null,
+          },
+        });
         await expect(() => router.use(...handlers)).rejects.toEqual(
           new Error(
             'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".'
           )
         );
       });
-      test('should not throw an error when adding additional GraphQL handlers if a graphqlUrl was provided during initialisation', async () => {
+
+      test('should not throw an error when adding additional GraphQL handlers if an explicit graphqlUrl was provided during initialisation', async () => {
         const handlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
         const router = new Router({ page, config: { graphqlUrl: '/graphql' } });
@@ -550,6 +574,19 @@ describe('router', () => {
         expect.assertions(1);
         const result = await router.use(...handlers);
         expect(result).toBeUndefined();
+      });
+
+      test('should utilise the default graphqlUrl for additional GraphQL handlers if one was not provided during initialisation', async () => {
+        const handlers = [graphql.query('GetUsers', successResolver)];
+        const page = mockPage();
+        const router = new Router({ page });
+        await router.start();
+        await router.use(...handlers);
+        expect(page.route).toHaveBeenCalledTimes(1);
+        expect(page.route).toHaveBeenCalledWith(
+          '/graphql',
+          expect.any(Function)
+        );
       });
     });
   });

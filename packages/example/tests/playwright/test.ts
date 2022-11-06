@@ -8,12 +8,7 @@ const test = base.extend<{
   worker: MockServiceWorker;
   rest: typeof rest;
 }>({
-  worker: createWorkerFixture(
-    {
-      graphqlUrl: '/graphql',
-    },
-    ...handlers
-  ),
+  worker: createWorkerFixture({}, ...handlers),
   rest,
 });
 
