@@ -1,6 +1,6 @@
 <h1 align="center">Playwright MSW Monorepo</h1>
 
-<p align="center">The monorepo that contains the <a href="https://github.com/valendres/playwright-msw">playwright-msw</a> package.</p>
+<p align="center">The monorepo that contains the <a href="https://www.npmjs.com/package/playwright-msw">playwright-msw</a> package.</p>
 
 ## Documentation
 
