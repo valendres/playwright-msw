@@ -1,6 +1,15 @@
-# playwright-msw
+<h1 align="center">Playwright MSW Monorepo</h1>
 
-A monorepo which consists of the following packages:
+<p align="center">The monorepo that contains the <a href="https://github.com/valendres/playwright-msw">playwright-msw</a> package.</p>
 
-1. [packages/playwright-msw](packages/playwright-msw): the [playwright-msw](https://www.npmjs.com/package/playwright-msw) npm package.
-2. [packages/example](packages/example): an example implementation of `playwright-msw` which utilises [Playwright](https://playwright.dev/), [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [React Query](https://react-query.tanstack.com/) and [MSW](https://mswjs.io/).
+## Documentation
+
+This README is just a brief overview of the repo, for detailed documentation about the library, please refer to [playwright-msw](./packages/playwright-msw/README.md) documentation.
+
+## Examples
+
+Additional examples of usage of this library can be found within the [example](./packages/example/README.md) app. This is a React SPA that utilises `playwright-msw` for its Playwright integration tests.
+
+## Contributing
+
+Guidelines for contributing to the repo can be found within [CONTRIBUTING.md](./CONTRIBUTING.md).
