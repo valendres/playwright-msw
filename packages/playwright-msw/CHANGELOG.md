@@ -2,6 +2,26 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [1.1.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.4...playwright-msw@1.1.0) "playwright-msw" (2022-11-07)<a name="1.1.0"></a>
+
+### Bug Fixes
+
+* not being able to mock the same url with different methods ([3895a50](https://github.com/valendres/playwright-msw/commits/3895a50))
+* support for regex paths ([3895a50](https://github.com/valendres/playwright-msw/commits/3895a50))
+
+### Features
+
+* reduce noise in logs ([3895a50](https://github.com/valendres/playwright-msw/commits/3895a50))
+* add support for resetting to specific set of handlers ([3895a50](https://github.com/valendres/playwright-msw/commits/3895a50))
+* reduce noise in logs (#33) ([3895a50](https://github.com/valendres/playwright-msw/commits/3895a50))
+* add support for msw paths with route params ([a4ad365](https://github.com/valendres/playwright-msw/commits/a4ad365))
+* add support for graphql ([b24d31a](https://github.com/valendres/playwright-msw/commits/b24d31a))
+* make graphqlUrl optional ([448a9e4](https://github.com/valendres/playwright-msw/commits/448a9e4))
+* improve dev experience ([2ac36ed](https://github.com/valendres/playwright-msw/commits/2ac36ed))
+
+
+
+
 ## [1.0.4](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.3...playwright-msw@1.0.4) "playwright-msw" (2022-11-05)<a name="1.0.4"></a>
 
 ### Bug Fixes
