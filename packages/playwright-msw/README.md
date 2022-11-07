@@ -16,6 +16,10 @@
 
 [^implementation]: If the target application is already running MSW in the browser (e.g. a local dev server), this will need to be disabled while the Playwright tests are executing. It is recommended to test against the production bundle.
 
+## Announcement
+
+Version 2 introduced a minor breaking change to the [createWorkerFixture](#createworkerfixture) function. To upgrade, please refer to the [V2 migration guide](#v2-migration-guide).
+
 ## Getting started
 
 ### Prerequisites
@@ -88,7 +92,7 @@ import handlers from './handlers';
 const test = base.extend<{
   worker: MockServiceWorker;
 }>({
-  worker: createWorkerFixture({}, ...handlers),
+  worker: createWorkerFixture(handlers),
 });
 
 export { test, expect };
@@ -132,27 +136,27 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
 
 ### `createWorkerFixture`
 
-The `createWorkerFixture(config, ...handlers)` function creates a fixture that mocks api calls on a per-test basis that is automatically started even if the test does not use it directly. The provided handlers will be used by all tests by default. The created [MockServiceWorker](#mockserviceworker) fixture can be optionally used to customise mocks on a per-test basis.
+The `createWorkerFixture(handlers, config)` function creates a fixture that mocks api calls on a per-test basis that is automatically started even if the test does not use it directly. The provided handlers will be used by all tests by default. The created [MockServiceWorker](#mockserviceworker) fixture can be optionally used to customise mocks on a per-test basis.
 
-Refer to the [Getting Started: Create a the worker fixture](#create-a-the-worker-fixture) for a usage example. If this abstraction layer is over-simplified for your use case, the [createServer](#createserver) function can be used instead.
+Refer to the [Getting Started: Create a the worker fixture](#create-a-the-worker-fixture) for a usage example. If this abstraction layer is over-simplified for your use case, the [createWorker](#createWorker) function can be used instead.
 
 #### Configuration
 
-The `createWorkerFixture` function supports the following configuration:
+The `createWorkerFixture` function supports an optional configuration object with the following parameters:
 
 | key        | required | default    | description                                          |
 | ---------- | -------- | ---------- | ---------------------------------------------------- |
 | graphqlUrl | false    | `/graphql` | The URL of the GraphQL endpoint to send requests to. |
 
-### `createServer`
+### `createWorker`
 
-The `createServer(page: Page, ...handlers: RequestHandler[])` function creates a server that intercepts and mocks API calls for an individual playwright page. The `createServer` returns a [MockServiceWorker](#mockserviceworker) object which can be used for further customization.
+The `createWorker(page: Page, handlers?: RequestHandler[], config?: Config)` function creates a server that intercepts and mocks API calls for an individual playwright page. It returns a [MockServiceWorker](#mockserviceworker) object which can be used for further customization.
 
 Usage example:
 
 ```typescript
 import { test as base, expect } from '@playwright/test';
-import { createServer, MockServiceWorker } from 'playwright-msw';
+import { createWorker, MockServiceWorker } from 'playwright-msw';
 
 import handlers from './handlers';
 
@@ -161,7 +165,7 @@ const test = base.extend<{
 }>({
   worker: [
     async ({ page }, use) => {
-      const server = await createServer(page, ...handlers);
+      const server = await createWorker(page, handlers);
       // Test has not started to execute...
       await use(server);
       // Test has finished executing...
@@ -190,8 +194,27 @@ export { test, expect };
 
 ### `MockServiceWorker`
 
-The `MockServiceWorker` instance exposes a number of utility functions to facilitate additional customisations:
+The `MockServiceWorker` instance returned by [createWorker](#createworker) or exposed via [createWorkerFixture](#createworkerfixture) has a number of utility functions to facilitate additional customisations:
 
 - `use(...customHandlers: RequestHandler[])`: Prepends given request handlers to the list of existing handlers. This is useful for overriding mocks on a per test behaviour, e.g. testing what happens if a particular API call fails.
-- `resetHandlers(...customHandlers: RequestHandler[])`: Resets request handlers to the initial list given to the createServer call, or to the explicit next request handlers list, if given.
+- `resetHandlers(...customHandlers: RequestHandler[])`: Resets request handlers to the initial list given to the createWorker call, or to the explicit next request handlers list, if given.
 - `resetCookieStore()`: Resets MSW's internal cookie store by removing all cookies from it. **\*Note:** this is automatically called at the end of each test.\*
+
+## Examples
+
+This library tests itself to make sure the integration between MSW and Playwright is working as expected. For real examples of how it can be used, please refer to:
+[packages/example/README.md](../example/README.md)
+
+## v2 migration guide
+
+`playwright-msw@2` introduced a very minor breaking change to the [createWorkerFixture](#createworkerfixture) function. Previously it accepted handlers via rest parameters, but now the first argument must be an array of handlers. This change was made to facilitate providing an optional configuration object as the second argument.
+
+```diff
+public class Hello1
+const test = base.extend<{
+  worker: MockServiceWorker;
+}>({
+-  worker: createWorkerFixture(...handlers),
++  worker: createWorkerFixture(handlers),
+});
+```

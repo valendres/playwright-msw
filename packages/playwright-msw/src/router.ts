@@ -30,15 +30,11 @@ export class Router {
   private routes: Record<SerializedPath, RouteData> = {};
   private isStarted = false;
 
-  public constructor({
-    config,
-    page,
-    requestHandlers,
-  }: {
-    page: Page;
-    requestHandlers?: RequestHandler[];
-    config?: Config;
-  }) {
+  public constructor(
+    page: Page,
+    requestHandlers?: RequestHandler[],
+    config?: Config
+  ) {
     this.page = page;
     this.initialRequestHandlers = requestHandlers ?? [];
     this.config = { ...DEFAULT_CONFIG, ...(config ?? {}) };

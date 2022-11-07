@@ -9,6 +9,7 @@ import { SettingsForm } from './components/settings-form';
 
 const queryClient = new QueryClient();
 const apolloClient = new ApolloClient({
+  uri: '/graphql',
   cache: new InMemoryCache(),
 });
 

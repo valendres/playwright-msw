@@ -2,7 +2,7 @@ import { beforeEach, describe, it, jest, expect } from '@jest/globals';
 import { mockPage } from '../mocks/playwright';
 import { successResolver } from '../mocks/msw';
 import { Router } from './router';
-import { setupWorker } from './worker';
+import { createWorker } from './worker';
 import { rest } from 'msw';
 
 describe('worker', () => {
@@ -19,14 +19,14 @@ describe('worker', () => {
   it('should start the router with the provided initialHandlers', async () => {
     const requestHandlers = [rest.get('/api/users', successResolver)];
     const page = mockPage();
-    await setupWorker({ page, requestHandlers });
+    await createWorker(page, requestHandlers);
     expect(Router.prototype.start).toBeCalledTimes(1);
     expect(Router.prototype.start).toBeCalledWith();
   });
 
   it('should still start on the router even if no initialHandlers were provided', async () => {
     const page = mockPage();
-    await setupWorker({ page });
+    await createWorker(page);
     expect(Router.prototype.start).toBeCalledTimes(1);
     expect(Router.prototype.start).toBeCalledWith();
   });
@@ -37,7 +37,7 @@ describe('worker', () => {
       rest.get('/api/eggplant', successResolver),
     ];
     const page = mockPage();
-    const worker = await setupWorker({ page });
+    const worker = await createWorker(page);
     await worker.use(...handlers);
     expect(Router.prototype.use).toBeCalledTimes(1);
     expect(Router.prototype.use).toBeCalledWith(...handlers);
@@ -45,7 +45,7 @@ describe('worker', () => {
 
   it('should proxy the "resetHandlers" function to the router', async () => {
     const page = mockPage();
-    const worker = await setupWorker({ page });
+    const worker = await createWorker(page);
     worker.resetHandlers();
     expect(Router.prototype.resetHandlers).toBeCalledTimes(1);
     expect(Router.prototype.resetHandlers).toBeCalledWith();

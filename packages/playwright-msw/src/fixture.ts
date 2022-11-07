@@ -1,17 +1,17 @@
 import type { PlaywrightTestArgs, TestFixture } from '@playwright/test';
 import { RequestHandler } from 'msw';
 import { Config } from './config';
-import { setupWorker, MockServiceWorker } from './worker';
+import { createWorker, MockServiceWorker } from './worker';
 
 export const createWorkerFixture = (
-  config: Config,
-  ...requestHandlers: RequestHandler[]
+  handlers: RequestHandler[] = [],
+  config?: Config
 ): [
   TestFixture<MockServiceWorker, PlaywrightTestArgs>,
   { scope: 'test'; auto: boolean }
 ] => [
   async ({ page }, use) => {
-    const worker = await setupWorker({ page, config, requestHandlers });
+    const worker = await createWorker(page, handlers, config);
     await use(worker);
     worker.resetCookieStore();
   },
