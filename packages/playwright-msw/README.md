@@ -224,7 +224,7 @@ const test = base.extend<{
 This library does not seek to steal any thunder, it merely unifies two amazing tools that have already been built:
 
 1. [kettanaito](https://github.com/kettanaito) for creating [MSW](https://mswjs.io/)
-2. [Microsoft](https://github.com/microsoft) for creating [PlayWright](https://playwright.dev/)
+2. [Microsoft](https://github.com/microsoft) for creating [Playwright](https://playwright.dev/)
 
 Thank you for making these tools and thank you to the numerous people who have contributed to `playwright-msw` 🙂
 
