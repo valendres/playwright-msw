@@ -11,10 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/valendres/playwright-msw"
+    "url": "https://github.com/valendres/playwright-msw",
+    "directory": "packages/playwright-msw"
   },
   "author": {
     "name": "Peter Weller",
+    "email": "peter.weller@mailfence.com",
     "url": "https://github.com/valendres"
   },
   "license": "MIT",
@@ -47,5 +49,19 @@
     "msw": "0.47.4",
     "rimraf": "^3.0.2",
     "typescript": "4.7.4"
-  }
+  },
+  "tags": [
+    "integration",
+    "test",
+    "testing",
+    "playwright",
+    "rest",
+    "graphql",
+    "msw",
+    "mocking",
+    "mock",
+    "service",
+    "worker",
+    "browser"
+  ]
 }
