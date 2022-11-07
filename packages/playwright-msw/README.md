@@ -227,3 +227,5 @@ This library does not seek to steal any thunder, it merely unifies two amazing t
 2. [Microsoft](https://github.com/microsoft) for creating [PlayWright](https://playwright.dev/)
 
 Thank you for making these tools and thank you to the numerous people who have contributed to `playwright-msw` 🙂
+
+## Footnotes
