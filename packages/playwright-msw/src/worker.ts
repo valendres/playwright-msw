@@ -10,7 +10,7 @@ export type MockServiceWorker = {
    */
   use: (...customHandlers: RequestHandler[]) => Promise<void>;
   /**
-   * Resets request handlers to the initial list given to the createServer call,
+   * Resets request handlers to the initial list given to the createWorker call,
    * or to the explicit next request handlers list, if given.
    */
   resetHandlers: (...customHandlers: RequestHandler[]) => Promise<void>;
@@ -20,12 +20,12 @@ export type MockServiceWorker = {
   resetCookieStore: () => void;
 };
 
-export const setupWorker = async (init: {
-  page: Page;
-  requestHandlers?: RequestHandler[];
-  config?: Config;
-}): Promise<MockServiceWorker> => {
-  const router = new Router(init);
+export const createWorker = async (
+  page: Page,
+  requestHandlers?: RequestHandler[],
+  config?: Config
+): Promise<MockServiceWorker> => {
+  const router = new Router(page, requestHandlers, config);
   await router.start();
   return {
     use: async (...handlers) => router.use(...handlers),
