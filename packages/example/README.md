@@ -1,6 +1,6 @@
-<h1 align="center">Playwright MSW: Example</h1>
+<h1 align="center">Playwright MSW Example</h1>
 
-A [React](https://reactjs.org/) SPA that is bundled & served via [Vite](https://vitejs.dev/). It utilises [MSW](https://mswjs.io/) to improve development experience. Additionally, it also has a number of [Playwright](https://playwright.dev/) tests to make sure that `playwright-msw`'s integration of the two libraries works as expected.
+A [React](https://reactjs.org/) SPA that utilises [MSW](https://mswjs.io/) to improve development experience. Additionally, it also has a number of [Playwright](https://playwright.dev/) tests to make sure that `playwright-msw`'s integration of the two libraries works as expected.
 
 The SPA contains two different different mechanisms for communicating with a server:
 
