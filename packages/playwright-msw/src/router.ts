@@ -36,7 +36,7 @@ export class Router {
     config?: Config
   ) {
     this.page = page;
-    this.initialRequestHandlers = requestHandlers ?? [];
+    this.initialRequestHandlers = (requestHandlers ?? []).slice().reverse();
     this.config = { ...DEFAULT_CONFIG, ...(config ?? {}) };
   }
 
@@ -65,7 +65,7 @@ export class Router {
     // Determine the target handlers
     const targetRestHandlers =
       nextRequestHandlers.length > 0
-        ? nextRequestHandlers
+        ? nextRequestHandlers.slice().reverse()
         : this.initialRequestHandlers;
 
     // Determine the target routes
