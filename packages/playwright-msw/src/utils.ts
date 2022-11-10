@@ -38,4 +38,6 @@ export const getHandlerPath = (
 };
 
 export const convertMswPathToPlaywrightUrl = (path: Path): string | RegExp =>
-  path instanceof RegExp ? path : path.replace(/\/:[^/]+/g, '/*');
+  path instanceof RegExp
+    ? path
+    : `${path.replace(/\/:[^/]+/g, '/*').replace(/\?.+/, '')}*`;

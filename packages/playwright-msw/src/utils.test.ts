@@ -74,7 +74,7 @@ describe('utils', () => {
       ${'/api/users'} | ${'/api/users'}
       ${/^\/api\/.*/} | ${/^\/api\/.*/}
     `('return "$expected" when path is "$path"', ({ path, expected }) => {
-      expect(getHandlerPath(rest.get(path, successResolver))).toStrictEqual(
+      expect(getHandlerPath(rest.get(path, successResolver), {})).toStrictEqual(
         expected
       );
     });
