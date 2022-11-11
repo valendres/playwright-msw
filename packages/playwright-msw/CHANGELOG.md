@@ -2,6 +2,13 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [2.0.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.0...playwright-msw@2.0.1) "playwright-msw" (2022-11-11)<a name="2.0.1"></a>
+
+### Bug Fixes
+
+- handlers not working when endpoint is called with query params (#40) ([87cb4b9](https://github.com/valendres/playwright-msw/commits/87cb4b9))
+- handlers being processed in incorrect order (#39) ([9f1d346](https://github.com/valendres/playwright-msw/commits/9f1d346))
+
 ## [2.0.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@1.0.4...playwright-msw@2.0.0) "playwright-msw" (2022-11-07)<a name="2.0.0"></a>
 
 ### Breaking Changes
