@@ -7,6 +7,7 @@ import { UserProfile } from './components/user-profile';
 import { UsersList } from './components/users-list';
 import { SettingsForm } from './components/settings-form';
 import { Documents } from './components/documents';
+import { Search } from './components/search';
 
 const queryClient = new QueryClient();
 const apolloClient = new ApolloClient({
@@ -22,6 +23,7 @@ const App: FC = () => {
           <Routes>
             <Route path="/documents/:slug" element={<Documents />} />
             <Route path="/documents" element={<Documents />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/users/:userId" element={<UserProfile />} />
             <Route path="/users" element={<UsersList />} />
             <Route path="/settings" element={<SettingsForm />} />

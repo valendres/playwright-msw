@@ -9,6 +9,7 @@ import { rest, graphql, Path } from 'msw';
 import { mockPage, mockRoute, mockRequest } from '../mocks/playwright';
 import { successResolver } from '../mocks/msw';
 import { Page } from '@playwright/test';
+import { convertMswPathToPlaywrightUrl } from './utils';
 
 const getRouteHandlerForPath = (
   targetPath: Path,
@@ -17,7 +18,7 @@ const getRouteHandlerForPath = (
   const possibleRouteHandler = jest
     .mocked(page.route)
     .mock.calls.find(
-      ([routePath]) => routePath === targetPath
+      ([routePath]) => routePath === convertMswPathToPlaywrightUrl(targetPath)
     )?.[1] as RouteHandler;
   return possibleRouteHandler ?? null;
 };
@@ -46,12 +47,12 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenNthCalledWith(
           1,
-          '/friends',
+          convertMswPathToPlaywrightUrl('/friends'),
           expect.any(Function)
         );
         expect(page.route).toHaveBeenNthCalledWith(
           2,
-          '/profile',
+          convertMswPathToPlaywrightUrl('/profile'),
           expect.any(Function)
         );
       });
@@ -220,7 +221,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
-          '/potato',
+          convertMswPathToPlaywrightUrl('/potato'),
           expect.any(Function)
         );
       });
@@ -253,12 +254,12 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenCalledTimes(2);
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
-          '/goat',
+          convertMswPathToPlaywrightUrl('/goat'),
           expect.any(Function)
         );
         expect(page.unroute).toHaveBeenNthCalledWith(
           2,
-          '/camel',
+          convertMswPathToPlaywrightUrl('/camel'),
           expect.any(Function)
         );
       });
@@ -274,7 +275,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
-          '/apple',
+          convertMswPathToPlaywrightUrl('/apple'),
           expect.any(Function)
         );
 
@@ -294,7 +295,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
-          '/car',
+          convertMswPathToPlaywrightUrl('/car'),
           expect.any(Function)
         );
 
@@ -304,7 +305,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenCalledTimes(2);
         expect(page.unroute).toHaveBeenNthCalledWith(
           2,
-          '/plane',
+          convertMswPathToPlaywrightUrl('/plane'),
           expect.any(Function)
         );
       });
@@ -336,7 +337,7 @@ describe('router', () => {
         // Should have only unrouted settings
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenCalledWith(
-          settingsPath,
+          convertMswPathToPlaywrightUrl(settingsPath),
           settingsRouteHandler
         );
 
@@ -370,7 +371,7 @@ describe('router', () => {
         // Should have added a route for settings
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
-          settingsPath,
+          convertMswPathToPlaywrightUrl(settingsPath),
           getRouteHandlerForPath(settingsPath, page)
         );
       });
@@ -423,11 +424,11 @@ describe('router', () => {
         // Should have added a route for profile and settings
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenCalledWith(
-          profilePath,
+          convertMswPathToPlaywrightUrl(profilePath),
           getRouteHandlerForPath(profilePath, page)
         );
         expect(page.route).toHaveBeenCalledWith(
-          settingsPath,
+          convertMswPathToPlaywrightUrl(settingsPath),
           getRouteHandlerForPath(settingsPath, page)
         );
       });
@@ -463,7 +464,7 @@ describe('router', () => {
         await router.start();
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
-          '/graphql',
+          convertMswPathToPlaywrightUrl('/graphql'),
           expect.any(Function)
         );
       });
@@ -479,7 +480,7 @@ describe('router', () => {
         await router.start();
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
-          '/graphql',
+          convertMswPathToPlaywrightUrl('/graphql'),
           expect.any(Function)
         );
       });
@@ -491,7 +492,7 @@ describe('router', () => {
         await router.start();
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
-          '/graphql',
+          convertMswPathToPlaywrightUrl('/graphql'),
           expect.any(Function)
         );
       });
@@ -529,7 +530,7 @@ describe('router', () => {
         await router.use(...handlers);
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
-          '/graphql',
+          convertMswPathToPlaywrightUrl('/graphql'),
           expect.any(Function)
         );
       });

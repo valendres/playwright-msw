@@ -74,7 +74,7 @@ describe('utils', () => {
       ${'/api/users'} | ${'/api/users'}
       ${/^\/api\/.*/} | ${/^\/api\/.*/}
     `('return "$expected" when path is "$path"', ({ path, expected }) => {
-      expect(getHandlerPath(rest.get(path, successResolver))).toStrictEqual(
+      expect(getHandlerPath(rest.get(path, successResolver), {})).toStrictEqual(
         expected
       );
     });
@@ -90,17 +90,17 @@ describe('utils', () => {
         },
       ],
       [
-        'should return path as is if there are no route parameters in it',
-        {
-          path: '/users/123',
-          expected: '/users/123',
-        },
-      ],
-      [
-        'should replace a single route parameter if provided',
+        'should replace a single route parameter with a wildcard if provided',
         {
           path: '/users/:userId',
           expected: '/users/*',
+        },
+      ],
+      [
+        'should return path with wildcard on the end even if there are no route parameters',
+        {
+          path: '/users/123',
+          expected: '/users/123*',
         },
       ],
       [
@@ -115,6 +115,20 @@ describe('utils', () => {
         {
           path: '/users/:userId/photos/:photoId',
           expected: '/users/*/photos/*',
+        },
+      ],
+      [
+        'should drop query parameters',
+        {
+          path: '/users/:userId/photos/:photoId?potato=123',
+          expected: '/users/*/photos/*',
+        },
+      ],
+      [
+        'should add a wildcard on the end so that query parameters can be matched',
+        {
+          path: '/api/v1/documents/?potato=123',
+          expected: '/api/v1/documents/*',
         },
       ],
     ])('%s', (_, { path, expected }) => {
