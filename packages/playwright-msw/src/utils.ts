@@ -37,5 +37,12 @@ export const getHandlerPath = (
   return (<RestHandler>handler).info.path;
 };
 
-export const convertMswPathToPlaywrightUrl = (path: Path): string | RegExp =>
-  path instanceof RegExp ? path : path.replace(/\/:[^/]+/g, '/*');
+export const convertMswPathToPlaywrightUrl = (path: Path): string | RegExp => {
+  if (path instanceof RegExp) {
+    return path;
+  }
+  const transformedPath = path.replace(/\/:[^/]+/g, '/*').replace(/\?.+/, '');
+  return transformedPath.endsWith('*')
+    ? transformedPath
+    : `${transformedPath}*`;
+};
