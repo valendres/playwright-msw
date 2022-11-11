@@ -109,7 +109,6 @@ test.describe.parallel('query parameters', () => {
     await page.goto('/search');
     const searchEngine = new SearchEngine(page);
     await searchEngine.useEndpoint(endpointWithTrailingSlash);
-    await page.pause();
     await searchEngine.setQuery('game');
     await searchEngine.submit();
     await searchEngine.assertSearchResultCount(1);
