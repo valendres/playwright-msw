@@ -47,12 +47,12 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenNthCalledWith(
           1,
-          convertMswPathToPlaywrightUrl('/profile'),
+          convertMswPathToPlaywrightUrl('/friends'),
           expect.any(Function)
         );
         expect(page.route).toHaveBeenNthCalledWith(
           2,
-          convertMswPathToPlaywrightUrl('/friends'),
+          convertMswPathToPlaywrightUrl('/profile'),
           expect.any(Function)
         );
       });
@@ -73,8 +73,8 @@ describe('router', () => {
       test('should include all of the corresponding initial handlers when calling handleRoute', async () => {
         const userPath = '/user';
         const requestHandlers = [
-          rest.get(userPath, successResolver),
           rest.put(userPath, successResolver),
+          rest.get(userPath, successResolver),
         ];
 
         const page = mockPage();
@@ -88,7 +88,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Should be all of the initial handlers since we haven't added any non-user handlers
-          requestHandlers
+          requestHandlers.slice().reverse()
         );
       });
 
@@ -152,7 +152,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Note the omission of friend handlers
-          userHandlers
+          userHandlers.slice().reverse()
         );
       });
 
@@ -179,7 +179,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Note the omission of subsequently added handlers
-          [initialUserHandler1, initialUserHandler2]
+          [initialUserHandler2, initialUserHandler1]
         );
       });
     });
