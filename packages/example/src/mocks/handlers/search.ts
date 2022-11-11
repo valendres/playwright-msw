@@ -59,7 +59,7 @@ const categoryItemsMap = { movies, songs, books };
 export default [
   rest.get('/api/search', (request, response, context) => {
     const { searchParams } = request.url;
-    const cat = searchParams.get('cat') as SearchResult['category'];
+    const cat = searchParams.get('c') as SearchResult['category'];
     const q = searchParams.get('q');
     const items = cat ? categoryItemsMap[cat] ?? [] : allItems;
     const searchResults =

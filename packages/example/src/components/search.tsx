@@ -1,15 +1,16 @@
-import { FC, useCallback, FormEvent } from 'react';
+import { FC, useCallback, FormEvent, useState, ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { GetSearchResponse } from '../types/search';
 
-const SearchResults: FC<{ searchParams: URLSearchParams }> = ({
-  searchParams,
-}) => {
+const SearchResults: FC<{
+  endpoint: string;
+  searchParams: URLSearchParams;
+}> = ({ endpoint, searchParams }) => {
   const searchQuery = useQuery<GetSearchResponse>(
-    ['search', searchParams.toString()],
+    [endpoint, searchParams.toString()],
     async () => {
-      const response = await fetch(`/api/search?${searchParams}`);
+      const response = await fetch(`${endpoint}?${searchParams}`);
       return response.json();
     },
     {
@@ -42,20 +43,39 @@ const SearchResults: FC<{ searchParams: URLSearchParams }> = ({
 };
 
 export const Search: FC = () => {
+  const [endpoint, setEndpoint] = useState('/api/search');
   const [currentSearchParams, setSearchParams] = useSearchParams();
+  const handleEndpointChange = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      setEndpoint(event.currentTarget.value);
+    },
+    []
+  );
   const handleFormChange = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       // Update query parameters without page reload from normal form submission
       event.preventDefault();
       const formData = new FormData(event.currentTarget);
       // type defs for `URLSearchParams` seem to not allow a FormData instance, even though its valid :(
-      const newSearchParams = new URLSearchParams(formData as any);
+      const newSearchParams = new URLSearchParams({
+        q: String(formData.get('q') ?? ''),
+        c: String(formData.get('c') ?? ''),
+      });
       setSearchParams(newSearchParams);
     },
     [setSearchParams]
   );
   return (
     <div>
+      <select
+        value={endpoint}
+        onChange={handleEndpointChange}
+        data-testid="endpoint"
+        required
+      >
+        <option value="/api/search">/api/search</option>
+        <option value="/api/search/">/api/search/</option>
+      </select>
       <h1>Search engine</h1>
       <form onSubmit={handleFormChange}>
         <div>
@@ -71,12 +91,12 @@ export const Search: FC = () => {
         </div>
         <div>
           <div>
-            <label htmlFor="cat">Category</label>
+            <label htmlFor="c">Category</label>
           </div>
           <select
-            id="cat"
-            name="cat"
-            defaultValue={currentSearchParams.get('cat') ?? ''}
+            id="c"
+            name="c"
+            defaultValue={currentSearchParams.get('c') ?? ''}
           >
             <option value="">All</option>
             <option value="books">Books</option>
@@ -89,7 +109,7 @@ export const Search: FC = () => {
       </form>
       <br />
       <h2>Results</h2>
-      <SearchResults searchParams={currentSearchParams} />
+      <SearchResults endpoint={endpoint} searchParams={currentSearchParams} />
     </div>
   );
 };

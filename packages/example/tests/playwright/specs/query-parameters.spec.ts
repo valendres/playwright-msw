@@ -85,4 +85,34 @@ test.describe.parallel('query parameters', () => {
     // Like the official MSW, the first handler should have handled it because its query parameters will get ignored
     await searchEngine.assertSearchResultVisible('Pineapple');
   });
+
+  test('should allow query parameters to work if there is a trailing slash in the url', async ({
+    page,
+    worker,
+  }) => {
+    const endpointWithTrailingSlash = '/api/search/';
+    await worker.resetHandlers(
+      rest.get(endpointWithTrailingSlash, (_, response, context) =>
+        response(
+          context.status(200),
+          context.json([
+            {
+              title: 'Trailing slash',
+              href: 'https://fake.domain.com/',
+              category: 'books',
+            },
+          ])
+        )
+      )
+    );
+
+    await page.goto('/search');
+    const searchEngine = new SearchEngine(page);
+    await searchEngine.useEndpoint(endpointWithTrailingSlash);
+    await page.pause();
+    await searchEngine.setQuery('game');
+    await searchEngine.submit();
+    await searchEngine.assertSearchResultCount(1);
+    await searchEngine.assertSearchResultVisible('Trailing slash');
+  });
 });

@@ -32,4 +32,8 @@ export class SearchEngine {
   async assertSearchResultVisible(expectedSearchResult: string) {
     await expect(this.page.getByText(expectedSearchResult)).toBeVisible();
   }
+
+  async useEndpoint(endpoint: '/api/search' | '/api/search/') {
+    await this.page.getByTestId('endpoint').selectOption(endpoint);
+  }
 }
