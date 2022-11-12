@@ -114,4 +114,34 @@ test.describe.parallel('query parameters', () => {
     await searchEngine.assertSearchResultCount(1);
     await searchEngine.assertSearchResultVisible('Trailing slash');
   });
+
+  test('should allow route parameters with a trailing slash and query parameters in the url', async ({
+    page,
+    worker,
+  }) => {
+    await worker.resetHandlers(
+      rest.get('/api/:potato/', (_, response, context) =>
+        response(
+          context.status(200),
+          context.json([
+            {
+              title: 'Trailing slash and route parameters',
+              href: 'https://fake.domain.com/',
+              category: 'books',
+            },
+          ])
+        )
+      )
+    );
+
+    await page.goto('/search');
+    const searchEngine = new SearchEngine(page);
+    await searchEngine.useEndpoint('/api/search/');
+    await searchEngine.setQuery('game');
+    await searchEngine.submit();
+    await searchEngine.assertSearchResultCount(1);
+    await searchEngine.assertSearchResultVisible(
+      'Trailing slash and route parameters'
+    );
+  });
 });
