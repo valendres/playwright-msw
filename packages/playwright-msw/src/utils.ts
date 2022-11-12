@@ -54,13 +54,13 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
       path
         // Strip query parameters
         .replace(/\?.*$/, '')
-        // Replace `:whatever` with multi-char wildcard that wont match "/"
+        // Replace route parameters (`:whatever`) with multi-char wildcard
         .replace(/:[^/]+(\/|\?)?/g, '[^/]+$1'),
       // Add optional trailing slash
       '\\/?',
       // Add optional query parameters
       '(\\?.*)?',
-      // Anchor to end of screen
+      // Anchor to end of string
       '$',
     ].join('')
   );
