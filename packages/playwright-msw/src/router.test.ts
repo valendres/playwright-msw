@@ -18,7 +18,9 @@ const getRouteHandlerForPath = (
   const possibleRouteHandler = jest
     .mocked(page.route)
     .mock.calls.find(
-      ([routePath]) => routePath === convertMswPathToPlaywrightUrl(targetPath)
+      ([routePath]) =>
+        routePath instanceof RegExp &&
+        routePath.source === convertMswPathToPlaywrightUrl(targetPath).source
     )?.[1] as RouteHandler;
   return possibleRouteHandler ?? null;
 };

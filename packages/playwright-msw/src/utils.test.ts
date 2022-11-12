@@ -126,7 +126,6 @@ describe('utils', () => {
       ${'http://www.google.com.au/:something/'}                 | ${'http://www.google.com.au/search/?q=potato'}           | ${true}
     `('$expected: "$path" should match "$url"', ({ path, url, expected }) => {
       const regex = convertMswPathToPlaywrightUrl(path);
-      console.log(regex);
       expect(regex.test(url)).toBe(expected);
     });
   });
