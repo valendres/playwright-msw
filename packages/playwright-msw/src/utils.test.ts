@@ -81,58 +81,53 @@ describe('utils', () => {
   });
 
   describe('convertMswPathToPlaywrightUrl', () => {
-    it.each([
-      [
-        'should return a regex without modifying it',
-        {
-          path: /^\/api\/.*/,
-          expected: /^\/api\/.*/,
-        },
-      ],
-      [
-        'should replace a single route parameter with a wildcard if provided',
-        {
-          path: '/users/:userId',
-          expected: '/users/*',
-        },
-      ],
-      [
-        'should return path with wildcard on the end even if there are no route parameters',
-        {
-          path: '/users/123',
-          expected: '/users/123*',
-        },
-      ],
-      [
-        'should replace multiple sequential route parameters if provided',
-        {
-          path: '/users/:userId/:something',
-          expected: '/users/*/*',
-        },
-      ],
-      [
-        'should replace multiple disjointed route parameters if provided',
-        {
-          path: '/users/:userId/photos/:photoId',
-          expected: '/users/*/photos/*',
-        },
-      ],
-      [
-        'should drop query parameters',
-        {
-          path: '/users/:userId/photos/:photoId?potato=123',
-          expected: '/users/*/photos/*',
-        },
-      ],
-      [
-        'should add a wildcard on the end so that query parameters can be matched',
-        {
-          path: '/api/v1/documents/?potato=123',
-          expected: '/api/v1/documents/*',
-        },
-      ],
-    ])('%s', (_, { path, expected }) => {
-      expect(convertMswPathToPlaywrightUrl(path)).toStrictEqual(expected);
+    it.each<{ path: string; url: string; expected: boolean }>`
+      path                                                      | url                                                      | expected
+      ${'/graphql'}                                             | ${'/graphql'}                                            | ${true}
+      ${'/graphql'}                                             | ${'/graphql?query=GetSettings'}                          | ${true}
+      ${'/user/:id'}                                            | ${'/user/1'}                                             | ${true}
+      ${'/user/:id'}                                            | ${'/user/1?foo=bar'}                                     | ${true}
+      ${'/user/:id'}                                            | ${'/user/1/'}                                            | ${true}
+      ${'/user/:id'}                                            | ${'/user/1/?foo=bar'}                                    | ${true}
+      ${'/user/:id/friends/:friendId'}                          | ${'/user/1/friends/52'}                                  | ${true}
+      ${'/user/:id/friends/:friendId'}                          | ${'/user/1/friends/52?foo=bar'}                          | ${true}
+      ${'/user/:id/friends/:friendId?foo=bar'}                  | ${'/user/1/friends/52'}                                  | ${true}
+      ${'/user/:id/friends/:friendId/'}                         | ${'/user/1/friends/52/'}                                 | ${true}
+      ${'/user/:id/friends/:friendId/'}                         | ${'/user/1/friends/52/?foo=bar'}                         | ${true}
+      ${'/user/:id/friends/:friendId/?foo=bar'}                 | ${'/user/1/friends/52/'}                                 | ${true}
+      ${'/user/:id'}                                            | ${'/user/1/somethingElse'}                               | ${false}
+      ${'/user/:id'}                                            | ${'/user/1/somethingElse?foo=bar'}                       | ${false}
+      ${'/user/:id'}                                            | ${'/potato/user/1/somethingElse?foo=bar'}                | ${false}
+      ${'/user/:id'}                                            | ${'/potato/user/1/somethingElse'}                        | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1'}                      | ${true}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1?foo=bar'}              | ${true}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1/'}                     | ${true}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1/?foo=bar'}             | ${true}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/potato/user/1'}               | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/potato/user/1?foo=bar'}       | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/potato/user/1/'}              | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1/potato/?foo=bar'}      | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1/potato'}               | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1/potato?foo=bar'}       | ${false}
+      ${'/user/:id'}                                            | ${'https://fake.domain.com/user/1/potato/'}              | ${false}
+      ${'https://www.google.com.au/potato'}                     | ${'https://www.google.com.au/search?q=potato'}           | ${false}
+      ${'https://www.google.com.au/search'}                     | ${'https://www.google.com.au/search?q=potato'}           | ${true}
+      ${'https://www.google.com.au/search?foo=bar'}             | ${'https://www.google.com.au/search?q=potato'}           | ${true}
+      ${'https://www.google.com.au/:something'}                 | ${'https://www.google.com.au/search?q=potato'}           | ${true}
+      ${'https://www.google.com.au/:something/'}                | ${'https://www.google.com.au/search/?q=potato'}          | ${true}
+      ${'https://www.google.com.au/:something/?foo=bar'}        | ${'https://www.google.com.au/search/?q=potato'}          | ${true}
+      ${'https://www.google.com.au/:potato/:eggplant'}          | ${'https://www.google.com.au/search/something'}          | ${true}
+      ${'https://www.google.com.au/:potato/:eggplant'}          | ${'https://www.google.com.au/search/something?foo=bar'}  | ${true}
+      ${'https://www.google.com.au/:potato/:eggplant/'}         | ${'https://www.google.com.au/search/something/'}         | ${true}
+      ${'https://www.google.com.au/:potato/:eggplant/'}         | ${'https://www.google.com.au/search/something/?foo=bar'} | ${true}
+      ${'https://www.google.com.au/:potato/:eggplant?foo=bar'}  | ${'https://www.google.com.au/search/something'}          | ${true}
+      ${'https://www.google.com.au/:potato/:eggplant/?foo=bar'} | ${'https://www.google.com.au/search/something/'}         | ${true}
+      ${'https://www.google.com.au/search'}                     | ${'https://different.domain/search'}                     | ${false}
+      ${'http://www.google.com.au/:something/'}                 | ${'http://www.google.com.au/search/?q=potato'}           | ${true}
+    `('$expected: "$path" should match "$url"', ({ path, url, expected }) => {
+      const regex = convertMswPathToPlaywrightUrl(path);
+      console.log(regex);
+      expect(regex.test(url)).toBe(expected);
     });
   });
 });
