@@ -37,12 +37,31 @@ export const getHandlerPath = (
   return (<RestHandler>handler).info.path;
 };
 
-export const convertMswPathToPlaywrightUrl = (path: Path): string | RegExp => {
+export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
+  // If already a regex, just return straight away
   if (path instanceof RegExp) {
     return path;
   }
-  const transformedPath = path.replace(/\/:[^/]+/g, '/*').replace(/\?.+/, '');
-  return transformedPath.endsWith('*')
-    ? transformedPath
-    : `${transformedPath}*`;
+
+  const originRegex = /(\w+:\/\/[^/]+)/u;
+  return new RegExp(
+    [
+      // Anchor to start of string
+      '^',
+      // Add optional origin if path is a relative url
+      originRegex.test(path) ? '' : `${originRegex.source}?`,
+      // Mutate provided path
+      path
+        // Strip query parameters
+        .replace(/\?.*$/, '')
+        // Replace route parameters (`:whatever`) with multi-char wildcard
+        .replace(/:[^/]+(\/|\?)?/g, '[^/]+$1'),
+      // Add optional trailing slash
+      '\\/?',
+      // Add optional query parameters
+      '(\\?.*)?',
+      // Anchor to end of string
+      '$',
+    ].join('')
+  );
 };
