@@ -7,7 +7,8 @@
     "preview": "vite preview",
     "start": "vite",
     "test": "yarn playwright test",
-    "test:report": "yarn playwright show-report tests/playwright/report"
+    "test:report": "yarn playwright show-report tests/playwright/report",
+    "install:browsers": "yarn playwright install-deps"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
