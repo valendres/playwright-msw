@@ -2,6 +2,13 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [2.0.2](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.1...playwright-msw@2.0.2) "playwright-msw" (2022-12-08)<a name="2.0.2"></a>
+
+### Bug Fixes
+
+- **api**: createWorker is not exported (#43) ([8d6c5da](https://github.com/valendres/playwright-msw/commits/8d6c5da))
+- paths with trailing slash and route/query params not being matched (#41) ([bc08acb](https://github.com/valendres/playwright-msw/commits/bc08acb))
+
 ## [2.0.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.0...playwright-msw@2.0.1) "playwright-msw" (2022-11-11)<a name="2.0.1"></a>
 
 ### Bug Fixes
