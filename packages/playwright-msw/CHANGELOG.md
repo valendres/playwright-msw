@@ -2,6 +2,15 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [2.1.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.2...playwright-msw@2.1.0) "playwright-msw" (2022-12-08)<a name="2.1.0"></a>
+
+### Features
+
+* add support for mocking cross-origin requests (#44) ([6d24ecc](https://github.com/valendres/playwright-msw/commits/6d24ecc))
+
+
+
+
 ## [2.0.2](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.1...playwright-msw@2.0.2) "playwright-msw" (2022-12-08)<a name="2.0.2"></a>
 
 ### Bug Fixes
