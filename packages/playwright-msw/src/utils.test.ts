@@ -81,8 +81,8 @@ describe('utils', () => {
   });
 
   describe('convertMswPathToPlaywrightUrl', () => {
-    it.each<{ path: string; url: string; expected: boolean }>`
-      path                                                      | url                                                      | expected
+    it.each<{ mswPath: string; playwrightUrl: string; expected: boolean }>`
+      mswPath                                                   | playwrightUrl                                            | expected
       ${'/graphql'}                                             | ${'/graphql'}                                            | ${true}
       ${'/graphql'}                                             | ${'/graphql?query=GetSettings'}                          | ${true}
       ${'/user/:id'}                                            | ${'/user/1'}                                             | ${true}
@@ -124,9 +124,15 @@ describe('utils', () => {
       ${'https://www.google.com.au/:potato/:eggplant/?foo=bar'} | ${'https://www.google.com.au/search/something/'}         | ${true}
       ${'https://www.google.com.au/search'}                     | ${'https://different.domain/search'}                     | ${false}
       ${'http://www.google.com.au/:something/'}                 | ${'http://www.google.com.au/search/?q=potato'}           | ${true}
-    `('$expected: "$path" should match "$url"', ({ path, url, expected }) => {
-      const regex = convertMswPathToPlaywrightUrl(path);
-      expect(regex.test(url)).toBe(expected);
-    });
+      ${'*/api/users'}                                          | ${'http://localhost:8080/api/users'}                     | ${true}
+      ${'http://localhost:8080/api/users'}                      | ${'http://localhost:8080/api/users'}                     | ${true}
+      ${'http://localhost:8081/api/users'}                      | ${'http://localhost:8080/api/users'}                     | ${false}
+    `(
+      '$expected: "$mswPath" should match "$playwrightUrl"',
+      ({ mswPath, playwrightUrl, expected }) => {
+        const regex = convertMswPathToPlaywrightUrl(mswPath);
+        expect(regex.test(playwrightUrl)).toBe(expected);
+      }
+    );
   });
 });

@@ -75,6 +75,9 @@ export const Search: FC = () => {
       >
         <option value="/api/search">/api/search</option>
         <option value="/api/search/">/api/search/</option>
+        <option value="http://localhost:8080/api/search">
+          http://localhost:8080/api/search
+        </option>
       </select>
       <h1>Search engine</h1>
       <form onSubmit={handleFormChange}>

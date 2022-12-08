@@ -43,19 +43,19 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
     return path;
   }
 
-  const originRegex = /(\w+:\/\/[^/]+)/u;
+  // Deconstruct path
+  const { origin, pathname } =
+    path.match(
+      /^(?<origin>\*|\w+:\/\/[^/]+)?(?<pathname>[^?]+)(?<search>\?.*)?/
+    )?.groups ?? {};
+
+  // Rebuild it as a RegExp
   return new RegExp(
     [
-      // Anchor to start of string
       '^',
-      // Add optional origin if path is a relative url
-      originRegex.test(path) ? '' : `${originRegex.source}?`,
-      // Mutate provided path
-      path
-        // Strip query parameters
-        .replace(/\?.*$/, '')
-        // Replace route parameters (`:whatever`) with multi-char wildcard
-        .replace(/:[^/]+(\/|\?)?/g, '[^/]+$1'),
+      origin === '*' ? '.*' : origin ?? '(\\w+://[^/]+)?',
+      // Replace route parameters (`:whatever`) with multi-char wildcard
+      pathname.replace(/:[^/]+/g, '[^/]+'),
       // Add optional trailing slash
       '\\/?',
       // Add optional query parameters

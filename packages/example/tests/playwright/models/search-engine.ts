@@ -33,7 +33,12 @@ export class SearchEngine {
     await expect(this.page.getByText(expectedSearchResult)).toBeVisible();
   }
 
-  async useEndpoint(endpoint: '/api/search' | '/api/search/') {
+  async useEndpoint(
+    endpoint:
+      | '/api/search'
+      | '/api/search/'
+      | 'http://localhost:8080/api/search'
+  ) {
     await this.page.getByTestId('endpoint').selectOption(endpoint);
   }
 }
