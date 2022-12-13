@@ -4,15 +4,17 @@ import { Page, Route, Request } from '@playwright/test';
 import { RouteUrl, RouteHandler } from '../src/router';
 
 export const mockPage = (overrides: Partial<Page> = {}): Page => {
-  const page: Partial<Page> = {
+  const page: Partial<Page> = {};
+  Object.assign(page, {
     route: jest
       .fn<(url: RouteUrl, handler: RouteHandler) => Promise<void>>()
       .mockResolvedValue(undefined),
     unroute: jest
       .fn<(url: RouteUrl, handler: RouteHandler) => Promise<void>>()
       .mockResolvedValue(undefined),
+    on: jest.fn().mockReturnValue(page),
     ...overrides,
-  };
+  });
   return page as Page;
 };
 

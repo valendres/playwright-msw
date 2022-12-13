@@ -144,9 +144,10 @@ Refer to the [Getting Started: Create a the worker fixture](#create-a-the-worker
 
 The `createWorkerFixture` function supports an optional configuration object with the following parameters:
 
-| key        | required | default    | description                                          |
-| ---------- | -------- | ---------- | ---------------------------------------------------- |
-| graphqlUrl | false    | `/graphql` | The URL of the GraphQL endpoint to send requests to. |
+| key                 | required | default      | description                                                                                          |
+| ------------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| graphqlUrl          | false    | `"/graphql"` | The URL of the GraphQL endpoint to send requests to.                                                 |
+| skipInitialRequests | false    | `false`      | Skips mocking initial page requests, i.e. static asset calls that happen before the page has loaded. |
 
 ### `createWorker`
 
