@@ -143,7 +143,7 @@ export class Router {
 
   private async registerPlaywrightRoute(path: Path): Promise<RouteHandler> {
     const routeHandler: RouteHandler = (route: Route) => {
-      if (this.config.skipInitialRequests && !this.isPageLoaded) {
+      if (this.config.waitForPageLoad && !this.isPageLoaded) {
         return route.continue();
       }
       const requestHandlers = this.getRouteData(path)?.requestHandlers ?? [];

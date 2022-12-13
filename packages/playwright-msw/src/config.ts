@@ -7,7 +7,10 @@ export type Config = {
   graphqlUrl?: string;
 
   /**
-   * Skips mocking initial page requests, i.e. static asset calls that happen before the page has loaded.
+   * Waits for the page to load before mocking API calls. When enabled, it allows `playwright-msw`
+   * to mirror the behaviour of `msw` when it is running in the browser, where the initial static
+   * resource requests will not be mocked because `msw` will have only been initialized until
+   * after page load.
    */
-  skipInitialRequests?: boolean;
+  waitForPageLoad?: boolean;
 };

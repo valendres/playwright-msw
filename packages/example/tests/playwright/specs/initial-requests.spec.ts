@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { testFactory, expect } from '../test';
 
 const test = testFactory({
-  skipInitialRequests: true,
+  waitForPageLoad: true,
 });
 
 test.describe('skip initial requests set to true', () => {
