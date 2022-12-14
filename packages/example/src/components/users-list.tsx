@@ -17,6 +17,7 @@ export const UsersList: FC<UsersListProps> = () => {
 
   return (
     <div data-testid="users-list">
+      <h1>Users</h1>
       {isError ? (
         <span>Failed to load users</span>
       ) : users ? (
