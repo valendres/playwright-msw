@@ -144,9 +144,12 @@ Refer to the [Getting Started: Create a the worker fixture](#create-a-the-worker
 
 The `createWorkerFixture` function supports an optional configuration object with the following parameters:
 
-| key        | required | default    | description                                          |
-| ---------- | -------- | ---------- | ---------------------------------------------------- |
-| graphqlUrl | false    | `/graphql` | The URL of the GraphQL endpoint to send requests to. |
+| key             | required | default      | description                                                                                                                                                                                                                                                                                          |
+| --------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| graphqlUrl      | false    | `"/graphql"` | The URL of the GraphQL endpoint to send requests to.                                                                                                                                                                                                                                                 |
+| waitForPageLoad | false    | `true`       | Waits for the page to load before mocking API calls. When enabled, it allows `playwright-msw` to mirror the behaviour of `msw` when it is running in the browser, where the initial static resource requests will not be mocked because `msw` will have only been initialized until after page load. |
+
+When enabled, it allows `playwright-msw` to emulate the behavior of `msw` when running in the browser, i.e. initialize after page load |
 
 ### `createWorker`
 

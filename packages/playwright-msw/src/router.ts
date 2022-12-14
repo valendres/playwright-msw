@@ -8,12 +8,8 @@ import {
   SerializedPath,
   convertMswPathToPlaywrightUrl,
 } from './utils';
+import { Config, DEFAULT_CONFIG } from './config';
 import { handleRoute } from './handler';
-import { Config } from './config';
-
-const DEFAULT_CONFIG: Config = {
-  graphqlUrl: '/graphql',
-};
 
 export type RouteHandler = (route: Route, request: Request) => void;
 
@@ -29,6 +25,7 @@ export class Router {
   private initialRequestHandlers: RequestHandler[];
   private routes: Record<SerializedPath, RouteData> = {};
   private isStarted = false;
+  private isPageLoaded = false;
 
   public constructor(
     page: Page,
@@ -48,6 +45,11 @@ export class Router {
     for (const initialHandler of this.initialRequestHandlers) {
       await this.registerMswHandler(initialHandler);
     }
+
+    this.page.on('load', () => {
+      this.isPageLoaded = true;
+    });
+
     this.isStarted = true;
   }
 
@@ -137,8 +139,11 @@ export class Router {
 
   private async registerPlaywrightRoute(path: Path): Promise<RouteHandler> {
     const routeHandler: RouteHandler = (route: Route) => {
+      if (this.config.waitForPageLoad && !this.isPageLoaded) {
+        return route.continue();
+      }
       const requestHandlers = this.getRouteData(path)?.requestHandlers ?? [];
-      handleRoute(route, requestHandlers);
+      return handleRoute(route, requestHandlers);
     };
     await this.page.route(convertMswPathToPlaywrightUrl(path), routeHandler);
     return routeHandler;

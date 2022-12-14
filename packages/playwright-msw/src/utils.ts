@@ -65,3 +65,9 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
     ].join('')
   );
 };
+
+export const wait = (delay: number): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+};
