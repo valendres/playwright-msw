@@ -11,6 +11,8 @@ import {
 import { Config, DEFAULT_CONFIG } from './config';
 import { handleRoute } from './handler';
 
+export type RouteUrl = string | RegExp;
+
 export type RouteHandler = (route: Route, request: Request) => void;
 
 export type RouteData = {
