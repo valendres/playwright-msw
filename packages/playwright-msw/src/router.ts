@@ -8,12 +8,8 @@ import {
   SerializedPath,
   convertMswPathToPlaywrightUrl,
 } from './utils';
-import { Config } from './config';
+import { Config, DEFAULT_CONFIG } from './config';
 import { handleRoute } from './handler';
-
-const DEFAULT_CONFIG: Config = {
-  graphqlUrl: '/graphql',
-};
 
 export type RouteHandler = (route: Route, request: Request) => void;
 

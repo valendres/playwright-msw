@@ -14,3 +14,8 @@ export type Config = {
    */
   waitForPageLoad?: boolean;
 };
+
+export const DEFAULT_CONFIG: Config = {
+  graphqlUrl: '/graphql',
+  waitForPageLoad: true,
+};
