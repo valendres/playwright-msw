@@ -56,10 +56,7 @@ test.describe.parallel('delay', () => {
       )
     );
 
-    await page.goto('/users');
-
-    // wait a little bit just to make sure DOM has had time to update
-    await page.waitForTimeout(10);
+    await page.goto('/users', { waitUntil: 'networkidle' });
     await expect(page.locator('text="Instant Response"')).toBeVisible({
       timeout: 0,
     });
