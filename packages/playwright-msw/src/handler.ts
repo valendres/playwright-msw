@@ -2,6 +2,7 @@ import type { Route } from '@playwright/test';
 import type { MockedResponse, RequestHandler } from 'msw';
 import { handleRequest, MockedRequest } from 'msw';
 import EventEmitter from 'events';
+import { wait } from './utils';
 
 const emitter = new EventEmitter();
 
@@ -18,8 +19,17 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
     body: postData ? Buffer.from(postData) : undefined,
   });
 
-  const handleMockResponse = ({ status, headers, body }: MockedResponse) => {
-    route.fulfill({
+  const handleMockResponse = async ({
+    status,
+    headers,
+    body,
+    delay,
+  }: MockedResponse) => {
+    if (delay) {
+      await wait(delay);
+    }
+
+    return route.fulfill({
       status,
       body: body ?? undefined,
       contentType: headers.get('content-type') ?? undefined,
