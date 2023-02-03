@@ -4405,12 +4405,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@playwright/test", [\
-        ["npm:1.28.1", {\
-          "packageLocation": "./.yarn/unplugged/@playwright-test-npm-1.28.1-b090e47146/node_modules/@playwright/test/",\
+        ["npm:1.30.0", {\
+          "packageLocation": "./.yarn/unplugged/@playwright-test-npm-1.30.0-79845750cc/node_modules/@playwright/test/",\
           "packageDependencies": [\
-            ["@playwright/test", "npm:1.28.1"],\
+            ["@playwright/test", "npm:1.30.0"],\
             ["@types/node", "npm:18.8.2"],\
-            ["playwright-core", "npm:1.28.1"]\
+            ["playwright-core", "npm:1.30.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8164,7 +8164,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["example", "workspace:packages/example"],\
             ["@apollo/client", "virtual:0f582dce106adea8a36c1b47cdf139a9f3b829e6f9f0e7abe55d280edb02ebeb0346b97ace0f022e744e8d1d612628f6a3678aa1f9693c8d73c63fcb9908fd80#npm:3.7.2"],\
-            ["@playwright/test", "npm:1.28.1"],\
+            ["@playwright/test", "npm:1.30.0"],\
             ["@types/node", "npm:18.11.15"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.9"],\
@@ -11632,10 +11632,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["playwright-core", [\
-        ["npm:1.28.1", {\
-          "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.28.1-ec5428623a/node_modules/playwright-core/",\
+        ["npm:1.30.0", {\
+          "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.30.0-ed7c04af76/node_modules/playwright-core/",\
           "packageDependencies": [\
-            ["playwright-core", "npm:1.28.1"]\
+            ["playwright-core", "npm:1.30.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11650,7 +11650,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-typescript", "virtual:81e84f57fa8e967b3b162703e5057cdac08d6fffa1494a9d35b8fc215cf3d85e02ae2c97381db7e842e5dd28fe17db1e7247bffe7defa04ca59fdc3a8493212b#npm:7.18.6"],\
             ["@jest/globals", "npm:29.3.1"],\
             ["@mswjs/cookies", "npm:0.2.2"],\
-            ["@playwright/test", "npm:1.28.1"],\
+            ["@playwright/test", "npm:1.30.0"],\
             ["@types/babel__core", "npm:7.1.20"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
             ["@types/jest", "npm:29.2.4"],\
@@ -11681,7 +11681,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-typescript", "virtual:81e84f57fa8e967b3b162703e5057cdac08d6fffa1494a9d35b8fc215cf3d85e02ae2c97381db7e842e5dd28fe17db1e7247bffe7defa04ca59fdc3a8493212b#npm:7.18.6"],\
             ["@jest/globals", "npm:29.3.1"],\
             ["@mswjs/cookies", "npm:0.2.2"],\
-            ["@playwright/test", "npm:1.28.1"],\
+            ["@playwright/test", "npm:1.30.0"],\
             ["@types/babel__core", "npm:7.1.20"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
             ["@types/jest", "npm:29.2.4"],\
