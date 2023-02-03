@@ -81,7 +81,7 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
       ).toBeVisible();
 
       // Add arbitrary delay
-      await page.waitForTimeout(200);
+      await page.waitForTimeout(2000);
 
       const searchEngine = new SearchEngine(page);
       await searchEngine.setQuery('eggplant');

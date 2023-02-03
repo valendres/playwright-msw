@@ -1,5 +1,5 @@
 import { SearchEngine } from '../models/search-engine';
-import { test, expect } from '../test';
+import { test } from '../test';
 import { rest } from 'msw';
 
 test.describe.parallel('cross-origin mocking', () => {

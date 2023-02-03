@@ -11,7 +11,7 @@
     "build": "yarn workspaces foreach run build",
     "deploy": "monodeploy --config-file  monodeploy.config.js",
     "format": "prettier --write .",
-    "lint": "eslint \"**/src/**/*\"",
+    "lint": "eslint \"**/{src,tests}/**/*\"",
     "test": "yarn workspaces foreach run test",
     "postinstall": "husky install"
   },

@@ -43,9 +43,7 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
       // Reverse array so that handlers that were most recently appended are processed first
       handlers.slice().reverse(),
       {
-        onUnhandledRequest: () => {
-          route.continue();
-        },
+        onUnhandledRequest: () => route.continue(),
       },
       emitter,
       {
@@ -62,6 +60,6 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
       }
     );
   } catch {
-    route.abort('error');
+    await route.abort('error');
   }
 };

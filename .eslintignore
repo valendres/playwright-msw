@@ -10,6 +10,7 @@ monodeploy.config.js
 **/.gitkeep
 **/*.css
 **/*.html
+**/*.json
 **/*.md
 **/*.svg
 **/*.yml

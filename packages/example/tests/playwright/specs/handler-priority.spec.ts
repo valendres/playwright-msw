@@ -28,7 +28,7 @@ test.describe.parallel('handler priority', () => {
     page,
     worker,
   }) => {
-    worker.use(
+    await worker.use(
       rest.get('/api/documents/secret', (request, response, context) =>
         response(
           context.status(200),
@@ -68,7 +68,7 @@ test.describe.parallel('handler priority', () => {
     page,
     worker,
   }) => {
-    worker.resetHandlers(
+    await worker.resetHandlers(
       rest.get('/api/documents/test', (request, response, context) =>
         response(
           context.status(200),

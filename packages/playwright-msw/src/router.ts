@@ -154,7 +154,7 @@ export class Router {
   private async unregisterPlaywrightRoute(path: Path): Promise<void> {
     const data = this.getRouteData(path);
     if (data) {
-      this.page.unroute(
+      await this.page.unroute(
         convertMswPathToPlaywrightUrl(data.path),
         data.routeHandler
       );
