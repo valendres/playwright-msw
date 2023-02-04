@@ -87,9 +87,7 @@ export const LoginForm: FC = () => {
       loginMutation.mutate(
         getLoginFormValues(event.target as HTMLFormElement),
         {
-          onSuccess: () => {
-            sessionQuery.refetch();
-          },
+          onSuccess: () => sessionQuery.refetch(),
         }
       );
     },
@@ -99,9 +97,7 @@ export const LoginForm: FC = () => {
   const handleLogoutButtonPress = useCallback(() => {
     if (loginMutation.isIdle) {
       logoutMutation.mutate(undefined, {
-        onSuccess: () => {
-          sessionQuery.refetch();
-        },
+        onSuccess: () => sessionQuery.refetch(),
       });
     }
   }, [logoutMutation.mutate]);

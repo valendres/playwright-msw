@@ -23,7 +23,7 @@ async function prepare() {
   }
 }
 
-prepare().then(() => {
+void prepare().then(() => {
   const rootElement = document.getElementById('root');
   if (rootElement) {
     createRoot(rootElement).render(

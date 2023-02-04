@@ -46,7 +46,7 @@ describe('worker', () => {
   it('should proxy the "resetHandlers" function to the router', async () => {
     const page = mockPage();
     const worker = await createWorker(page);
-    worker.resetHandlers();
+    await worker.resetHandlers();
     expect(Router.prototype.resetHandlers).toBeCalledTimes(1);
     expect(Router.prototype.resetHandlers).toBeCalledWith();
   });

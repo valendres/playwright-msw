@@ -9,7 +9,7 @@ test.describe.parallel('delay', () => {
     await worker.use(
       rest.get('/api/users', (_, response, context) =>
         response(
-          context.delay(500),
+          context.delay(5000),
           context.json([
             {
               id: 'fake',
@@ -23,16 +23,16 @@ test.describe.parallel('delay', () => {
 
     await page.goto('/users');
 
-    // Assert that loading text is still visible at 200ms
-    await page.waitForTimeout(200);
+    // Assert that loading text is still visible at 2000ms
+    await page.waitForTimeout(2000);
     await expect(page.locator('text="Loading..."')).toBeVisible({ timeout: 0 });
 
-    // Assert that loading text is still visible at 400ms
-    await page.waitForTimeout(200);
+    // Assert that loading text is still visible at 4000ms
+    await page.waitForTimeout(2000);
     await expect(page.locator('text="Loading..."')).toBeVisible({ timeout: 0 });
 
-    // Assert that the query has resolved by the 600ms mark (> 500ms delay)
-    await page.waitForTimeout(200);
+    // Assert that the query has resolved by the 6000ms mark (> 5000ms delay)
+    await page.waitForTimeout(2000);
     await expect(page.locator('text="Delayed Response"')).toBeVisible({
       timeout: 0,
     });

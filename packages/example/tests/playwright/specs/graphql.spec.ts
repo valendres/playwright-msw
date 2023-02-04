@@ -25,7 +25,7 @@ test.describe.parallel('GraphQL example: user settings', () => {
     await page.goto('/settings');
 
     const settingsForm = new SettingsForm(page);
-    settingsForm.assertError(SettingsForm.Error.QueryFailed);
+    await settingsForm.assertError(SettingsForm.Error.QueryFailed);
   });
 
   test('should utilize the initial GraphQL mutation mocks without any overrides being specified', async ({
@@ -53,6 +53,6 @@ test.describe.parallel('GraphQL example: user settings', () => {
     const settingsForm = new SettingsForm(page);
     await settingsForm.setNotificationsEnabled(false);
     await settingsForm.submit();
-    settingsForm.assertError(SettingsForm.Error.MutationFailed);
+    await settingsForm.assertError(SettingsForm.Error.MutationFailed);
   });
 });

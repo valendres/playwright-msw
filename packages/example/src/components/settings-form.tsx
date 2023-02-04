@@ -39,7 +39,7 @@ export const SettingsForm: FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleFormSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    settingsMutation({
+    void settingsMutation({
       variables: {
         enableNotifications: false,
         profileVisibility: 'public',
