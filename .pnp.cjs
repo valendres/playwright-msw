@@ -10341,13 +10341,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["json5", "npm:2.2.3"]\
           ],\
           "linkType": "HARD"\
-        }],\
-        ["npm:2.2.3", {\
-          "packageLocation": "./.yarn/cache/json5-npm-2.2.3-9962c55073-2a7436a933.zip/node_modules/json5/",\
-          "packageDependencies": [\
-            ["json5", "npm:2.2.3"]\
-          ],\
-          "linkType": "HARD"\
         }]\
       ]],\
       ["jsonfile", [\
