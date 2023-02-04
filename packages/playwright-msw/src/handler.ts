@@ -1,10 +1,10 @@
 import type { Route } from '@playwright/test';
 import type { MockedResponse, RequestHandler } from 'msw';
 import { handleRequest, MockedRequest } from 'msw';
-import EventEmitter from 'events';
+import { Emitter, EventMap } from 'strict-event-emitter';
 import { wait } from './utils';
 
-const emitter = new EventEmitter();
+const emitter = new Emitter<EventMap>();
 
 export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   const request = route.request();
