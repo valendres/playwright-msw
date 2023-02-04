@@ -11,18 +11,14 @@ import { successResolver } from '../mocks/msw';
 import { Page } from '@playwright/test';
 import { convertMswPathToPlaywrightUrl } from './utils';
 
-const getRouteHandlerForPath = (
-  targetPath: Path,
-  page: Page
-): RouteHandler | null => {
-  const possibleRouteHandler = jest
+const getRouteHandlerForPath = (targetPath: Path, page: Page): RouteHandler => {
+  return jest
     .mocked(page.route)
     .mock.calls.find(
       ([routePath]) =>
         routePath instanceof RegExp &&
         routePath.source === convertMswPathToPlaywrightUrl(targetPath).source
     )?.[1] as RouteHandler;
-  return possibleRouteHandler ?? null;
 };
 
 describe('router', () => {
@@ -443,10 +439,11 @@ describe('router', () => {
         const requestHandlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
         const router = new Router(page, requestHandlers, {
-          graphqlUrl: null,
+          graphqlUrl: undefined,
         });
-        await expect(() => router.start()).rejects.toMatchObject({
-          message: /Missing "graphqlUrl"/,
+        await expect(() => router.start()).rejects.toThrowError({
+          message:
+            'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".',
         });
       });
 
@@ -505,7 +502,7 @@ describe('router', () => {
         const handlers = [graphql.query('GetUsers', successResolver)];
         const page = mockPage();
         const router = new Router(page, [], {
-          graphqlUrl: null,
+          graphqlUrl: undefined,
         });
         await expect(() => router.use(...handlers)).rejects.toEqual(
           new Error(
