@@ -187,7 +187,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["convert-source-map", "npm:1.8.0"],\
             ["debug", "virtual:007f670de2e506a151fec572a83f2de9d546622ece352a4cf72e57296c0aa644478f43ac47fd07d8495ee7103d37c60645e444556d514defaeb66e67a086d21f#npm:4.3.4"],\
             ["gensync", "npm:1.0.0-beta.2"],\
-            ["json5", "npm:2.2.1"],\
+            ["json5", "npm:2.2.3"],\
             ["semver", "npm:6.3.0"]\
           ],\
           "linkType": "HARD"\
@@ -6900,7 +6900,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cacheable-request", "npm:7.0.2"],\
             ["clone-response", "npm:1.0.3"],\
             ["get-stream", "npm:5.2.0"],\
-            ["http-cache-semantics", "npm:4.1.0"],\
+            ["http-cache-semantics", "npm:4.1.1"],\
             ["keyv", "npm:4.5.0"],\
             ["lowercase-keys", "npm:2.0.0"],\
             ["normalize-url", "npm:6.1.0"],\
@@ -8966,10 +8966,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["http-cache-semantics", [\
-        ["npm:4.1.0", {\
-          "packageLocation": "./.yarn/cache/http-cache-semantics-npm-4.1.0-860520a31f-974de94a81.zip/node_modules/http-cache-semantics/",\
+        ["npm:4.1.1", {\
+          "packageLocation": "./.yarn/cache/http-cache-semantics-npm-4.1.1-1120131375-83ac0bc60b.zip/node_modules/http-cache-semantics/",\
           "packageDependencies": [\
-            ["http-cache-semantics", "npm:4.1.0"]\
+            ["http-cache-semantics", "npm:4.1.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -10335,10 +10335,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["json5", [\
-        ["npm:2.2.1", {\
-          "packageLocation": "./.yarn/cache/json5-npm-2.2.1-44675c859c-74b8a23b10.zip/node_modules/json5/",\
+        ["npm:2.2.3", {\
+          "packageLocation": "./.yarn/cache/json5-npm-2.2.3-9962c55073-2a7436a933.zip/node_modules/json5/",\
           "packageDependencies": [\
-            ["json5", "npm:2.2.1"]\
+            ["json5", "npm:2.2.3"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -10736,7 +10736,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["make-fetch-happen", "npm:10.2.1"],\
             ["agentkeepalive", "npm:4.2.1"],\
             ["cacache", "npm:16.1.3"],\
-            ["http-cache-semantics", "npm:4.1.0"],\
+            ["http-cache-semantics", "npm:4.1.1"],\
             ["http-proxy-agent", "npm:5.0.0"],\
             ["https-proxy-agent", "npm:5.0.1"],\
             ["is-lambda", "npm:1.0.1"],\
