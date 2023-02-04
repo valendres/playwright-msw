@@ -60,6 +60,6 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
       }
     );
   } catch {
-    await route.abort('error');
+    await route.abort();
   }
 };
