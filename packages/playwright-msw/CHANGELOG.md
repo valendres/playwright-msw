@@ -2,6 +2,24 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [2.2.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.1.0...playwright-msw@2.2.0) "playwright-msw" (2023-02-06)<a name="2.2.0"></a>
+
+### Bug Fixes
+
+* handler delay not being respected ([3d08816](https://github.com/valendres/playwright-msw/commits/3d08816))
+* handler delay not being respected (#49) ([3d08816](https://github.com/valendres/playwright-msw/commits/3d08816))
+* bypass initial page requests (#47) ([d1053b5](https://github.com/valendres/playwright-msw/commits/d1053b5))
+* unknown error code: "error" ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
+* compatibility issue issue with msw>=0.49.3 ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
+* unknown error code "error" when used with msw@0.49.3 (#57) ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
+
+### Features
+
+* allow initial api calls not to be mocked ([d1053b5](https://github.com/valendres/playwright-msw/commits/d1053b5))
+
+
+
+
 ## [2.1.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.2...playwright-msw@2.1.0) "playwright-msw" (2022-12-08)<a name="2.1.0"></a>
 
 ### Features
