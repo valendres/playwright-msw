@@ -38,7 +38,6 @@
     }
   },
   "resolutions": {
-    "strict-event-emitter": "0.2.0",
     "parse-url": "8.1.0"
   }
 }
