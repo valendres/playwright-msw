@@ -37,6 +37,7 @@ export class Router {
     this.page = page;
     this.initialRequestHandlers = (requestHandlers ?? []).slice().reverse();
     this.config = { ...DEFAULT_CONFIG, ...(config ?? {}) };
+    this.handleInitialRequest = this.handleInitialRequest.bind(this);
   }
 
   public async start(): Promise<void> {
@@ -48,9 +49,7 @@ export class Router {
       await this.registerMswHandler(initialHandler);
     }
 
-    this.page.on('load', () => {
-      this.isPageLoaded = true;
-    });
+    this.page.on('requestfinished', this.handleInitialRequest);
 
     this.isStarted = true;
   }
@@ -167,5 +166,10 @@ export class Router {
 
   private setRouteData(data: RouteData) {
     this.routes[serializePath(data.path)] = data;
+  }
+
+  private handleInitialRequest() {
+    this.isPageLoaded = true;
+    this.page.removeListener('requestfinished', this.handleInitialRequest);
   }
 }

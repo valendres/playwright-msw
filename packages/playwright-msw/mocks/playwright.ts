@@ -15,11 +15,12 @@ export const mockPage = (overrides: Partial<Page> = {}): Page => {
     on: jest
       .fn<(event: string, callback: () => void) => Page>()
       .mockImplementation((event, callback) => {
-        if (event === 'load') {
+        if (event === 'requestfinished') {
           callback();
         }
         return page;
       }),
+    removeListener: jest.fn(),
     ...overrides,
   });
   return page as Page;

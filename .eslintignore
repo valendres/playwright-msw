@@ -13,5 +13,6 @@ monodeploy.config.js
 **/*.json
 **/*.md
 **/*.svg
+**/*.vue
 **/*.yml
 **/*.zip
