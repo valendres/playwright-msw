@@ -30,7 +30,7 @@ const config: PlaywrightTestConfig = {
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run build-only && npm run preview',
+    command: 'yarn run build && yarn run preview',
     url: `http://localhost:${WEB_SERVER_PORT}`,
     timeout: 10000,
   },
