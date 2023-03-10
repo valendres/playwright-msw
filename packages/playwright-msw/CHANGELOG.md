@@ -2,6 +2,16 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [2.2.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.2.0...playwright-msw@2.2.1) "playwright-msw" (2023-03-10)<a name="2.2.1"></a>
+
+### Bug Fixes
+
+* vue compatibility ([3634be1](https://github.com/valendres/playwright-msw/commits/3634be1))
+* race condition which breaks compatibility with vue (#61) ([3634be1](https://github.com/valendres/playwright-msw/commits/3634be1))
+
+
+
+
 ## [2.2.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.1.0...playwright-msw@2.2.0) "playwright-msw" (2023-02-06)<a name="2.2.0"></a>
 
 ### Bug Fixes
