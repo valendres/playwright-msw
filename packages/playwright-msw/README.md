@@ -102,7 +102,7 @@ export { test, expect };
 
 ### Use the custom test fixture
 
-The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [demo.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/demo.spec.ts) file:
+The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [rest.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/rest.spec.ts) file:
 
 ```typescript
 import { rest } from 'msw';
