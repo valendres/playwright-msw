@@ -58,8 +58,8 @@ To get your changes merged, you'll need to follow these steps:
 
 The following commands can be executed from the root of the repo:
 
-- `yarn build`: builds the `playwright-msw` library and `example` app
+- `yarn build`: builds the `playwright-msw` library and `example-*` apps
 - `yarn deploy`: builds and deploys `playwright-msw` using [Monodeploy](https://github.com/tophat/monodeploy)
 - `yarn format`: runs [Prettier](https://prettier.io/) on all files within the repo
 - `yarn lint`: runs [ESLint](https://eslint.org/) on all files within the repo
-- `yarn test`: runs `playwright-msw` unit tests ([Jest](https://jestjs.io/)) and the `example` apps integration tests ([Playwright](https://playwright.dev/))
+- `yarn test`: runs `playwright-msw` unit tests ([Jest](https://jestjs.io/)) and the integration tests ([Playwright](https://playwright.dev/)) for each of the `example-*` apps

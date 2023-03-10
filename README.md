@@ -8,7 +8,10 @@ This README is just a brief overview of the repo, for detailed documentation abo
 
 ## Examples
 
-Additional examples of usage of this library can be found within the [example](./packages/example/README.md) app. This is a React SPA that utilises `playwright-msw` for its Playwright integration tests.
+The following example applications utilize `playwright-msw` to test MSW integration with Playwright.
+
+- [example](./packages/example/README.md): a React SPA
+- [example-vue](./packages/example-vue/README.md): a Vue3 SPA
 
 ## Contributing
 
