@@ -1,9 +1,16 @@
-import { FC, useCallback, FormEvent } from 'react';
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { FC, useCallback, FormEvent, useState } from 'react';
+import {
+  useQuery,
+  useMutation,
+  gql,
+  ApolloClient,
+  InMemoryCache,
+} from '@apollo/client';
 import {
   SettingsQueryData,
   SettingsMutationVariables,
 } from '../types/settings';
+import { ENDPOINT2 } from '../mocks/handlers/settings';
 
 const GET_SETTINGS = gql`
   query GetSettings {
@@ -29,12 +36,29 @@ const MUTATE_SETTINGS = gql`
   }
 `;
 
+const client2 = new ApolloClient({
+  uri: ENDPOINT2,
+  cache: new InMemoryCache(),
+});
+
 export const SettingsForm: FC = () => {
   const settingsQuery = useQuery<SettingsQueryData>(GET_SETTINGS);
+  const settingsQueryFromEndpoint2 = useQuery<SettingsQueryData>(GET_SETTINGS, {
+    client: client2,
+  });
   const [settingsMutation, settingsMutationMeta] = useMutation<
     null,
     SettingsMutationVariables
   >(MUTATE_SETTINGS);
+
+  const [usingEndpoint2, setUsingEndpoint2] = useState(false);
+
+  const settingsQueryResult = usingEndpoint2
+    ? settingsQueryFromEndpoint2
+    : settingsQuery;
+
+  // For creating a new instance with the newest defaultValue
+  const formKey = usingEndpoint2 ? 'endpoint2' : 'endpoint1';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleFormSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
@@ -49,19 +73,31 @@ export const SettingsForm: FC = () => {
   return (
     <div>
       <h1>Settings</h1>
-      {settingsQuery.loading ? (
+      <div style={{ marginBottom: 20 }}>
+        <label htmlFor="useEndpoint2">Use Endpoint 2</label>
+        <input
+          type="checkbox"
+          id="useEndpoint2"
+          name="useEndpoint2"
+          checked={usingEndpoint2}
+          onChange={() => setUsingEndpoint2(!usingEndpoint2)}
+        />
+      </div>
+      {settingsQueryResult.loading ? (
         'Loading...'
-      ) : settingsQuery.error ? (
+      ) : settingsQueryResult.error ? (
         <div>Failed to load settings</div>
       ) : (
-        <form onSubmit={handleFormSubmit}>
+        <form key={formKey} onSubmit={handleFormSubmit}>
           <div>
             <label htmlFor="enableNotifications">Notifications</label>
             <input
               type="checkbox"
               id="enableNotifications"
               name="enableNotifications"
-              defaultChecked={settingsQuery.data?.settings.enableNotifications}
+              defaultChecked={
+                settingsQueryResult.data?.settings.enableNotifications
+              }
             />
           </div>
           <div>
@@ -69,7 +105,9 @@ export const SettingsForm: FC = () => {
             <select
               id="profileVisibility"
               name="profileVisibility"
-              defaultValue={settingsQuery.data?.settings.profileVisibility}
+              defaultValue={
+                settingsQueryResult.data?.settings.profileVisibility
+              }
             >
               <option value="public">Public</option>
               <option value="private">Private</option>

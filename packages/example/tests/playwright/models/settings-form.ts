@@ -18,6 +18,10 @@ export class SettingsForm {
     await this.page.getByRole('button', { name: 'Update' }).click();
   }
 
+  async setUseEndpoint2(checked: boolean) {
+    await this.page.getByLabel('Use Endpoint 2').setChecked(checked);
+  }
+
   async setNotificationsEnabled(enabled: boolean) {
     await this.page.getByLabel('Notifications').setChecked(enabled);
   }

@@ -6,13 +6,18 @@ import {
   SettingsQueryData,
 } from '../../types/settings';
 
+export const ENDPOINT1 = 'https://first.endpoint/graphql';
+export const ENDPOINT2 = 'https://second.endpoint/graphql';
+export const graphql1 = graphql.link(ENDPOINT1);
+export const graphql2 = graphql.link(ENDPOINT2);
+
 const DEFAULT_SETTINGS: Settings = {
   enableNotifications: true,
   profileVisibility: 'private',
 };
 
 export default [
-  graphql.query<SettingsQueryData>('GetSettings', (_, response, context) =>
+  graphql1.query<SettingsQueryData>('GetSettings', (_, response, context) =>
     response(
       context.status(200),
       context.data({
@@ -20,7 +25,7 @@ export default [
       })
     )
   ),
-  graphql.mutation<SettingsMutationData, SettingsMutationVariables>(
+  graphql1.mutation<SettingsMutationData, SettingsMutationVariables>(
     'MutateSettings',
     (request, response, context) =>
       response(
@@ -30,4 +35,12 @@ export default [
         })
       )
   ),
+  graphql2.query<SettingsQueryData>('GetSettings', (_, response, context) => {
+    return response(
+      context.status(200),
+      context.data({
+        settings: { enableNotifications: false, profileVisibility: 'public' },
+      })
+    );
+  }),
 ];
