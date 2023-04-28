@@ -55,4 +55,19 @@ test.describe.parallel('GraphQL example: user settings', () => {
     await settingsForm.submit();
     await settingsForm.assertError(SettingsForm.Error.MutationFailed);
   });
+
+  test('should render different data based on endpoint switching', async ({
+    page,
+  }) => {
+    await page.goto('/settings');
+
+    const settingsForm = new SettingsForm(page);
+    await settingsForm.setUseEndpoint2(true);
+    await settingsForm.assertNotificationsEnabled(false);
+    await settingsForm.assertProfileVisibility('public');
+
+    await settingsForm.setUseEndpoint2(false);
+    await settingsForm.assertNotificationsEnabled(true);
+    await settingsForm.assertProfileVisibility('private');
+  });
 });

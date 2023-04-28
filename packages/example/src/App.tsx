@@ -8,10 +8,11 @@ import { UsersList } from './components/users-list';
 import { SettingsForm } from './components/settings-form';
 import { Documents } from './components/documents';
 import { Search } from './components/search';
+import { ENDPOINT1 } from './mocks/handlers/settings';
 
 const queryClient = new QueryClient();
 const apolloClient = new ApolloClient({
-  uri: '/graphql',
+  uri: ENDPOINT1,
   cache: new InMemoryCache(),
 });
 
