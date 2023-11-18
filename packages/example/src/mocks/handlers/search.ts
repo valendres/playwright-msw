@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { SearchResult } from '../../types/search';
 
 const movies: SearchResult<'movies'>[] = [
@@ -57,8 +57,8 @@ const allItems = [...movies, ...songs, ...books];
 const categoryItemsMap = { movies, songs, books };
 
 export default [
-  rest.get('/api/search', (request, response, context) => {
-    const { searchParams } = request.url;
+  http.get('/api/search', async ({ request }) => {
+    const { searchParams } = new URL(request.url);
     const cat = searchParams.get('c') as SearchResult['category'];
     const q = searchParams.get('q');
     const items = cat ? categoryItemsMap[cat] ?? [] : allItems;
@@ -68,6 +68,9 @@ export default [
             title.toLocaleLowerCase().includes(q.toLocaleLowerCase())
           )
         : items;
-    return response(context.status(200), context.json(searchResults));
+
+    return HttpResponse.json(searchResults, {
+      status: 200,
+    });
   }),
 ];

@@ -1,5 +1,5 @@
 import { expect, test } from '../test';
-import { rest } from 'msw';
+import { delay, http, HttpResponse } from 'msw';
 
 test.describe.parallel('delay', () => {
   test('should send mock response after specified delay in the handler', async ({
@@ -7,18 +7,16 @@ test.describe.parallel('delay', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/users', (_, response, context) =>
-        response(
-          context.delay(5000),
-          context.json([
-            {
-              id: 'fake',
-              firstName: 'Delayed',
-              lastName: 'Response',
-            },
-          ])
-        )
-      )
+      http.get('/api/users', async () => {
+        await delay(5000);
+        return HttpResponse.json([
+          {
+            id: 'fake',
+            firstName: 'Delayed',
+            lastName: 'Response',
+          },
+        ]);
+      })
     );
 
     await page.goto('/users');
@@ -43,17 +41,15 @@ test.describe.parallel('delay', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/users', (_, response, context) =>
-        response(
-          context.json([
-            {
-              id: 'fake',
-              firstName: 'Instant',
-              lastName: 'Response',
-            },
-          ])
-        )
-      )
+      http.get('/api/users', async () => {
+        return HttpResponse.json([
+          {
+            id: 'fake',
+            firstName: 'Instant',
+            lastName: 'Response',
+          },
+        ]);
+      })
     );
 
     await page.goto('/users', { waitUntil: 'networkidle' });

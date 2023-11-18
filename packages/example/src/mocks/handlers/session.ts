@@ -3,10 +3,9 @@ import {
   GetSessionParams,
   GetSessionResponse,
   PostSessionRequestBody,
-  PostSessionParams,
   PostSessionResponse,
 } from '../../types/session';
-import { rest } from 'msw';
+import { http, HttpResponse, delay } from 'msw';
 
 const VALID_USERNAME = 'peter';
 const VALID_PASSWORD = 'secret';
@@ -17,7 +16,6 @@ const sessionData: SessionData = {
 };
 
 const encodeSessionCookie = (username: string, password: string) =>
-  // This isn't secure, please don't do this in production code 😇
   Buffer.from(`${username}:${password}`).toString('base64');
 
 const decodeSessionCookie = (
@@ -41,43 +39,54 @@ const isValidSession = (cookie: string): boolean => {
 };
 
 export default [
-  rest.get<null, GetSessionParams, GetSessionResponse>(
+  http.get<GetSessionParams, GetSessionResponse>(
     '/api/session',
-    async (request, response, context) => {
+    async (request) => {
+      await delay(150);
       const sessionCookie = request.cookies[SESSION_COOKIE_KEY];
       return isValidSession(sessionCookie)
-        ? response(
-            context.delay(150),
-            context.status(200),
-            context.json(sessionData)
-          )
-        : response(context.delay(150), context.status(401));
+        ? HttpResponse.json(sessionData, {
+            status: 200,
+          })
+        : HttpResponse.json(null, {
+            status: 401,
+          });
     }
   ),
-  rest.post<PostSessionRequestBody, PostSessionParams, PostSessionResponse>(
+  http.post<PostSessionRequestBody, PostSessionResponse>(
     '/api/session',
-    async (request, response, context) => {
+    async ({ request }) => {
+      await delay(500);
       const { username, password } =
-        await request.json<PostSessionRequestBody>();
+        (await request.json()) as unknown as PostSessionRequestBody;
       if (isValidCredentials(username, password)) {
-        return response(
-          context.delay(500),
-          context.status(200),
-          context.cookie(
-            SESSION_COOKIE_KEY,
-            encodeSessionCookie(username, password)
-          ),
-          context.json(sessionData)
-        );
+        return HttpResponse.json(sessionData, {
+          status: 200,
+          headers: {
+            'Set-Cookie': `${SESSION_COOKIE_KEY}=${encodeSessionCookie(
+              username,
+              password
+            )}; Path=/`,
+          },
+        });
       }
 
-      return response(context.delay(500), context.status(401));
+      return HttpResponse.json(null, {
+        status: 401,
+      });
     }
   ),
-  rest.delete('/api/session', async (request, response, context) => {
+  http.delete('/api/session', async (request) => {
     const sessionCookie = request.cookies[SESSION_COOKIE_KEY];
     return isValidSession(sessionCookie)
-      ? response(context.status(200), context.cookie(SESSION_COOKIE_KEY, ''))
-      : response(context.status(401));
+      ? HttpResponse.json(null, {
+          status: 200,
+          headers: {
+            'Set-Cookie': `${SESSION_COOKIE_KEY}=; Path=/; Max-Age=0`,
+          },
+        })
+      : HttpResponse.json(null, {
+          status: 401,
+        });
   }),
 ];

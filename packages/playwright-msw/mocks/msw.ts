@@ -1,5 +1,7 @@
 /* istanbul ignore file */
-import { ResponseResolver } from 'msw';
+import { ResponseResolver, HttpResponse } from 'msw';
 
-export const successResolver: ResponseResolver = (_, response, context) =>
-  response(context.status(200));
+export const successResolver: ResponseResolver = () =>
+  new HttpResponse(null, {
+    status: 200,
+  });

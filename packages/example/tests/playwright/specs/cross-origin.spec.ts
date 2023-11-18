@@ -1,6 +1,6 @@
 import { SearchEngine } from '../models/search-engine';
 import { test } from '../test';
-import { rest } from 'msw';
+import { http } from 'msw';
 
 test.describe.parallel('cross-origin mocking', () => {
   test('should allow request to be intercepted from a different backend server with a wildcard origin', async ({
@@ -8,17 +8,24 @@ test.describe.parallel('cross-origin mocking', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      rest.get('*/api/search', (_, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        '*/api/search',
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'Wildcard cross-domain result',
+                href: 'https://fake.domain.com/',
+                category: 'books',
+              },
+            ]),
             {
-              title: 'Wildcard cross-domain result',
-              href: 'https://fake.domain.com/',
-              category: 'books',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       )
     );
 
@@ -38,17 +45,24 @@ test.describe.parallel('cross-origin mocking', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      rest.get('http://localhost:8080/api/search', (_, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        'http://localhost:8080/api/search',
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'Explicit cross-domain result',
+                href: 'https://fake.domain.com/',
+                category: 'books',
+              },
+            ]),
             {
-              title: 'Explicit cross-domain result',
-              href: 'https://fake.domain.com/',
-              category: 'books',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       )
     );
 

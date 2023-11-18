@@ -1,6 +1,6 @@
 import { SearchEngine } from '../models/search-engine';
 import { test } from '../test';
-import { rest } from 'msw';
+import { http } from 'msw';
 
 test.describe.parallel('query parameters', () => {
   test('should allow API calls that have query params to be handled by initial handlers', async ({
@@ -24,17 +24,24 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/search', (request, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        '/api/search',
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'The Potato',
+                href: 'https://fake.domain.com',
+                category: 'books',
+              },
+            ]),
             {
-              title: 'The Potato',
-              href: 'https://fake.domain.com',
-              category: 'books',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       )
     );
 
@@ -51,29 +58,43 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/search?q=ignoredQuery', (request, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        '/api/search?q=ignoredQuery',
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'Pineapple',
+                href: 'https://fake.domain.com',
+                category: 'songs',
+              },
+            ]),
             {
-              title: 'Pineapple',
-              href: 'https://fake.domain.com',
-              category: 'songs',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       ),
-      rest.get('/api/search', (request, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        '/api/search',
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'Pine Tree',
+                href: 'https://fake.domain.com',
+                category: 'songs',
+              },
+            ]),
             {
-              title: 'Pine Tree',
-              href: 'https://fake.domain.com',
-              category: 'songs',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       )
     );
 
@@ -82,7 +103,6 @@ test.describe.parallel('query parameters', () => {
     await searchEngine.setQuery('pine');
     await searchEngine.submit();
     await searchEngine.assertSearchResultCount(1);
-    // Like the official MSW, the first handler should have handled it because its query parameters will get ignored
     await searchEngine.assertSearchResultVisible('Pineapple');
   });
 
@@ -92,17 +112,24 @@ test.describe.parallel('query parameters', () => {
   }) => {
     const endpointWithTrailingSlash = '/api/search/';
     await worker.resetHandlers(
-      rest.get(endpointWithTrailingSlash, (_, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        endpointWithTrailingSlash,
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'Trailing slash',
+                href: 'https://fake.domain.com/',
+                category: 'books',
+              },
+            ]),
             {
-              title: 'Trailing slash',
-              href: 'https://fake.domain.com/',
-              category: 'books',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       )
     );
 
@@ -120,17 +147,24 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      rest.get('/api/:potato/', (_, response, context) =>
-        response(
-          context.status(200),
-          context.json([
+      http.get(
+        '/api/:potato/',
+        () =>
+          new Response(
+            JSON.stringify([
+              {
+                title: 'Trailing slash and route parameters',
+                href: 'https://fake.domain.com/',
+                category: 'books',
+              },
+            ]),
             {
-              title: 'Trailing slash and route parameters',
-              href: 'https://fake.domain.com/',
-              category: 'books',
-            },
-          ])
-        )
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
       )
     );
 

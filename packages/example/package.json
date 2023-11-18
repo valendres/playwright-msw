@@ -14,7 +14,7 @@
     "@apollo/client": "^3.7.7",
     "buffer": "^6.0.3",
     "graphql": "^16.6.0",
-    "msw": "1.0.0",
+    "msw": "2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",

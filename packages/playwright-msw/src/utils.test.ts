@@ -5,12 +5,14 @@ import {
   SerializedPath,
   deserializePath,
 } from './utils';
-import { rest, graphql, ResponseResolver, Path } from 'msw';
+import { http, graphql, ResponseResolver, Path, HttpResponse } from 'msw';
 import { describe, it, expect } from '@jest/globals';
 import { convertMswPathToPlaywrightUrl } from './utils';
 
-const successResolver: ResponseResolver = (_, response, context) =>
-  response(context.status(200));
+const successResolver: ResponseResolver = () =>
+  new HttpResponse(null, {
+    status: 200,
+  });
 
 describe('utils', () => {
   describe('serializePath', () => {
@@ -53,10 +55,10 @@ describe('utils', () => {
 
   describe('getHandlerType', () => {
     it.each(['get', 'post', 'put', 'delete', 'patch'] as const)(
-      'should return "rest" if a REST "%s" handler is provided',
+      'should return "http" if a http "%s" handler is provided',
       (method) => {
-        const handler = rest[method]('abc', successResolver);
-        expect(getHandlerType(handler)).toBe('rest');
+        const handler = http[method]('abc', successResolver);
+        expect(getHandlerType(handler)).toBe('http');
       }
     );
     it.each(['query', 'mutation'] as const)(
@@ -74,7 +76,7 @@ describe('utils', () => {
       ${'/api/users'} | ${'/api/users'}
       ${/^\/api\/.*/} | ${/^\/api\/.*/}
     `('return "$expected" when path is "$path"', ({ path, expected }) => {
-      expect(getHandlerPath(rest.get(path, successResolver), {})).toStrictEqual(
+      expect(getHandlerPath(http.get(path, successResolver), {})).toStrictEqual(
         expected
       );
     });

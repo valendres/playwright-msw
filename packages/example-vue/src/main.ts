@@ -1,7 +1,7 @@
 import { testHandlers } from './mocks/handler';
 import { createApp } from 'vue';
 import App from './App.vue';
-import { setupWorker } from 'msw';
+import { setupWorker } from 'msw/browser';
 
 const worker = setupWorker(...testHandlers);
 
@@ -11,7 +11,7 @@ async function prepare() {
 
     return worker.start({}).then(() => {
       console.groupCollapsed('[MSW] Loaded with handlers 🎉');
-      worker.printHandlers();
+      worker.listHandlers();
       console.groupEnd();
       return null;
     });

@@ -1,4 +1,4 @@
-import { Path, RequestHandler, RestHandler } from 'msw';
+import { Path, RequestHandler } from 'msw';
 import { Config } from './config';
 
 export type SerializedPathType = 'regexp' | 'string';
@@ -18,8 +18,8 @@ export const deserializePath = (serializedPath: SerializedPath): Path => {
   return type === 'regexp' ? new RegExp(path) : path;
 };
 
-export const getHandlerType = (handler: RequestHandler): 'rest' | 'graphql' =>
-  'path' in handler.info ? 'rest' : 'graphql';
+export const getHandlerType = (handler: RequestHandler): 'http' | 'graphql' =>
+  'path' in handler.info ? 'http' : 'graphql';
 
 export const getHandlerPath = (
   handler: RequestHandler,
@@ -34,7 +34,8 @@ export const getHandlerPath = (
     }
     return graphqlUrl;
   }
-  return (<RestHandler>handler).info.path;
+  // TODO: use correct type
+  return (handler.info as any).path;
 };
 
 export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
@@ -66,8 +67,4 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
   );
 };
 
-export const wait = (delay: number): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-};
+export const uuidv4 = () => Math.random().toString(16).slice(2);
