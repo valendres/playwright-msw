@@ -18,7 +18,9 @@
 
 ## Announcement
 
-Version 2 introduced a minor breaking change to the [createWorkerFixture](#createworkerfixture) function. To upgrade, please refer to the [V2 migration guide](#v2-migration-guide).
+As of version 3, `playwright-msw` has been updated to utilize MSW 2.x. In order to utilize this the latest version of `playwright-msw`, you must update your tests to use the new syntax. Please follow MSW's amazing [Migration Guide](https://mswjs.io/docs/migrations/1.x-to-2.x). Apart from updating your tests to use MSW's new syntax, the API for `playwright-msw` itself remains unchanged.
+
+If you're not ready to update your tests, please continue to use version 2.x of `playwright-msw`.
 
 ## Getting started
 
@@ -46,15 +48,14 @@ yarn add playwright-msw --dev
 If you haven't already done so, [create some mock handlers](https://mswjs.io/docs/getting-started/mocks) for API calls that your app will perform. e.g. within a [handlers.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/src/mocks/handlers.ts) file:
 
 ```typescript
-import { rest } from 'msw';
+import { http, delay, HttpResponse } from 'msw';
 
 /** A collection of handlers to be used by default for all tests. */
 export default [
-  rest.get('/api/users', (_, response, context) =>
-    response(
-      context.delay(500),
-      context.status(200),
-      context.json([
+  http.get('/api/users', async () => {
+    await delay(500);
+    return HttpResponse.json(
+      [
         {
           id: 'bcff5c0e-10b6-407b-94d1-90d741363885',
           firstName: 'Rhydian',
@@ -70,9 +71,12 @@ export default [
           firstName: 'Erika',
           lastName: 'Richards',
         },
-      ])
-    )
-  ),
+      ],
+      {
+        status: 200,
+      }
+    );
+  }),
 ];
 ```
 
@@ -105,7 +109,7 @@ export { test, expect };
 The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [rest.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/rest.spec.ts) file:
 
 ```typescript
-import { rest } from 'msw';
+import { http, delay, HttpResponse } from 'msw';
 import { expect, test } from '../test';
 
 test.describe.parallel("A demo of playwright-msw's functionality", () => {
@@ -121,9 +125,12 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/users', (_, response, context) =>
-        response(context.delay(250), context.status(403))
-      )
+      http.get('/api/users', async () => {
+        await delay(250);
+        return new HttpResponse(null, {
+          status: 403,
+        });
+      })
     );
     await page.goto('/');
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeHidden();
@@ -207,20 +214,6 @@ The `MockServiceWorker` instance returned by [createWorker](#createworker) or ex
 
 This library tests itself to make sure the integration between MSW and Playwright is working as expected. For real examples of how it can be used, please refer to:
 [packages/example/README.md](../example/README.md)
-
-## v2 migration guide
-
-`playwright-msw@2` introduced a very minor breaking change to the [createWorkerFixture](#createworkerfixture) function. Previously it accepted handlers via rest parameters, but now the first argument must be an array of handlers. This change was made to facilitate providing an optional configuration object as the second argument.
-
-```diff
-public class Hello1
-const test = base.extend<{
-  worker: MockServiceWorker;
-}>({
--  worker: createWorkerFixture(...handlers),
-+  worker: createWorkerFixture(handlers),
-});
-```
 
 ## Acknowledgements
 
