@@ -21,7 +21,10 @@ const encodeSessionCookie = (username: string, password: string) =>
 const decodeSessionCookie = (
   cookie: string
 ): { username: string; password: string } => {
-  const [username, password] = Buffer.from(cookie ?? '', 'base64')
+  const [username, password] = Buffer.from(
+    (cookie ?? '').split(',')[0],
+    'base64'
+  )
     .toString()
     .split(':');
   return {
@@ -66,7 +69,7 @@ export default [
             'Set-Cookie': `${SESSION_COOKIE_KEY}=${encodeSessionCookie(
               username,
               password
-            )}; Path=/`,
+            )}`,
           },
         });
       }
@@ -76,13 +79,13 @@ export default [
       });
     }
   ),
-  http.delete('/api/session', async (request) => {
-    const sessionCookie = request.cookies[SESSION_COOKIE_KEY];
+  http.delete('/api/session', async ({ cookies }) => {
+    const sessionCookie = cookies[SESSION_COOKIE_KEY];
     return isValidSession(sessionCookie)
       ? HttpResponse.json(null, {
           status: 200,
           headers: {
-            'Set-Cookie': `${SESSION_COOKIE_KEY}=; Path=/; Max-Age=0`,
+            'Set-Cookie': `${SESSION_COOKIE_KEY}=; Max-Age=0`,
           },
         })
       : HttpResponse.json(null, {

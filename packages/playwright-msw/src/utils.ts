@@ -67,4 +67,60 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
   );
 };
 
+export function objectifyHeaders(headers: Headers): Record<string, string> {
+  const result: Record<string, string> = {};
+  headers.forEach((value, key) => (result[key] = value));
+  return result;
+}
+
+function isNullArray(arr: Uint8Array): boolean {
+  return (
+    arr.length === 4 && arr.every((el, idx) => el === 'null'.charCodeAt(idx))
+  );
+}
+
+export async function readableStreamToBuffer(
+  contentType: string | undefined,
+  body: ReadableStream<Uint8Array> | null
+): Promise<string | Buffer | undefined> {
+  if (!body) return undefined;
+
+  const reader = body.getReader();
+  const chunks: Uint8Array[] = [];
+  let done = false;
+
+  while (!done) {
+    const { value, done: readDone } = await reader.read();
+    if (value) {
+      chunks.push(value);
+    }
+    done = readDone;
+  }
+
+  // Calculate the total length of all chunks
+  const totalLength = chunks.reduce((acc, val) => acc + val.length, 0);
+
+  // Combine the chunks into a single Uint8Array
+  const combinedChunks = new Uint8Array(totalLength);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combinedChunks.set(chunk, offset);
+    offset += chunk.length;
+  }
+
+  if (contentType?.includes('application/json')) {
+    // Fulfilling a playwright route with "null" while `application/json` prevents
+    // the route from being fulfilled properly
+    if (isNullArray(combinedChunks)) {
+      return undefined;
+    }
+    return new TextDecoder().decode(combinedChunks);
+  } else if (contentType?.includes('text')) {
+    return new TextDecoder().decode(combinedChunks);
+  } else {
+    // For binary data, return as Buffer
+    return Buffer.from(combinedChunks);
+  }
+}
+
 export const uuidv4 = () => Math.random().toString(16).slice(2);

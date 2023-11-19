@@ -16,7 +16,7 @@ test.describe.parallel('HTTP example: users list', () => {
     await worker.use(
       http.get('/api/users', async () => {
         await delay(250);
-        return HttpResponse.json(null, {
+        return new HttpResponse(null, {
           status: 403,
         });
       })

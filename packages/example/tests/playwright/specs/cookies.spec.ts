@@ -1,3 +1,4 @@
+import { delay } from 'msw';
 import { LoginForm } from '../models/login-form';
 import { test } from '../test';
 
@@ -18,6 +19,8 @@ test.describe.parallel('cookies', () => {
 
     const loginForm = new LoginForm(page);
     await loginForm.loginWithValidCredentials();
+
+    await delay(500);
 
     // Reload the page
     await page.reload();

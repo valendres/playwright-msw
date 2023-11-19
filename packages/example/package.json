@@ -11,23 +11,23 @@
     "install:browsers": "yarn playwright install"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.7",
+    "@apollo/client": "^3.8.7",
     "buffer": "^6.0.3",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "msw": "2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.8.0"
+    "react-router-dom": "^6.19.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.30.0",
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@types/node": "^18.18.9",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.0",
     "playwright-msw": "workspace:*",
     "typescript": "4.9.5",
-    "vite": "^4.1.1"
+    "vite": "^5.0.0"
   }
 }
