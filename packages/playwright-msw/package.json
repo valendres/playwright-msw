@@ -29,7 +29,7 @@
   },
   "peerDependencies": {
     "@playwright/test": ">=1.20.0",
-    "msw": ">=0.47.3"
+    "msw": "^2.0.0"
   },
   "dependencies": {
     "@mswjs/cookies": "^1.1.0",
