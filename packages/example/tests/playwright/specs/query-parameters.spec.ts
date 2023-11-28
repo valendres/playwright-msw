@@ -24,24 +24,14 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      http.get(
-        '/api/search',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                title: 'The Potato',
-                href: 'https://fake.domain.com',
-                category: 'books',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/search', () =>
+        HttpResponse.json([
+          {
+            title: 'The Potato',
+            href: 'https://fake.domain.com',
+            category: 'books',
+          },
+        ])
       )
     );
 
@@ -58,43 +48,23 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      http.get(
-        '/api/search?q=ignoredQuery',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                title: 'Pineapple',
-                href: 'https://fake.domain.com',
-                category: 'songs',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/search?q=ignoredQuery', () =>
+        HttpResponse.json([
+          {
+            title: 'Pineapple',
+            href: 'https://fake.domain.com',
+            category: 'songs',
+          },
+        ])
       ),
-      http.get(
-        '/api/search',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                title: 'Pine Tree',
-                href: 'https://fake.domain.com',
-                category: 'songs',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/search', () =>
+        HttpResponse.json([
+          {
+            title: 'Pine Tree',
+            href: 'https://fake.domain.com',
+            category: 'songs',
+          },
+        ])
       )
     );
 
@@ -112,24 +82,14 @@ test.describe.parallel('query parameters', () => {
   }) => {
     const endpointWithTrailingSlash = '/api/search/';
     await worker.resetHandlers(
-      http.get(
-        endpointWithTrailingSlash,
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                title: 'Trailing slash',
-                href: 'https://fake.domain.com/',
-                category: 'books',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get(endpointWithTrailingSlash, () =>
+        HttpResponse.json([
+          {
+            title: 'Trailing slash',
+            href: 'https://fake.domain.com/',
+            category: 'books',
+          },
+        ])
       )
     );
 
@@ -147,24 +107,14 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      http.get(
-        '/api/:potato/',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                title: 'Trailing slash and route parameters',
-                href: 'https://fake.domain.com/',
-                category: 'books',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/:potato/', () =>
+        HttpResponse.json([
+          {
+            title: 'Trailing slash and route parameters',
+            href: 'https://fake.domain.com/',
+            category: 'books',
+          },
+        ])
       )
     );
 

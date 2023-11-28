@@ -19,45 +19,25 @@ test.describe.parallel('handler priority', () => {
     worker,
   }) => {
     await worker.use(
-      http.get(
-        '/api/documents/secret',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                id: 'a',
-                title: 'goat',
-              },
-              {
-                id: 'b',
-                title: 'camel',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/secret', () =>
+        HttpResponse.json([
+          {
+            id: 'a',
+            title: 'goat',
+          },
+          {
+            id: 'b',
+            title: 'camel',
+          },
+        ])
       ),
-      http.get(
-        '/api/documents/:slug',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                id: 'slug',
-                title: 'Sluggymcslugface',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/:slug', () =>
+        HttpResponse.json([
+          {
+            id: 'slug',
+            title: 'Sluggymcslugface',
+          },
+        ])
       )
     );
 
@@ -73,45 +53,25 @@ test.describe.parallel('handler priority', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      http.get(
-        '/api/documents/test',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                id: 'a',
-                title: 'apple',
-              },
-              {
-                id: 'o',
-                title: 'orange',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/test', () =>
+        HttpResponse.json([
+          {
+            id: 'a',
+            title: 'apple',
+          },
+          {
+            id: 'o',
+            title: 'orange',
+          },
+        ])
       ),
-      http.get(
-        '/api/documents/:slug',
-        () =>
-          new HttpResponse(
-            JSON.stringify([
-              {
-                id: 'p',
-                title: 'potato',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/:slug', () =>
+        HttpResponse.json([
+          {
+            id: 'p',
+            title: 'potato',
+          },
+        ])
       )
     );
 
