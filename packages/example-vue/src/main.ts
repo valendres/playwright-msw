@@ -11,7 +11,8 @@ async function prepare() {
 
     return worker.start({}).then(() => {
       console.groupCollapsed('[MSW] Loaded with handlers 🎉');
-      worker.listHandlers();
+      const handlers = worker.listHandlers();
+      handlers.forEach((handler) => console.log(handler.info.header));
       console.groupEnd();
       return null;
     });
