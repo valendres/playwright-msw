@@ -1,6 +1,6 @@
 import { DocumentsList } from '../models/documents-list';
 import { test } from '../test';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 test.describe.parallel('handler priority', () => {
   test('should process initial handlers in the order in which they are defined where index 0 is processed first', async ({
@@ -22,7 +22,7 @@ test.describe.parallel('handler priority', () => {
       http.get(
         '/api/documents/secret',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 id: 'a',
@@ -44,7 +44,7 @@ test.describe.parallel('handler priority', () => {
       http.get(
         '/api/documents/:slug',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 id: 'slug',
@@ -76,7 +76,7 @@ test.describe.parallel('handler priority', () => {
       http.get(
         '/api/documents/test',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 id: 'a',
@@ -98,7 +98,7 @@ test.describe.parallel('handler priority', () => {
       http.get(
         '/api/documents/:slug',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 id: 'p',

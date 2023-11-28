@@ -1,6 +1,6 @@
 import { SearchEngine } from '../models/search-engine';
 import { test } from '../test';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 test.describe.parallel('query parameters', () => {
   test('should allow API calls that have query params to be handled by initial handlers', async ({
@@ -27,7 +27,7 @@ test.describe.parallel('query parameters', () => {
       http.get(
         '/api/search',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'The Potato',
@@ -61,7 +61,7 @@ test.describe.parallel('query parameters', () => {
       http.get(
         '/api/search?q=ignoredQuery',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'Pineapple',
@@ -80,7 +80,7 @@ test.describe.parallel('query parameters', () => {
       http.get(
         '/api/search',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'Pine Tree',
@@ -115,7 +115,7 @@ test.describe.parallel('query parameters', () => {
       http.get(
         endpointWithTrailingSlash,
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'Trailing slash',
@@ -150,7 +150,7 @@ test.describe.parallel('query parameters', () => {
       http.get(
         '/api/:potato/',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'Trailing slash and route parameters',

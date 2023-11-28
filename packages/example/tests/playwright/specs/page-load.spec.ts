@@ -1,4 +1,4 @@
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { SearchEngine } from '../models/search-engine';
 import { testFactory, expect } from '../test';
 
@@ -14,7 +14,7 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
         http.get(
           '*/search',
           () =>
-            new Response(
+            new HttpResponse(
               JSON.stringify([
                 {
                   title: 'Explicit cross-domain result',
@@ -46,7 +46,7 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
         http.get(
           '*/users',
           () =>
-            new Response(
+            new HttpResponse(
               JSON.stringify([
                 {
                   id: 'fake',
@@ -77,7 +77,7 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
         http.get(
           '*/search',
           () =>
-            new Response(
+            new HttpResponse(
               JSON.stringify([
                 {
                   title: '🍆',
@@ -124,7 +124,7 @@ testWaitForPageLoadFalse.describe('waitForPageLoad set to false', () => {
         http.get(
           '*/search',
           () =>
-            new Response(
+            new HttpResponse(
               JSON.stringify({ message: 'Mocked static resource call' }),
               {
                 status: 200,

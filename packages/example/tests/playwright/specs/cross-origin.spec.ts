@@ -1,6 +1,6 @@
 import { SearchEngine } from '../models/search-engine';
 import { test } from '../test';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 test.describe.parallel('cross-origin mocking', () => {
   test('should allow request to be intercepted from a different backend server with a wildcard origin', async ({
@@ -11,7 +11,7 @@ test.describe.parallel('cross-origin mocking', () => {
       http.get(
         '*/api/search',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'Wildcard cross-domain result',
@@ -48,7 +48,7 @@ test.describe.parallel('cross-origin mocking', () => {
       http.get(
         'http://localhost:8080/api/search',
         () =>
-          new Response(
+          new HttpResponse(
             JSON.stringify([
               {
                 title: 'Explicit cross-domain result',
