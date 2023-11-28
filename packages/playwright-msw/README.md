@@ -18,7 +18,7 @@
 
 ## Announcement
 
-As of version 3, `playwright-msw` has been updated to utilize MSW 2.x. In order to utilize this the latest version of `playwright-msw`, you must update your tests to use the new syntax. Please follow MSW's amazing [Migration Guide](https://mswjs.io/docs/migrations/1.x-to-2.x). Apart from updating your tests to use MSW's new syntax, the API for `playwright-msw` itself remains unchanged.
+As of version 3, `playwright-msw` has been updated to utilize MSW 2.x. In order to utilize the latest version of `playwright-msw`, you must update your tests to use the new syntax. Please follow MSW's amazing [Migration Guide](https://mswjs.io/docs/migrations/1.x-to-2.x). Apart from updating your tests to use MSW's new syntax, the API for `playwright-msw` itself remains unchanged.
 
 If you're not ready to update your tests, please continue to use version 2.x of `playwright-msw`.
 
