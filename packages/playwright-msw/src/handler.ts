@@ -1,10 +1,11 @@
 import type { Route } from '@playwright/test';
-import type { MockedResponse, RequestHandler } from 'msw';
-import { handleRequest, MockedRequest } from 'msw';
-import { Emitter, EventMap } from 'strict-event-emitter';
-import { wait } from './utils';
+import { randomUUID } from 'crypto';
+import type { RequestHandler, LifeCycleEventsMap } from 'msw';
+import { handleRequest } from 'msw';
+import { Emitter } from 'strict-event-emitter';
+import { objectifyHeaders, readableStreamToBuffer } from './utils';
 
-const emitter = new Emitter<EventMap>();
+const emitter = new Emitter<LifeCycleEventsMap>();
 
 export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   const request = route.request();
@@ -13,33 +14,14 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
   const headers = await request.allHeaders();
   const postData = request.postData();
 
-  const mockedRequest = new MockedRequest(url, {
-    method,
-    headers,
-    body: postData ? Buffer.from(postData) : undefined,
-  });
-
-  const handleMockResponse = async ({
-    status,
-    headers,
-    body,
-    delay,
-  }: MockedResponse) => {
-    if (delay) {
-      await wait(delay);
-    }
-
-    return route.fulfill({
-      status,
-      body: body ?? undefined,
-      contentType: headers.get('content-type') ?? undefined,
-      headers: headers.all(),
-    });
-  };
-
   try {
     await handleRequest(
-      mockedRequest,
+      new Request(url, {
+        method,
+        headers,
+        body: postData ? Buffer.from(postData) : undefined,
+      }),
+      randomUUID(),
       // Reverse array so that handlers that were most recently appended are processed first
       handlers.slice().reverse(),
       {
@@ -54,9 +36,22 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
            */
           baseUrl: url.origin,
         },
-        onMockedResponse: handleMockResponse,
-        // @ts-expect-error -- for compatibility with MSW < 0.47.1
-        onMockedResponseSent: handleMockResponse,
+        onMockedResponse: async ({
+          status,
+          headers: rawHeaders,
+          body: rawBody,
+        }) => {
+          const contentType = rawHeaders.get('content-type') ?? undefined;
+          const headers = objectifyHeaders(rawHeaders);
+          const body = await readableStreamToBuffer(contentType, rawBody);
+
+          return route.fulfill({
+            status,
+            body,
+            contentType,
+            headers,
+          });
+        },
       }
     );
   } catch {

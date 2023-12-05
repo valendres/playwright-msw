@@ -1,6 +1,6 @@
 import { SearchEngine } from '../models/search-engine';
 import { test } from '../test';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 test.describe.parallel('query parameters', () => {
   test('should allow API calls that have query params to be handled by initial handlers', async ({
@@ -24,17 +24,14 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/search', (request, response, context) =>
-        response(
-          context.status(200),
-          context.json([
-            {
-              title: 'The Potato',
-              href: 'https://fake.domain.com',
-              category: 'books',
-            },
-          ])
-        )
+      http.get('/api/search', () =>
+        HttpResponse.json([
+          {
+            title: 'The Potato',
+            href: 'https://fake.domain.com',
+            category: 'books',
+          },
+        ])
       )
     );
 
@@ -51,29 +48,23 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/search?q=ignoredQuery', (request, response, context) =>
-        response(
-          context.status(200),
-          context.json([
-            {
-              title: 'Pineapple',
-              href: 'https://fake.domain.com',
-              category: 'songs',
-            },
-          ])
-        )
+      http.get('/api/search?q=ignoredQuery', () =>
+        HttpResponse.json([
+          {
+            title: 'Pineapple',
+            href: 'https://fake.domain.com',
+            category: 'songs',
+          },
+        ])
       ),
-      rest.get('/api/search', (request, response, context) =>
-        response(
-          context.status(200),
-          context.json([
-            {
-              title: 'Pine Tree',
-              href: 'https://fake.domain.com',
-              category: 'songs',
-            },
-          ])
-        )
+      http.get('/api/search', () =>
+        HttpResponse.json([
+          {
+            title: 'Pine Tree',
+            href: 'https://fake.domain.com',
+            category: 'songs',
+          },
+        ])
       )
     );
 
@@ -82,7 +73,6 @@ test.describe.parallel('query parameters', () => {
     await searchEngine.setQuery('pine');
     await searchEngine.submit();
     await searchEngine.assertSearchResultCount(1);
-    // Like the official MSW, the first handler should have handled it because its query parameters will get ignored
     await searchEngine.assertSearchResultVisible('Pineapple');
   });
 
@@ -92,17 +82,14 @@ test.describe.parallel('query parameters', () => {
   }) => {
     const endpointWithTrailingSlash = '/api/search/';
     await worker.resetHandlers(
-      rest.get(endpointWithTrailingSlash, (_, response, context) =>
-        response(
-          context.status(200),
-          context.json([
-            {
-              title: 'Trailing slash',
-              href: 'https://fake.domain.com/',
-              category: 'books',
-            },
-          ])
-        )
+      http.get(endpointWithTrailingSlash, () =>
+        HttpResponse.json([
+          {
+            title: 'Trailing slash',
+            href: 'https://fake.domain.com/',
+            category: 'books',
+          },
+        ])
       )
     );
 
@@ -120,17 +107,14 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      rest.get('/api/:potato/', (_, response, context) =>
-        response(
-          context.status(200),
-          context.json([
-            {
-              title: 'Trailing slash and route parameters',
-              href: 'https://fake.domain.com/',
-              category: 'books',
-            },
-          ])
-        )
+      http.get('/api/:potato/', () =>
+        HttpResponse.json([
+          {
+            title: 'Trailing slash and route parameters',
+            href: 'https://fake.domain.com/',
+            category: 'books',
+          },
+        ])
       )
     );
 

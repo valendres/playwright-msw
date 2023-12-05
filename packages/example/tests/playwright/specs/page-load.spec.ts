@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { SearchEngine } from '../models/search-engine';
 import { testFactory, expect } from '../test';
 
@@ -11,17 +11,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
     'should bypass initial page load requests (i.e. static assets)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        rest.get('*/search', (_, response, context) =>
-          response(
-            context.status(200),
-            context.json([
-              {
-                title: 'Explicit cross-domain result',
-                href: 'https://fake.domain.com/',
-                category: 'books',
-              },
-            ])
-          )
+        http.get('*/search', () =>
+          HttpResponse.json([
+            {
+              title: 'Explicit cross-domain result',
+              href: 'https://fake.domain.com/',
+              category: 'books',
+            },
+          ])
         )
       );
 
@@ -36,17 +33,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
     'should mock subsequent requests immediately after page load (i.e. API calls)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        rest.get('*/users', (_, response, context) =>
-          response(
-            context.status(200),
-            context.json([
-              {
-                id: 'fake',
-                firstName: '🥔',
-                lastName: 'Emoji',
-              },
-            ])
-          )
+        http.get('*/users', () =>
+          HttpResponse.json([
+            {
+              id: 'fake',
+              firstName: '🥔',
+              lastName: 'Emoji',
+            },
+          ])
         )
       );
 
@@ -60,17 +54,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
     'should mock delayed requests after page load (i.e. API calls)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        rest.get('*/search', (_, response, context) =>
-          response(
-            context.status(200),
-            context.json([
-              {
-                title: '🍆',
-                href: 'https://eggplant.domain.com/',
-                category: 'books',
-              },
-            ])
-          )
+        http.get('*/search', () =>
+          HttpResponse.json([
+            {
+              title: '🍆',
+              href: 'https://eggplant.domain.com/',
+              category: 'books',
+            },
+          ])
         )
       );
 
@@ -80,7 +71,6 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
         page.getByRole('heading', { name: 'Search engine' })
       ).toBeVisible();
 
-      // Add arbitrary delay
       await page.waitForTimeout(2000);
 
       const searchEngine = new SearchEngine(page);
@@ -101,11 +91,8 @@ testWaitForPageLoadFalse.describe('waitForPageLoad set to false', () => {
     'should not bypass initial page load requests (i.e. static assets)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        rest.get('*/search', (_, response, context) =>
-          response(
-            context.status(200),
-            context.json({ message: 'Mocked static resource call' })
-          )
+        http.get('*/search', () =>
+          HttpResponse.json({ message: 'Mocked static resource call' })
         )
       );
 

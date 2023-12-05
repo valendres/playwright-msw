@@ -1,4 +1,4 @@
-import { Path, RequestHandler, RestHandler } from 'msw';
+import { Path, RequestHandler } from 'msw';
 import { Config } from './config';
 
 export type SerializedPathType = 'regexp' | 'string';
@@ -18,8 +18,8 @@ export const deserializePath = (serializedPath: SerializedPath): Path => {
   return type === 'regexp' ? new RegExp(path) : path;
 };
 
-export const getHandlerType = (handler: RequestHandler): 'rest' | 'graphql' =>
-  'path' in handler.info ? 'rest' : 'graphql';
+export const getHandlerType = (handler: RequestHandler): 'http' | 'graphql' =>
+  'path' in handler.info ? 'http' : 'graphql';
 
 export const getHandlerPath = (
   handler: RequestHandler,
@@ -34,7 +34,8 @@ export const getHandlerPath = (
     }
     return graphqlUrl;
   }
-  return (<RestHandler>handler).info.path;
+  // TODO: use correct type
+  return (handler.info as any).path;
 };
 
 export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
@@ -66,8 +67,47 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
   );
 };
 
-export const wait = (delay: number): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-};
+export function objectifyHeaders(headers: Headers): Record<string, string> {
+  const result: Record<string, string> = {};
+  headers.forEach((value, key) => (result[key] = value));
+  return result;
+}
+
+export async function readableStreamToBuffer(
+  contentType: string | undefined,
+  body: ReadableStream<Uint8Array> | null
+): Promise<string | Buffer | undefined> {
+  if (!body) return undefined;
+
+  const reader = body.getReader();
+  const chunks: Uint8Array[] = [];
+  let done = false;
+
+  while (!done) {
+    const { value, done: readDone } = await reader.read();
+    if (value) {
+      chunks.push(value);
+    }
+    done = readDone;
+  }
+
+  // Calculate the total length of all chunks
+  const totalLength = chunks.reduce((acc, val) => acc + val.length, 0);
+
+  // Combine the chunks into a single Uint8Array
+  const combinedChunks = new Uint8Array(totalLength);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combinedChunks.set(chunk, offset);
+    offset += chunk.length;
+  }
+
+  if (contentType?.includes('application/json')) {
+    return new TextDecoder().decode(combinedChunks);
+  } else if (contentType?.includes('text')) {
+    return new TextDecoder().decode(combinedChunks);
+  } else {
+    // For binary data, return as Buffer
+    return Buffer.from(combinedChunks);
+  }
+}

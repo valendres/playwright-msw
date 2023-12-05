@@ -1,7 +1,7 @@
-import { rest } from 'msw';
+import { delay, http, HttpResponse } from 'msw';
 import { expect, test } from '../test';
 
-test.describe.parallel('REST', () => {
+test.describe.parallel('HTTP', () => {
   test('should use the default handlers without requiring handlers to be specified on a per-test basis', async ({
     page,
   }) => {
@@ -14,13 +14,10 @@ test.describe.parallel('REST', () => {
     worker,
   }) => {
     await worker.use(
-      rest.get('/api/users', (_, response, context) =>
-        response(
-          context.delay(250),
-          context.status(200),
-          context.json([{ name: 'Custom User' }])
-        )
-      )
+      http.get('/api/users', async () => {
+        await delay(250);
+        return HttpResponse.json([{ name: 'Custom User' }]);
+      })
     );
     await page.goto('/users');
     await expect(page.locator('text="Custom User"')).toBeVisible();

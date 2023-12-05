@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.30.0",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "msw": "1.0.0",
+    "@vitejs/plugin-vue": "^4.5.0",
+    "msw": "2.0.8",
     "playwright-msw": "workspace:*",
     "typescript": "4.9.5",
     "vite": "4.1.1",

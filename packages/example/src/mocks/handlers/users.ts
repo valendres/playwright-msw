@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse, delay } from 'msw';
 import {
   GetUsersItemApiParams,
   GetUsersItemApiResponse,
@@ -39,28 +39,37 @@ const users: GetUsersItemApiResponse[] = [
 ];
 
 export default [
-  rest.get<null, GetUsersCollectionApiParams, GetUsersCollectionApiResponse>(
+  http.get<GetUsersCollectionApiParams, GetUsersCollectionApiResponse>(
     '/api/users',
-    (_, response, context) =>
-      response(
-        context.delay(500),
-        context.status(200),
-        context.json(
-          users.map(({ id, firstName, lastName }) => ({
-            id,
-            firstName,
-            lastName,
-          }))
-        )
-      )
+    async () => {
+      await delay(500);
+      return HttpResponse.json(
+        users.map(({ id, firstName, lastName }) => ({
+          id,
+          firstName,
+          lastName,
+        })),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    }
   ),
-  rest.get<null, GetUsersItemApiParams, GetUsersItemApiResponse>(
+  http.get<GetUsersItemApiParams, GetUsersItemApiResponse>(
     '/api/users/:userId',
-    (request, response, context) => {
-      const user = users.find((user) => user.id === request.params.userId);
+    async ({ params }) => {
+      await delay(100);
+      const user = users.find((user) => user.id === params.userId);
       return user
-        ? response(context.delay(100), context.status(200), context.json(user))
-        : response(context.delay(100), context.status(404));
+        ? HttpResponse.json(user, {
+            status: 200,
+          })
+        : HttpResponse.json(null, {
+            status: 404,
+          });
     }
   ),
 ];

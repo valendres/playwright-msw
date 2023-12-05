@@ -1,4 +1,4 @@
-import { graphql } from 'msw';
+import { graphql, HttpResponse } from 'msw';
 import { Settings } from '../../types/settings';
 import {
   SettingsMutationData,
@@ -12,22 +12,18 @@ const DEFAULT_SETTINGS: Settings = {
 };
 
 export default [
-  graphql.query<SettingsQueryData>('GetSettings', (_, response, context) =>
-    response(
-      context.status(200),
-      context.data({
+  graphql.query<SettingsQueryData>('GetSettings', () =>
+    HttpResponse.json({
+      data: {
         settings: DEFAULT_SETTINGS,
-      })
-    )
+      },
+    })
   ),
   graphql.mutation<SettingsMutationData, SettingsMutationVariables>(
     'MutateSettings',
-    (request, response, context) =>
-      response(
-        context.status(200),
-        context.data({
-          mutateSettings: { ...DEFAULT_SETTINGS, ...request.variables },
-        })
-      )
+    ({ variables }) =>
+      HttpResponse.json({
+        data: { mutateSettings: { ...DEFAULT_SETTINGS, ...variables } },
+      })
   ),
 ];
