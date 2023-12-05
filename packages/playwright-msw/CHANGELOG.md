@@ -2,6 +2,25 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [3.0.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.2.1...playwright-msw@3.0.0) "playwright-msw" (2023-12-05)<a name="3.0.0"></a>
+
+### Breaking Changes
+
+* Due to the updated dependency msw 2, using
+playwright-msw requires node 18 or newer ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+
+### Bug Fixes
+
+* actually log active handlers ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+
+### Features
+
+* upgrade to msw 2.x ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+* add support for MSW 2.x (#77) ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+
+
+
+
 ## [2.2.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.2.0...playwright-msw@2.2.1) "playwright-msw" (2023-03-10)<a name="2.2.1"></a>
 
 ### Bug Fixes
