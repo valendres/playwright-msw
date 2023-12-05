@@ -15,13 +15,14 @@
     "buffer": "^6.0.3",
     "graphql": "^16.8.1",
     "msw": "2.0.8",
+    "playwright": "^1.40.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.19.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.30.0",
+    "@playwright/test": "^1.40.1",
     "@types/node": "^18.18.9",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

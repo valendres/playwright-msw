@@ -3127,15 +3127,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.30.0":
-  version: 1.30.0
-  resolution: "@playwright/test@npm:1.30.0"
+"@playwright/test@npm:^1.40.1":
+  version: 1.40.1
+  resolution: "@playwright/test@npm:1.40.1"
   dependencies:
-    "@types/node": "npm:*"
-    playwright-core: "npm:1.30.0"
+    playwright: "npm:1.40.1"
   bin:
     playwright: cli.js
-  checksum: d6fa23bb3901f4fe079fa60df40ddb1fce24899f06b5cdb0a55362df8fd6b956fa2cdf16a094df861f2bd9bc19aa6db2d8fc57c1218101ff7cabff7a765b84c4
+  checksum: 77bfc3d4a101fd996309de3a67256117f671952764404727e520a4d512ba2e528d8f9e0b28ef9b2851664a651a5d002a0b05993e313077a2fa640bb430f38b25
   languageName: node
   linkType: hard
 
@@ -6392,7 +6391,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-vue@workspace:packages/example-vue"
   dependencies:
-    "@playwright/test": "npm:^1.30.0"
+    "@playwright/test": "npm:^1.40.1"
     "@vitejs/plugin-vue": "npm:^4.5.0"
     axios: "npm:^1.3.2"
     msw: "npm:2.0.8"
@@ -6409,7 +6408,7 @@ __metadata:
   resolution: "example@workspace:packages/example"
   dependencies:
     "@apollo/client": "npm:^3.8.7"
-    "@playwright/test": "npm:^1.30.0"
+    "@playwright/test": "npm:^1.40.1"
     "@types/node": "npm:^18.18.9"
     "@types/react": "npm:^18.2.37"
     "@types/react-dom": "npm:^18.2.15"
@@ -6417,6 +6416,7 @@ __metadata:
     buffer: "npm:^6.0.3"
     graphql: "npm:^16.8.1"
     msw: "npm:2.0.8"
+    playwright: "npm:^1.40.1"
     playwright-msw: "workspace:*"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -6690,7 +6690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
+"fsevents@npm:2.3.2, fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
   version: 2.3.2
   resolution: "fsevents@npm:2.3.2"
   dependencies:
@@ -6710,7 +6710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
@@ -9370,12 +9370,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.30.0":
-  version: 1.30.0
-  resolution: "playwright-core@npm:1.30.0"
+"playwright-core@npm:1.40.1":
+  version: 1.40.1
+  resolution: "playwright-core@npm:1.40.1"
   bin:
-    playwright: cli.js
-  checksum: a0d997d107a790d4104c25a6d6b8ee954b2cefda0b3b666936c73db8bb01965fb63aaab04fe3fa9473d70f3d86caa68dfaa6fac9d14c16bc927e58b5883d6eae
+    playwright-core: cli.js
+  checksum: b8945a5eec68a2772be537219c81f74b8fbd1545650c908c41fdcb2b9eb40f488968d1fb59c61ca58afb923af1e390dd621bba3099521fcd3d9a63ef3645a203
   languageName: node
   linkType: hard
 
@@ -9388,7 +9388,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.18.6"
     "@jest/globals": "npm:^29.4.1"
     "@mswjs/cookies": "npm:^1.1.0"
-    "@playwright/test": "npm:^1.30.0"
+    "@playwright/test": "npm:^1.40.1"
     "@types/babel__core": "npm:^7.20.0"
     "@types/babel__preset-env": "npm:^7.9.2"
     "@types/jest": "npm:^29.4.0"
@@ -9405,6 +9405,21 @@ __metadata:
     msw: ^2.0.0
   languageName: unknown
   linkType: soft
+
+"playwright@npm:1.40.1, playwright@npm:^1.40.1":
+  version: 1.40.1
+  resolution: "playwright@npm:1.40.1"
+  dependencies:
+    fsevents: "npm:2.3.2"
+    playwright-core: "npm:1.40.1"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    playwright: cli.js
+  checksum: 95cf79f1574accbff18fac4b876aa3811640314ee74cf4cd1c249398cd49824e55dc664039342a18d2d2fa4f5ad460ce91a97cb15942ab5d71c8ab04f442dc32
+  languageName: node
+  linkType: hard
 
 "pluralize@npm:^7.0.0":
   version: 7.0.0

@@ -17,7 +17,7 @@
     "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@playwright/test": "^1.30.0",
+    "@playwright/test": "^1.40.1",
     "@vitejs/plugin-vue": "^4.5.0",
     "msw": "2.0.8",
     "playwright-msw": "workspace:*",
