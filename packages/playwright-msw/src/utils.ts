@@ -122,5 +122,3 @@ export async function readableStreamToBuffer(
     return Buffer.from(combinedChunks);
   }
 }
-
-export const uuidv4 = () => Math.random().toString(16).slice(2);

@@ -1,4 +1,4 @@
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { SearchEngine } from '../models/search-engine';
 import { testFactory, expect } from '../test';
 
@@ -11,24 +11,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
     'should bypass initial page load requests (i.e. static assets)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        http.get(
-          '*/search',
-          () =>
-            new Response(
-              JSON.stringify([
-                {
-                  title: 'Explicit cross-domain result',
-                  href: 'https://fake.domain.com/',
-                  category: 'books',
-                },
-              ]),
-              {
-                status: 200,
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              }
-            )
+        http.get('*/search', () =>
+          HttpResponse.json([
+            {
+              title: 'Explicit cross-domain result',
+              href: 'https://fake.domain.com/',
+              category: 'books',
+            },
+          ])
         )
       );
 
@@ -43,24 +33,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
     'should mock subsequent requests immediately after page load (i.e. API calls)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        http.get(
-          '*/users',
-          () =>
-            new Response(
-              JSON.stringify([
-                {
-                  id: 'fake',
-                  firstName: '🥔',
-                  lastName: 'Emoji',
-                },
-              ]),
-              {
-                status: 200,
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              }
-            )
+        http.get('*/users', () =>
+          HttpResponse.json([
+            {
+              id: 'fake',
+              firstName: '🥔',
+              lastName: 'Emoji',
+            },
+          ])
         )
       );
 
@@ -74,24 +54,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
     'should mock delayed requests after page load (i.e. API calls)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        http.get(
-          '*/search',
-          () =>
-            new Response(
-              JSON.stringify([
-                {
-                  title: '🍆',
-                  href: 'https://eggplant.domain.com/',
-                  category: 'books',
-                },
-              ]),
-              {
-                status: 200,
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              }
-            )
+        http.get('*/search', () =>
+          HttpResponse.json([
+            {
+              title: '🍆',
+              href: 'https://eggplant.domain.com/',
+              category: 'books',
+            },
+          ])
         )
       );
 
@@ -121,18 +91,8 @@ testWaitForPageLoadFalse.describe('waitForPageLoad set to false', () => {
     'should not bypass initial page load requests (i.e. static assets)',
     async ({ page, worker }) => {
       await worker.resetHandlers(
-        http.get(
-          '*/search',
-          () =>
-            new Response(
-              JSON.stringify({ message: 'Mocked static resource call' }),
-              {
-                status: 200,
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              }
-            )
+        http.get('*/search', () =>
+          HttpResponse.json({ message: 'Mocked static resource call' })
         )
       );
 

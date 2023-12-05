@@ -5,7 +5,7 @@ export const testHandlers = [
     '/api/users',
 
     async () => {
-      await delay(500);
+      await delay();
       return HttpResponse.json([
         { name: 'Harry' },
         { name: 'Ron' },

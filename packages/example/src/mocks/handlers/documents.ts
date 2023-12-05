@@ -8,7 +8,7 @@ export default [
   http.get<GetDocumentsParams, GetDocumentsResponse>(
     '/api/documents/months',
     async () => {
-      await delay(50);
+      await delay();
       return HttpResponse.json([
         {
           id: '9ef0aeb6-60bb-11ed-9b6a-0242ac120002',
@@ -28,7 +28,7 @@ export default [
   http.get<GetDocumentsParams, GetDocumentsResponse>(
     '/api/documents/:slug',
     async ({ params }) => {
-      await delay(50);
+      await delay();
       return HttpResponse.json(
         new Array(3).fill(null).map((_, index) => ({
           id: `${params.slug}-${index + 1}`,

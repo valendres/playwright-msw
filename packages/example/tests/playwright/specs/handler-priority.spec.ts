@@ -1,6 +1,6 @@
 import { DocumentsList } from '../models/documents-list';
 import { test } from '../test';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 test.describe.parallel('handler priority', () => {
   test('should process initial handlers in the order in which they are defined where index 0 is processed first', async ({
@@ -19,45 +19,25 @@ test.describe.parallel('handler priority', () => {
     worker,
   }) => {
     await worker.use(
-      http.get(
-        '/api/documents/secret',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                id: 'a',
-                title: 'goat',
-              },
-              {
-                id: 'b',
-                title: 'camel',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/secret', () =>
+        HttpResponse.json([
+          {
+            id: 'a',
+            title: 'goat',
+          },
+          {
+            id: 'b',
+            title: 'camel',
+          },
+        ])
       ),
-      http.get(
-        '/api/documents/:slug',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                id: 'slug',
-                title: 'Sluggymcslugface',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/:slug', () =>
+        HttpResponse.json([
+          {
+            id: 'slug',
+            title: 'Sluggymcslugface',
+          },
+        ])
       )
     );
 
@@ -73,45 +53,25 @@ test.describe.parallel('handler priority', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      http.get(
-        '/api/documents/test',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                id: 'a',
-                title: 'apple',
-              },
-              {
-                id: 'o',
-                title: 'orange',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/test', () =>
+        HttpResponse.json([
+          {
+            id: 'a',
+            title: 'apple',
+          },
+          {
+            id: 'o',
+            title: 'orange',
+          },
+        ])
       ),
-      http.get(
-        '/api/documents/:slug',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                id: 'p',
-                title: 'potato',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/documents/:slug', () =>
+        HttpResponse.json([
+          {
+            id: 'p',
+            title: 'potato',
+          },
+        ])
       )
     );
 

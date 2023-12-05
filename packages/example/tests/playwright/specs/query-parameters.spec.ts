@@ -1,6 +1,6 @@
 import { SearchEngine } from '../models/search-engine';
 import { test } from '../test';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 test.describe.parallel('query parameters', () => {
   test('should allow API calls that have query params to be handled by initial handlers', async ({
@@ -24,24 +24,14 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      http.get(
-        '/api/search',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                title: 'The Potato',
-                href: 'https://fake.domain.com',
-                category: 'books',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/search', () =>
+        HttpResponse.json([
+          {
+            title: 'The Potato',
+            href: 'https://fake.domain.com',
+            category: 'books',
+          },
+        ])
       )
     );
 
@@ -58,43 +48,23 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.use(
-      http.get(
-        '/api/search?q=ignoredQuery',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                title: 'Pineapple',
-                href: 'https://fake.domain.com',
-                category: 'songs',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/search?q=ignoredQuery', () =>
+        HttpResponse.json([
+          {
+            title: 'Pineapple',
+            href: 'https://fake.domain.com',
+            category: 'songs',
+          },
+        ])
       ),
-      http.get(
-        '/api/search',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                title: 'Pine Tree',
-                href: 'https://fake.domain.com',
-                category: 'songs',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/search', () =>
+        HttpResponse.json([
+          {
+            title: 'Pine Tree',
+            href: 'https://fake.domain.com',
+            category: 'songs',
+          },
+        ])
       )
     );
 
@@ -112,24 +82,14 @@ test.describe.parallel('query parameters', () => {
   }) => {
     const endpointWithTrailingSlash = '/api/search/';
     await worker.resetHandlers(
-      http.get(
-        endpointWithTrailingSlash,
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                title: 'Trailing slash',
-                href: 'https://fake.domain.com/',
-                category: 'books',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get(endpointWithTrailingSlash, () =>
+        HttpResponse.json([
+          {
+            title: 'Trailing slash',
+            href: 'https://fake.domain.com/',
+            category: 'books',
+          },
+        ])
       )
     );
 
@@ -147,24 +107,14 @@ test.describe.parallel('query parameters', () => {
     worker,
   }) => {
     await worker.resetHandlers(
-      http.get(
-        '/api/:potato/',
-        () =>
-          new Response(
-            JSON.stringify([
-              {
-                title: 'Trailing slash and route parameters',
-                href: 'https://fake.domain.com/',
-                category: 'books',
-              },
-            ]),
-            {
-              status: 200,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
+      http.get('/api/:potato/', () =>
+        HttpResponse.json([
+          {
+            title: 'Trailing slash and route parameters',
+            href: 'https://fake.domain.com/',
+            category: 'books',
+          },
+        ])
       )
     );
 

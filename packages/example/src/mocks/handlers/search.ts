@@ -69,8 +69,6 @@ export default [
           )
         : items;
 
-    return HttpResponse.json(searchResults, {
-      status: 200,
-    });
+    return HttpResponse.json(searchResults);
   }),
 ];

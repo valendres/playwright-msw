@@ -1,8 +1,9 @@
 import type { Route } from '@playwright/test';
+import { randomUUID } from 'crypto';
 import type { RequestHandler, LifeCycleEventsMap } from 'msw';
 import { handleRequest } from 'msw';
 import { Emitter } from 'strict-event-emitter';
-import { uuidv4, objectifyHeaders, readableStreamToBuffer } from './utils';
+import { objectifyHeaders, readableStreamToBuffer } from './utils';
 
 const emitter = new Emitter<LifeCycleEventsMap>();
 
@@ -20,7 +21,7 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
         headers,
         body: postData ? Buffer.from(postData) : undefined,
       }),
-      uuidv4(),
+      randomUUID(),
       // Reverse array so that handlers that were most recently appended are processed first
       handlers.slice().reverse(),
       {
