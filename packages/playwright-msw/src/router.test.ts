@@ -17,7 +17,7 @@ const getRouteHandlerForPath = (targetPath: Path, page: Page): RouteHandler => {
     .mock.calls.find(
       ([routePath]) =>
         routePath instanceof RegExp &&
-        routePath.source === convertMswPathToPlaywrightUrl(targetPath).source
+        routePath.source === convertMswPathToPlaywrightUrl(targetPath).source,
     )?.[1] as RouteHandler;
 };
 
@@ -46,12 +46,12 @@ describe('router', () => {
         expect(page.route).toHaveBeenNthCalledWith(
           1,
           convertMswPathToPlaywrightUrl('/friends'),
-          expect.any(Function)
+          expect.any(Function),
         );
         expect(page.route).toHaveBeenNthCalledWith(
           2,
           convertMswPathToPlaywrightUrl('/profile'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
 
@@ -86,7 +86,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Should be all of the initial handlers since we haven't added any non-user handlers
-          requestHandlers.slice().reverse()
+          requestHandlers.slice().reverse(),
         );
       });
 
@@ -150,7 +150,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Note the omission of friend handlers
-          userHandlers.slice().reverse()
+          userHandlers.slice().reverse(),
         );
       });
 
@@ -177,7 +177,7 @@ describe('router', () => {
         expect(handleRoute).toHaveBeenCalledWith(
           expect.objectContaining({}),
           // Note the omission of subsequently added handlers
-          [initialUserHandler2, initialUserHandler1]
+          [initialUserHandler2, initialUserHandler1],
         );
       });
     });
@@ -220,7 +220,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
           convertMswPathToPlaywrightUrl('/potato'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
 
@@ -253,12 +253,12 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
           convertMswPathToPlaywrightUrl('/goat'),
-          expect.any(Function)
+          expect.any(Function),
         );
         expect(page.unroute).toHaveBeenNthCalledWith(
           2,
           convertMswPathToPlaywrightUrl('/camel'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
 
@@ -274,7 +274,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
           convertMswPathToPlaywrightUrl('/apple'),
-          expect.any(Function)
+          expect.any(Function),
         );
 
         await router.resetHandlers();
@@ -294,7 +294,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenNthCalledWith(
           1,
           convertMswPathToPlaywrightUrl('/car'),
-          expect.any(Function)
+          expect.any(Function),
         );
 
         // Second handler
@@ -304,7 +304,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenNthCalledWith(
           2,
           convertMswPathToPlaywrightUrl('/plane'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
 
@@ -328,7 +328,7 @@ describe('router', () => {
 
         await router.resetHandlers(
           // URL that was present in initial handlers
-          http.get(profilePath, successResolver)
+          http.get(profilePath, successResolver),
           // Note the omission of `settingsPath` here
         );
 
@@ -336,7 +336,7 @@ describe('router', () => {
         expect(page.unroute).toHaveBeenCalledTimes(1);
         expect(page.unroute).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl(settingsPath),
-          settingsRouteHandler
+          settingsRouteHandler,
         );
 
         // Should not have added any additional routes
@@ -360,7 +360,7 @@ describe('router', () => {
 
         await router.resetHandlers(
           http.get(profilePath, successResolver),
-          http.get(settingsPath, successResolver)
+          http.get(settingsPath, successResolver),
         );
 
         // Should not have unrouted anything
@@ -370,7 +370,7 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl(settingsPath),
-          getRouteHandlerForPath(settingsPath, page)
+          getRouteHandlerForPath(settingsPath, page),
         );
       });
 
@@ -393,7 +393,7 @@ describe('router', () => {
 
         await router.resetHandlers(
           http.get(profilePath, successResolver),
-          http.get(settingsPath, successResolver)
+          http.get(settingsPath, successResolver),
         );
 
         expect(page.unroute).toHaveBeenCalledTimes(0);
@@ -413,7 +413,7 @@ describe('router', () => {
 
         await router.resetHandlers(
           http.get(profilePath, successResolver),
-          http.get(settingsPath, successResolver)
+          http.get(settingsPath, successResolver),
         );
 
         // Should not have unrouted anything
@@ -423,11 +423,11 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(2);
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl(profilePath),
-          getRouteHandlerForPath(profilePath, page)
+          getRouteHandlerForPath(profilePath, page),
         );
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl(settingsPath),
-          getRouteHandlerForPath(settingsPath, page)
+          getRouteHandlerForPath(settingsPath, page),
         );
       });
     });
@@ -464,7 +464,7 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl('/graphql'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
 
@@ -480,7 +480,7 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl('/graphql'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
 
@@ -492,7 +492,7 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl('/graphql'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
     });
@@ -506,8 +506,8 @@ describe('router', () => {
         });
         await expect(() => router.use(...handlers)).rejects.toEqual(
           new Error(
-            'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".'
-          )
+            'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".',
+          ),
         );
       });
 
@@ -530,7 +530,7 @@ describe('router', () => {
         expect(page.route).toHaveBeenCalledTimes(1);
         expect(page.route).toHaveBeenCalledWith(
           convertMswPathToPlaywrightUrl('/graphql'),
-          expect.any(Function)
+          expect.any(Function),
         );
       });
     });

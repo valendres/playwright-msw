@@ -17,7 +17,7 @@ test.describe.parallel('HTTP', () => {
       http.get('/api/users', async () => {
         await delay(250);
         return HttpResponse.json([{ name: 'Custom User' }]);
-      })
+      }),
     );
     await page.goto('/users');
     await expect(page.locator('text="Custom User"')).toBeVisible();

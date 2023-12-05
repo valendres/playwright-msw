@@ -19,8 +19,8 @@ test.describe.parallel('GraphQL example: user settings', () => {
   }) => {
     await worker.use(
       graphql.query('GetSettings', (_, response, context) =>
-        response(context.status(500))
-      )
+        response(context.status(500)),
+      ),
     );
     await page.goto('/settings');
 
@@ -45,8 +45,8 @@ test.describe.parallel('GraphQL example: user settings', () => {
   }) => {
     await worker.use(
       graphql.mutation('MutateSettings', (_, response, context) =>
-        response(context.status(500))
-      )
+        response(context.status(500)),
+      ),
     );
     await page.goto('/settings');
 

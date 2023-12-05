@@ -16,7 +16,7 @@ test.describe.parallel('delay', () => {
             lastName: 'Response',
           },
         ]);
-      })
+      }),
     );
 
     await page.goto('/users');
@@ -49,7 +49,7 @@ test.describe.parallel('delay', () => {
             lastName: 'Response',
           },
         ]);
-      })
+      }),
     );
 
     await page.goto('/users', { waitUntil: 'networkidle' });

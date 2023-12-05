@@ -23,7 +23,7 @@ export default [
           title: 'march.pdf',
         },
       ]);
-    }
+    },
   ),
   http.get<GetDocumentsParams, GetDocumentsResponse>(
     '/api/documents/:slug',
@@ -33,8 +33,8 @@ export default [
         new Array(3).fill(null).map((_, index) => ({
           id: `${params.slug}-${index + 1}`,
           title: `${params.slug}-document-${index + 1}.pdf`,
-        }))
+        })),
       );
-    }
+    },
   ),
 ];

@@ -34,7 +34,7 @@ const useSessionQuery = () => {
         session: response.status === 200 ? await response.json() : null,
       };
     },
-    { retry: false, refetchOnWindowFocus: false, refetchOnMount: false }
+    { retry: false, refetchOnWindowFocus: false, refetchOnMount: false },
   );
 };
 
@@ -57,7 +57,7 @@ const useLoginMutation = () => {
 
       return response.json();
     },
-    { retry: false }
+    { retry: false },
   );
 };
 
@@ -73,7 +73,7 @@ const useLogoutMutation = () => {
         throw new Error('Failed to logout');
       }
     },
-    { retry: false }
+    { retry: false },
   );
 };
 
@@ -88,10 +88,10 @@ export const LoginForm: FC = () => {
         getLoginFormValues(event.target as HTMLFormElement),
         {
           onSuccess: () => sessionQuery.refetch(),
-        }
+        },
       );
     },
-    [loginMutation.mutate]
+    [loginMutation.mutate],
   );
 
   const handleLogoutButtonPress = useCallback(() => {

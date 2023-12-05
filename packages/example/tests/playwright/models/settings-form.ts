@@ -34,13 +34,13 @@ export class SettingsForm {
 
   async assertProfileVisibility(visibility: string) {
     await expect(this.page.getByLabel('Profile visibility')).toHaveValue(
-      visibility
+      visibility,
     );
   }
 
   async assertSuccessful() {
     await expect(
-      this.page.locator('text=Successfully updated settings!')
+      this.page.locator('text=Successfully updated settings!'),
     ).toBeVisible();
   }
 

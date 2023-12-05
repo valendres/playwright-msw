@@ -11,6 +11,6 @@ export const testHandlers = [
         { name: 'Ron' },
         { name: 'Hermione' },
       ]);
-    }
+    },
   ),
 ];

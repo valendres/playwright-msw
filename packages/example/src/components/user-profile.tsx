@@ -13,7 +13,7 @@ export const UserProfile: FC<UserProfileProps> = () => {
       const response = await fetch(`/api/users/${userId}`);
       return await response.json();
     },
-    { retry: false }
+    { retry: false },
   );
 
   return (

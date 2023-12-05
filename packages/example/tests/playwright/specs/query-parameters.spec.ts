@@ -31,8 +31,8 @@ test.describe.parallel('query parameters', () => {
             href: 'https://fake.domain.com',
             category: 'books',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/search');
@@ -55,7 +55,7 @@ test.describe.parallel('query parameters', () => {
             href: 'https://fake.domain.com',
             category: 'songs',
           },
-        ])
+        ]),
       ),
       http.get('/api/search', () =>
         HttpResponse.json([
@@ -64,8 +64,8 @@ test.describe.parallel('query parameters', () => {
             href: 'https://fake.domain.com',
             category: 'songs',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/search');
@@ -89,8 +89,8 @@ test.describe.parallel('query parameters', () => {
             href: 'https://fake.domain.com/',
             category: 'books',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/search');
@@ -114,8 +114,8 @@ test.describe.parallel('query parameters', () => {
             href: 'https://fake.domain.com/',
             category: 'books',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/search');
@@ -125,7 +125,7 @@ test.describe.parallel('query parameters', () => {
     await searchEngine.submit();
     await searchEngine.assertSearchResultCount(1);
     await searchEngine.assertSearchResultVisible(
-      'Trailing slash and route parameters'
+      'Trailing slash and route parameters',
     );
   });
 });

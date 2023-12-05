@@ -65,7 +65,7 @@ export default [
     const searchResults =
       q && q.length > 0
         ? items.filter(({ title }) =>
-            title.toLocaleLowerCase().includes(q.toLocaleLowerCase())
+            title.toLocaleLowerCase().includes(q.toLocaleLowerCase()),
           )
         : items;
 

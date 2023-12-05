@@ -19,7 +19,7 @@ test.describe.parallel('HTTP example: users list', () => {
         return new HttpResponse(null, {
           status: 403,
         });
-      })
+      }),
     );
     await page.goto('/users');
     await expect(page.locator('text="Failed to load users"')).toBeVisible();
@@ -34,7 +34,7 @@ test.describe.parallel('HTTP example: users list', () => {
         return HttpResponse.json(null, {
           status: 500,
         });
-      })
+      }),
     );
 
     // Reset the handlers so that we go back to using the default ones
@@ -52,7 +52,7 @@ test.describe.parallel('HTTP example: users list', () => {
       http.put('/api/users', () =>
         HttpResponse.json(null, {
           status: 200,
-        })
+        }),
       ),
       http.get('/api/users', () =>
         HttpResponse.json([
@@ -61,10 +61,10 @@ test.describe.parallel('HTTP example: users list', () => {
             firstName: 'Potato',
             lastName: 'McTaterson',
           },
-        ])
+        ]),
       ),
       http.patch('/api/users', () => HttpResponse.json(null, { status: 200 })),
-      http.delete('/api/users', () => HttpResponse.json(null, { status: 200 }))
+      http.delete('/api/users', () => HttpResponse.json(null, { status: 200 })),
     );
 
     await page.goto('/users');
@@ -83,8 +83,8 @@ test.describe.parallel('HTTP example: users list', () => {
             firstName: 'Regular',
             lastName: 'Expression',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/users');
@@ -96,7 +96,7 @@ test.describe.parallel('HTTP example: users list', () => {
   }) => {
     await page.goto('/users/6e369942-6b5d-4159-9b39-729646549183');
     await expect(
-      page.locator('text="erika.richards@example.com"')
+      page.locator('text="erika.richards@example.com"'),
     ).toBeVisible();
   });
 
@@ -114,8 +114,8 @@ test.describe.parallel('HTTP example: users list', () => {
           email: 'test.mc@test.face',
           address: '111 Testy Way',
           phoneNumber: '(123) 456-7890',
-        })
-      )
+        }),
+      ),
     );
     await page.goto('/users/testmytestface');
     await expect(page.locator('text="test.mc@test.face"')).toBeVisible();

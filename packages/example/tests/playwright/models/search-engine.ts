@@ -20,7 +20,7 @@ export class SearchEngine {
   }
 
   async assertSearchResultCount(count: number) {
-    expect(this.page.locator('li')).toHaveCount(count);
+    await expect(this.page.locator('li')).toHaveCount(count);
   }
 
   async assertSearchResultsVisible(expectedSearchResults: string[]) {
@@ -37,7 +37,7 @@ export class SearchEngine {
     endpoint:
       | '/api/search'
       | '/api/search/'
-      | 'http://localhost:8080/api/search'
+      | 'http://localhost:8080/api/search',
   ) {
     await this.page.getByTestId('endpoint').selectOption(endpoint);
   }

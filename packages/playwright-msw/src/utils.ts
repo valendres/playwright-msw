@@ -23,19 +23,19 @@ export const getHandlerType = (handler: RequestHandler): 'http' | 'graphql' =>
 
 export const getHandlerPath = (
   handler: RequestHandler,
-  config: Config
+  config: Config,
 ): Path => {
   if (getHandlerType(handler) === 'graphql') {
     const { graphqlUrl } = config;
     if (!graphqlUrl) {
       throw new Error(
-        'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".'
+        'Missing "graphqlUrl". This is required to be able to use GraphQL handlers. Please provide it when calling "createWorkerFixture".',
       );
     }
     return graphqlUrl;
   }
   // TODO: use correct type
-  return (handler.info as any).path;
+  return (handler.info as unknown as { path: string }).path;
 };
 
 export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
@@ -47,7 +47,7 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
   // Deconstruct path
   const { origin, pathname } =
     path.match(
-      /^(?<origin>\*|\w+:\/\/[^/]+)?(?<pathname>[^?]+)(?<search>\?.*)?/
+      /^(?<origin>\*|\w+:\/\/[^/]+)?(?<pathname>[^?]+)(?<search>\?.*)?/,
     )?.groups ?? {};
 
   // Rebuild it as a RegExp
@@ -63,7 +63,7 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
       '(\\?.*)?',
       // Anchor to end of string
       '$',
-    ].join('')
+    ].join(''),
   );
 };
 
@@ -75,7 +75,7 @@ export function objectifyHeaders(headers: Headers): Record<string, string> {
 
 export async function readableStreamToBuffer(
   contentType: string | undefined,
-  body: ReadableStream<Uint8Array> | null
+  body: ReadableStream<Uint8Array> | null,
 ): Promise<string | Buffer | undefined> {
   if (!body) return undefined;
 

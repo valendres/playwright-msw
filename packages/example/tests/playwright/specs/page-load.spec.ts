@@ -18,15 +18,15 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
               href: 'https://fake.domain.com/',
               category: 'books',
             },
-          ])
-        )
+          ]),
+        ),
       );
 
       await page.goto('/search');
       await expect(
-        page.getByRole('heading', { name: 'Search engine' })
+        page.getByRole('heading', { name: 'Search engine' }),
       ).toBeVisible();
-    }
+    },
   );
 
   testWaitForPageLoadTrue(
@@ -40,14 +40,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
               firstName: '🥔',
               lastName: 'Emoji',
             },
-          ])
-        )
+          ]),
+        ),
       );
 
       await page.goto('/users');
       await expect(page.getByRole('heading', { name: 'Users' })).toBeVisible();
       await expect(page.locator('text="🥔 Emoji"')).toBeVisible();
-    }
+    },
   );
 
   testWaitForPageLoadTrue(
@@ -61,14 +61,14 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
               href: 'https://eggplant.domain.com/',
               category: 'books',
             },
-          ])
-        )
+          ]),
+        ),
       );
 
       await page.goto('/search');
 
       await expect(
-        page.getByRole('heading', { name: 'Search engine' })
+        page.getByRole('heading', { name: 'Search engine' }),
       ).toBeVisible();
 
       await page.waitForTimeout(2000);
@@ -78,7 +78,7 @@ testWaitForPageLoadTrue.describe('waitForPageLoad set to true', () => {
       await searchEngine.submit();
       await searchEngine.assertSearchResultCount(1);
       await searchEngine.assertSearchResultVisible('🍆');
-    }
+    },
   );
 });
 
@@ -92,14 +92,14 @@ testWaitForPageLoadFalse.describe('waitForPageLoad set to false', () => {
     async ({ page, worker }) => {
       await worker.resetHandlers(
         http.get('*/search', () =>
-          HttpResponse.json({ message: 'Mocked static resource call' })
-        )
+          HttpResponse.json({ message: 'Mocked static resource call' }),
+        ),
       );
 
       await page.goto('/search');
       await expect(
-        page.getByText('{"message":"Mocked static resource call"}')
+        page.getByText('{"message":"Mocked static resource call"}'),
       ).toBeVisible();
-    }
+    },
   );
 });

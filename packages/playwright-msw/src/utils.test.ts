@@ -34,7 +34,7 @@ describe('utils', () => {
       'return "$expected" when serializedPath is "$serializedPath"',
       ({ serializedPath, expected }) => {
         expect(deserializePath(serializedPath)).toStrictEqual(expected);
-      }
+      },
     );
 
     it('should allow a path that was previously serialized to be deserialized', () => {
@@ -49,7 +49,7 @@ describe('utils', () => {
       (input) => {
         const possiblyDeserializedPath = deserializePath(input);
         expect(possiblyDeserializedPath).toBe(input);
-      }
+      },
     );
   });
 
@@ -59,14 +59,14 @@ describe('utils', () => {
       (method) => {
         const handler = http[method]('abc', successResolver);
         expect(getHandlerType(handler)).toBe('http');
-      }
+      },
     );
     it.each(['query', 'mutation'] as const)(
       'should return "graphql" if a GraphQL "%s" handler is provided',
       (method) => {
         const handler = graphql[method]('abc', successResolver);
         expect(getHandlerType(handler)).toBe('graphql');
-      }
+      },
     );
   });
 
@@ -77,7 +77,7 @@ describe('utils', () => {
       ${/^\/api\/.*/} | ${/^\/api\/.*/}
     `('return "$expected" when path is "$path"', ({ path, expected }) => {
       expect(getHandlerPath(http.get(path, successResolver), {})).toStrictEqual(
-        expected
+        expected,
       );
     });
   });
@@ -134,7 +134,7 @@ describe('utils', () => {
       ({ mswPath, playwrightUrl, expected }) => {
         const regex = convertMswPathToPlaywrightUrl(mswPath);
         expect(regex.test(playwrightUrl)).toBe(expected);
-      }
+      },
     );
   });
 });

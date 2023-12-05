@@ -54,9 +54,9 @@ export default [
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
-    }
+    },
   ),
   http.get<GetUsersItemApiParams, GetUsersItemApiResponse>(
     '/api/users/:userId',
@@ -70,6 +70,6 @@ export default [
         : HttpResponse.json(null, {
             status: 404,
           });
-    }
+    },
   ),
 ];
