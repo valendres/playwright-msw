@@ -2,42 +2,47 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [3.0.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.2.1...playwright-msw@3.0.0) "playwright-msw" (2023-12-05)<a name="3.0.0"></a>
+
+### Breaking Changes
+
+- playwright-msw now requires msw@2.x and node 18 ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+
+### Bug Fixes
+
+- actually log active handlers ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+
+### Features
+
+- add support for MSW 2.x (#77) ([cb7d144](https://github.com/valendres/playwright-msw/commits/cb7d144))
+
 ## [2.2.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.2.0...playwright-msw@2.2.1) "playwright-msw" (2023-03-10)<a name="2.2.1"></a>
 
 ### Bug Fixes
 
-* vue compatibility ([3634be1](https://github.com/valendres/playwright-msw/commits/3634be1))
-* race condition which breaks compatibility with vue (#61) ([3634be1](https://github.com/valendres/playwright-msw/commits/3634be1))
-
-
-
+- vue compatibility ([3634be1](https://github.com/valendres/playwright-msw/commits/3634be1))
+- race condition which breaks compatibility with vue (#61) ([3634be1](https://github.com/valendres/playwright-msw/commits/3634be1))
 
 ## [2.2.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.1.0...playwright-msw@2.2.0) "playwright-msw" (2023-02-06)<a name="2.2.0"></a>
 
 ### Bug Fixes
 
-* handler delay not being respected ([3d08816](https://github.com/valendres/playwright-msw/commits/3d08816))
-* handler delay not being respected (#49) ([3d08816](https://github.com/valendres/playwright-msw/commits/3d08816))
-* bypass initial page requests (#47) ([d1053b5](https://github.com/valendres/playwright-msw/commits/d1053b5))
-* unknown error code: "error" ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
-* compatibility issue issue with msw>=0.49.3 ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
-* unknown error code "error" when used with msw@0.49.3 (#57) ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
+- handler delay not being respected ([3d08816](https://github.com/valendres/playwright-msw/commits/3d08816))
+- handler delay not being respected (#49) ([3d08816](https://github.com/valendres/playwright-msw/commits/3d08816))
+- bypass initial page requests (#47) ([d1053b5](https://github.com/valendres/playwright-msw/commits/d1053b5))
+- unknown error code: "error" ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
+- compatibility issue issue with msw>=0.49.3 ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
+- unknown error code "error" when used with msw@0.49.3 (#57) ([ef50166](https://github.com/valendres/playwright-msw/commits/ef50166))
 
 ### Features
 
-* allow initial api calls not to be mocked ([d1053b5](https://github.com/valendres/playwright-msw/commits/d1053b5))
-
-
-
+- allow initial api calls not to be mocked ([d1053b5](https://github.com/valendres/playwright-msw/commits/d1053b5))
 
 ## [2.1.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.2...playwright-msw@2.1.0) "playwright-msw" (2022-12-08)<a name="2.1.0"></a>
 
 ### Features
 
-* add support for mocking cross-origin requests (#44) ([6d24ecc](https://github.com/valendres/playwright-msw/commits/6d24ecc))
-
-
-
+- add support for mocking cross-origin requests (#44) ([6d24ecc](https://github.com/valendres/playwright-msw/commits/6d24ecc))
 
 ## [2.0.2](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.0.1...playwright-msw@2.0.2) "playwright-msw" (2022-12-08)<a name="2.0.2"></a>
 
