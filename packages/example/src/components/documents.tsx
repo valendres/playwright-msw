@@ -10,7 +10,7 @@ const DocumentsList: FC<{ slug: string }> = ({ slug }) => {
       const response = await fetch(`/api/documents/${slug}`);
       return await response.json();
     },
-    { retry: false, enabled: !!slug }
+    { retry: false, enabled: !!slug },
   );
 
   if (status === 'loading' || status === 'idle') {
@@ -37,7 +37,7 @@ export const Documents: FC = () => {
     (event: ChangeEvent<HTMLSelectElement>) => {
       navigate(`/documents/${event.currentTarget.value}`);
     },
-    []
+    [],
   );
   return (
     <div>

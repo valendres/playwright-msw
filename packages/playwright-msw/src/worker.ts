@@ -23,7 +23,7 @@ export type MockServiceWorker = {
 export const createWorker = async (
   page: Page,
   requestHandlers?: RequestHandler[],
-  config?: Config
+  config?: Config,
 ): Promise<MockServiceWorker> => {
   const router = new Router(page, requestHandlers, config);
   await router.start();

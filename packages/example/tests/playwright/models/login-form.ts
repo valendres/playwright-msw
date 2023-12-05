@@ -43,19 +43,19 @@ export class LoginForm {
 
   async assertError(error: LoginFormError) {
     await expect(
-      this.page.locator(`text=Failed to login${error}`)
+      this.page.locator(`text=Failed to login${error}`),
     ).toBeVisible();
   }
 
   async assertSuccessful() {
     await expect(
-      this.page.locator('text=Successfully signed in!')
+      this.page.locator('text=Successfully signed in!'),
     ).toBeVisible();
   }
 
   async assertSessionStatus(status: number) {
     await expect(
-      this.page.locator(`text=Session status: ${status}`)
+      this.page.locator(`text=Session status: ${status}`),
     ).toBeVisible();
   }
 }

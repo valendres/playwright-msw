@@ -74,7 +74,7 @@ export default [
       ],
       {
         status: 200,
-      }
+      },
     );
   }),
 ];
@@ -130,7 +130,7 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
         return new HttpResponse(null, {
           status: 403,
         });
-      })
+      }),
     );
     await page.goto('/');
     await expect(page.locator('text="Alessandro Metcalfe"')).toBeHidden();

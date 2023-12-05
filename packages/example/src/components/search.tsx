@@ -18,7 +18,7 @@ const SearchResults: FC<{
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       enabled: !!searchParams.get('q'),
-    }
+    },
   );
   switch (searchQuery.status) {
     case 'idle':
@@ -49,7 +49,7 @@ export const Search: FC = () => {
     (event: ChangeEvent<HTMLSelectElement>) => {
       setEndpoint(event.currentTarget.value);
     },
-    []
+    [],
   );
   const handleFormChange = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
@@ -63,7 +63,7 @@ export const Search: FC = () => {
       });
       setSearchParams(newSearchParams);
     },
-    [setSearchParams]
+    [setSearchParams],
   );
   return (
     <div>

@@ -15,8 +15,8 @@ test.describe.parallel('cross-origin mocking', () => {
             href: 'https://fake.domain.com/',
             category: 'books',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/search');
@@ -26,7 +26,7 @@ test.describe.parallel('cross-origin mocking', () => {
     await searchEngine.submit();
     await searchEngine.assertSearchResultCount(1);
     await searchEngine.assertSearchResultVisible(
-      'Wildcard cross-domain result'
+      'Wildcard cross-domain result',
     );
   });
 
@@ -42,8 +42,8 @@ test.describe.parallel('cross-origin mocking', () => {
             href: 'https://fake.domain.com/',
             category: 'books',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/search');
@@ -53,7 +53,7 @@ test.describe.parallel('cross-origin mocking', () => {
     await searchEngine.submit();
     await searchEngine.assertSearchResultCount(1);
     await searchEngine.assertSearchResultVisible(
-      'Explicit cross-domain result'
+      'Explicit cross-domain result',
     );
   });
 });

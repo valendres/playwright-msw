@@ -19,11 +19,11 @@ const encodeSessionCookie = (username: string, password: string) =>
   Buffer.from(`${username}:${password}`).toString('base64');
 
 const decodeSessionCookie = (
-  cookie: string
+  cookie: string,
 ): { username: string; password: string } => {
   const [username, password] = Buffer.from(
     (cookie ?? '').split(',')[0],
-    'base64'
+    'base64',
   )
     .toString()
     .split(':');
@@ -54,7 +54,7 @@ export default [
         : HttpResponse.json(null, {
             status: 401,
           });
-    }
+    },
   ),
   http.post<PostSessionRequestBody, PostSessionResponse>(
     '/api/session',
@@ -68,7 +68,7 @@ export default [
           headers: {
             'Set-Cookie': `${SESSION_COOKIE_KEY}=${encodeSessionCookie(
               username,
-              password
+              password,
             )}`,
           },
         });
@@ -77,7 +77,7 @@ export default [
       return HttpResponse.json(null, {
         status: 401,
       });
-    }
+    },
   ),
   http.delete('/api/session', async ({ cookies }) => {
     const sessionCookie = cookies[SESSION_COOKIE_KEY];

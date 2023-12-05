@@ -52,7 +52,7 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
             headers,
           });
         },
-      }
+      },
     );
   } catch {
     await route.abort();

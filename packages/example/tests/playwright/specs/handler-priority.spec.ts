@@ -29,7 +29,7 @@ test.describe.parallel('handler priority', () => {
             id: 'b',
             title: 'camel',
           },
-        ])
+        ]),
       ),
       http.get('/api/documents/:slug', () =>
         HttpResponse.json([
@@ -37,8 +37,8 @@ test.describe.parallel('handler priority', () => {
             id: 'slug',
             title: 'Sluggymcslugface',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/documents');
@@ -63,7 +63,7 @@ test.describe.parallel('handler priority', () => {
             id: 'o',
             title: 'orange',
           },
-        ])
+        ]),
       ),
       http.get('/api/documents/:slug', () =>
         HttpResponse.json([
@@ -71,8 +71,8 @@ test.describe.parallel('handler priority', () => {
             id: 'p',
             title: 'potato',
           },
-        ])
-      )
+        ]),
+      ),
     );
 
     await page.goto('/documents');

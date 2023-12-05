@@ -17,13 +17,13 @@ export default [
       data: {
         settings: DEFAULT_SETTINGS,
       },
-    })
+    }),
   ),
   graphql.mutation<SettingsMutationData, SettingsMutationVariables>(
     'MutateSettings',
     ({ variables }) =>
       HttpResponse.json({
         data: { mutateSettings: { ...DEFAULT_SETTINGS, ...variables } },
-      })
+      }),
   ),
 ];

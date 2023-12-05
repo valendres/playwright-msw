@@ -32,7 +32,7 @@ export class Router {
   public constructor(
     page: Page,
     requestHandlers?: RequestHandler[],
-    config?: Config
+    config?: Config,
   ) {
     this.page = page;
     this.initialRequestHandlers = (requestHandlers ?? []).slice().reverse();
@@ -76,7 +76,7 @@ export class Router {
       Record<SerializedPath, RequestHandler[]>
     >((accumulator, targetRestHandler) => {
       const serializedPath = serializePath(
-        getHandlerPath(targetRestHandler, this.config)
+        getHandlerPath(targetRestHandler, this.config),
       );
       if (serializedPath in accumulator) {
         accumulator[serializedPath].push(targetRestHandler);
@@ -88,7 +88,7 @@ export class Router {
 
     // Unregister routes which are no longer required
     const serializedPathsToPurge = [...Object.keys(this.routes)].filter(
-      (serializedPath) => !(serializedPath in targetRoutes)
+      (serializedPath) => !(serializedPath in targetRoutes),
     ) as SerializedPath[];
     for (const serializedPath of serializedPathsToPurge) {
       const { [serializedPath]: data, ...remainingRoutes } = this.routes;
@@ -98,7 +98,7 @@ export class Router {
 
     // Register new routes
     const serializedPathsToRegister = [...Object.keys(targetRoutes)].filter(
-      (serializedPath) => !(serializedPath in this.routes)
+      (serializedPath) => !(serializedPath in this.routes),
     ) as SerializedPath[];
     for (const serializedPath of serializedPathsToRegister) {
       const path = deserializePath(serializedPath);
@@ -111,7 +111,7 @@ export class Router {
 
     // Synchronize all other routes
     const serializedPathsToSynchronize = [...Object.keys(this.routes)].filter(
-      (serializedPath) => serializedPath in targetRoutes
+      (serializedPath) => serializedPath in targetRoutes,
     ) as SerializedPath[];
     for (const serializedPath of serializedPathsToSynchronize) {
       this.setRouteData({
@@ -155,7 +155,7 @@ export class Router {
     if (data) {
       await this.page.unroute(
         convertMswPathToPlaywrightUrl(data.path),
-        data.routeHandler
+        data.routeHandler,
       );
     }
   }

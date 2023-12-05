@@ -5,10 +5,10 @@ import { createWorker, MockServiceWorker } from './worker';
 
 export const createWorkerFixture = (
   handlers: RequestHandler[] = [],
-  config?: Config
+  config?: Config,
 ): [
   TestFixture<MockServiceWorker, PlaywrightTestArgs>,
-  { scope: 'test'; auto: boolean }
+  { scope: 'test'; auto: boolean },
 ] => [
   async ({ page }, use) => {
     const worker = await createWorker(page, handlers, config);
