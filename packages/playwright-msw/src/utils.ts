@@ -73,12 +73,6 @@ export function objectifyHeaders(headers: Headers): Record<string, string> {
   return result;
 }
 
-function isNullArray(arr: Uint8Array): boolean {
-  return (
-    arr.length === 4 && arr.every((el, idx) => el === 'null'.charCodeAt(idx))
-  );
-}
-
 export async function readableStreamToBuffer(
   contentType: string | undefined,
   body: ReadableStream<Uint8Array> | null
@@ -109,11 +103,6 @@ export async function readableStreamToBuffer(
   }
 
   if (contentType?.includes('application/json')) {
-    // Fulfilling a playwright route with "null" while `application/json` prevents
-    // the route from being fulfilled properly
-    if (isNullArray(combinedChunks)) {
-      return undefined;
-    }
     return new TextDecoder().decode(combinedChunks);
   } else if (contentType?.includes('text')) {
     return new TextDecoder().decode(combinedChunks);
