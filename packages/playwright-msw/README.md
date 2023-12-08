@@ -88,6 +88,7 @@ If you're using REST API's, all you need to do is provide your handlers to `crea
 
 ```typescript
 import { test as base, expect } from '@playwright/test';
+import { http } from 'msw';
 import type { MockServiceWorker } from 'playwright-msw';
 import { createWorkerFixture } from 'playwright-msw';
 
@@ -95,11 +96,13 @@ import handlers from './handlers';
 
 const test = base.extend<{
   worker: MockServiceWorker;
+  http: typeof http;
 }>({
   worker: createWorkerFixture(handlers),
+  http
 });
 
-export { test, expect };
+export { expect, test };
 ```
 
 **Note:** if you're using GraphQL, then it is assumed that the calls are made over HTTP. The default uri for the graphql endpoint is `/graphql`. This can be customized via [configuration](#configuration) object when creating the worker.
@@ -109,7 +112,7 @@ export { test, expect };
 The final step is to use the extended `test` implementation within your playwright tests. e.g. within a [http.spec.ts](https://github.com/valendres/playwright-msw/blob/main/packages/example/tests/playwright/specs/http.spec.ts) file:
 
 ```typescript
-import { http, delay, HttpResponse } from 'msw';
+import { delay, HttpResponse } from 'msw';
 import { expect, test } from '../test';
 
 test.describe.parallel("A demo of playwright-msw's functionality", () => {
@@ -123,6 +126,7 @@ test.describe.parallel("A demo of playwright-msw's functionality", () => {
   test.only('should allow mocks to be overridden on a per test basis', async ({
     page,
     worker,
+    http
   }) => {
     await worker.use(
       http.get('/api/users', async () => {
