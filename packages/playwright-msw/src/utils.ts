@@ -38,10 +38,28 @@ export const getHandlerPath = (
   return (handler.info as unknown as { path: string }).path;
 };
 
+const getOriginRegex = (origin) => {
+  if (origin === '*') {
+    return '.*';
+  }
+  return (
+    (origin ?? '')
+      // escape dots in domains, for more exact matches
+      .replace(/\./, '.')
+      // support wildcard star matches
+      .replace('*', '.*') || '(\\w+://[^/]+)?'
+  );
+};
+
 export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
   // If already a regex, just return straight away
   if (path instanceof RegExp) {
     return path;
+  }
+
+  // A route that matches everything for testing
+  if (path === '*') {
+    return /.*/;
   }
 
   // Deconstruct path
@@ -54,9 +72,12 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
   return new RegExp(
     [
       '^',
-      origin === '*' ? '.*' : origin ?? '(\\w+://[^/]+)?',
-      // Replace route parameters (`:whatever`) with multi-char wildcard
-      pathname.replace(/:[^/]+/g, '[^/]+'),
+      getOriginRegex(origin),
+      pathname
+        // support star matching
+        .replace(/\*/g, '.*')
+        // Replace route parameters (`:whatever`) with multi-char wildcard
+        .replace(/:[^/]+/g, '[^/]+'),
       // Add optional trailing slash
       '\\/?',
       // Add optional query parameters

@@ -120,4 +120,25 @@ test.describe.parallel('HTTP example: users list', () => {
     await page.goto('/users/testmytestface');
     await expect(page.locator('text="test.mc@test.face"')).toBeVisible();
   });
+
+  test('should allow paths with route with `*` to be mocked', async ({
+    page,
+    worker,
+  }) => {
+    await worker.use(
+      http.get('/a*i/us*/:userId', () =>
+        HttpResponse.json({
+          id: 'testmytestface',
+          firstName: 'Testy',
+          lastName: 'Mctestface',
+          dob: '1969-6-9',
+          email: 'test.mc@test.face',
+          address: '111 Testy Way',
+          phoneNumber: '(123) 456-7890',
+        }),
+      ),
+    );
+    await page.goto('/users/testmytestface');
+    await expect(page.locator('text="test.mc@test.face"')).toBeVisible();
+  });
 });
