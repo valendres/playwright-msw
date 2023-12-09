@@ -2,6 +2,18 @@
 
 <!-- MONODEPLOY:BELOW -->
 
+## [3.0.1](https://github.com/valendres/playwright-msw/compare/playwright-msw@3.0.0...playwright-msw@3.0.1) "playwright-msw" (2023-12-09)<a name="3.0.1"></a>
+
+### Bug Fixes
+
+* **utils**: support star matching
+
+support star matching in domain and path in regex ([a476b79](https://github.com/valendres/playwright-msw/commits/a476b79))
+* **utils**: support star matching (#84) ([a476b79](https://github.com/valendres/playwright-msw/commits/a476b79))
+
+
+
+
 ## [3.0.0](https://github.com/valendres/playwright-msw/compare/playwright-msw@2.2.1...playwright-msw@3.0.0) "playwright-msw" (2023-12-05)<a name="3.0.0"></a>
 
 ### Breaking Changes
