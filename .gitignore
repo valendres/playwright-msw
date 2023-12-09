@@ -16,4 +16,7 @@ yarn-error.log
 # eslint
 .eslintcache
 
+# ide
+.idea
+
 .env

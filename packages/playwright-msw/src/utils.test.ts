@@ -124,11 +124,18 @@ describe('utils', () => {
       ${'https://www.google.com.au/:potato/:eggplant/'}         | ${'https://www.google.com.au/search/something/?foo=bar'} | ${true}
       ${'https://www.google.com.au/:potato/:eggplant?foo=bar'}  | ${'https://www.google.com.au/search/something'}          | ${true}
       ${'https://www.google.com.au/:potato/:eggplant/?foo=bar'} | ${'https://www.google.com.au/search/something/'}         | ${true}
+      ${'https://www.google.com.au/*/?foo=bar'}                 | ${'https://www.google.com.au/search/something/?foo=bar'} | ${true}
       ${'https://www.google.com.au/search'}                     | ${'https://different.domain/search'}                     | ${false}
       ${'http://www.google.com.au/:something/'}                 | ${'http://www.google.com.au/search/?q=potato'}           | ${true}
-      ${'*/api/users'}                                          | ${'http://localhost:8080/api/users'}                     | ${true}
       ${'http://localhost:8080/api/users'}                      | ${'http://localhost:8080/api/users'}                     | ${true}
       ${'http://localhost:8081/api/users'}                      | ${'http://localhost:8080/api/users'}                     | ${false}
+      ${'*'}                                                    | ${'http://anything.com/will/match?q=really'}             | ${true}
+      ${'http://api.*.foo.com/life/power'}                      | ${'http://api.dev.foo.com/life/power'}                   | ${true}
+      ${'http://*.foo.com/life/power'}                          | ${'http://api.dev.foo.com/life/power'}                   | ${true}
+      ${'http://b.co/api/*/*'}                                  | ${'http://b.co/api/users/foo'}                           | ${true}
+      ${'http://b.co/p/https%3A%2F%2Fa.*%2F*%2Fsecond'}         | ${'http://b.co/p/https%3A%2F%2Fa.co%2Ffirst%2Fsecond'}   | ${true}
+      ${'*/api/users'}                                          | ${'http://localhost:8080/api/users'}                     | ${true}
+      ${'*/*/users'}                                            | ${'http://localhost:8080/api/users'}                     | ${true}
     `(
       '$expected: "$mswPath" should match "$playwrightUrl"',
       ({ mswPath, playwrightUrl, expected }) => {
