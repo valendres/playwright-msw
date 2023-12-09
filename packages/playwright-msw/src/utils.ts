@@ -38,7 +38,7 @@ export const getHandlerPath = (
   return (handler.info as unknown as { path: string }).path;
 };
 
-const getOriginRegex = (origin) => {
+const getOriginRegex = (origin: string) => {
   if (origin === '*') {
     return '.*';
   }
