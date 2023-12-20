@@ -1,7 +1,7 @@
 import { HttpResponse, http, passthrough } from 'msw';
 import { test } from '../test';
 
-test.describe.only('passthrough', () => {
+test.describe('passthrough', () => {
   test('should show a custom mocked title if overridden', async ({
     worker,
     page,
