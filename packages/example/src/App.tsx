@@ -8,6 +8,7 @@ import { UsersList } from './components/users-list';
 import { SettingsForm } from './components/settings-form';
 import { Documents } from './components/documents';
 import { Search } from './components/search';
+import { ConfigTitle } from './components/config-title';
 
 const queryClient = new QueryClient();
 const apolloClient = new ApolloClient({
@@ -21,6 +22,7 @@ const App: FC = () => {
       <ApolloProvider client={apolloClient}>
         <BrowserRouter>
           <Routes>
+            <Route path="/config-title" element={<ConfigTitle />} />
             <Route path="/documents/:slug" element={<Documents />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/search" element={<Search />} />
