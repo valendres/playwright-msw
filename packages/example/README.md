@@ -2,7 +2,7 @@
 
 A [React](https://reactjs.org/) SPA that utilises [MSW](https://mswjs.io/) to improve development experience. Additionally, it also has a number of [Playwright](https://playwright.dev/) tests to make sure that `playwright-msw`'s integration of the two libraries works as expected.
 
-The SPA contains two different different mechanisms for communicating with a server:
+The SPA contains two different mechanisms for communicating with a server:
 
 1. [REST](https://restfulapi.net/) via [ReactQuery](https://tanstack.com/query)
 2. [GraphQL](https://graphql.org/) via [Apollo](https://www.apollographql.com/docs/react/)
