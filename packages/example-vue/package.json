@@ -22,7 +22,7 @@
     "msw": "2.0.10",
     "playwright-msw": "workspace:*",
     "typescript": "5.3.2",
-    "vite": "5.0.5",
+    "vite": "5.0.12",
     "vue-tsc": "1.8.24"
   },
   "msw": {
