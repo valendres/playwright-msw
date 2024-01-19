@@ -29,6 +29,6 @@
     "@vitejs/plugin-react": "^4.2.1",
     "playwright-msw": "workspace:*",
     "typescript": "5.3.2",
-    "vite": "^5.0.5"
+    "vite": "^5.0.12"
   }
 }
