@@ -82,6 +82,37 @@ describe('utils', () => {
     });
   });
 
+  describe('getHandlerPath for GraphQL handler', () => {
+    it.each<{ path: Path; expected: Path }>`
+      path            | expected
+      ${'/api/users'} | ${'/api/users'}
+      ${/^\/api\/.*/} | ${/^\/api\/.*/}
+    `(
+      'return "$expected" for graphql.link() with "$path"',
+      ({ path, expected }) => {
+        expect(
+          getHandlerPath(
+            graphql
+              .link(path)
+              .query('Query', () => HttpResponse.json({ data: {} })),
+            {},
+          ),
+        ).toStrictEqual(expected);
+      },
+    );
+
+    it('return the default endpoint path for graphql handler without link() call', () => {
+      const defaultHandler = graphql.query('Query', () =>
+        HttpResponse.json({ data: {} }),
+      );
+      expect(
+        getHandlerPath(defaultHandler, {
+          graphqlUrl: '/defaultGraphqlEndpoint',
+        }),
+      ).toStrictEqual('/defaultGraphqlEndpoint');
+    });
+  });
+
   describe('convertMswPathToPlaywrightUrl', () => {
     it.each<{ mswPath: string; playwrightUrl: string; expected: boolean }>`
       mswPath                                                   | playwrightUrl                                            | expected
