@@ -26,6 +26,10 @@ export const getHandlerPath = (
   config: Config,
 ): Path => {
   if (getHandlerType(handler) === 'graphql') {
+    const handlerInternal = handler as unknown as { endpoint: Path }; // private GraphQLHandler.endpoint
+    if (handlerInternal.endpoint !== '*') {
+      return handlerInternal.endpoint;
+    }
     const { graphqlUrl } = config;
     if (!graphqlUrl) {
       throw new Error(
