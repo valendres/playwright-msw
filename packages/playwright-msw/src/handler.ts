@@ -36,11 +36,8 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
            */
           baseUrl: url.origin,
         },
-        onMockedResponse: async ({
-          status,
-          headers: rawHeaders,
-          body: rawBody,
-        }) => {
+        onMockedResponse: async (response) => {
+          const { status, headers: rawHeaders, body: rawBody } = response.clone();
           const contentType = rawHeaders.get('content-type') ?? undefined;
           const headers = objectifyHeaders(rawHeaders);
           const body = await readableStreamToBuffer(contentType, rawBody);
