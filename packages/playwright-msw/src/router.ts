@@ -144,7 +144,7 @@ export class Router {
         return route.continue();
       }
       const requestHandlers = this.getRouteData(path)?.requestHandlers ?? [];
-      return handleRoute(route, requestHandlers);
+      return handleRoute(this.page, route, requestHandlers);
     };
     await this.page.route(convertMswPathToPlaywrightUrl(path), routeHandler);
     return routeHandler;

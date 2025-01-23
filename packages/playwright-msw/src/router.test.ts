@@ -84,6 +84,7 @@ describe('router', () => {
 
         expect(handleRoute).toHaveBeenCalledTimes(1);
         expect(handleRoute).toHaveBeenCalledWith(
+          page,
           expect.objectContaining({}),
           // Should be all of the initial handlers since we haven't added any non-user handlers
           requestHandlers.slice().reverse(),
@@ -102,10 +103,11 @@ describe('router', () => {
 
         const executeRoute = getRouteHandlerForPath(userPath, page);
         executeRoute(mockRoute(), mockRequest());
-        expect(handleRoute).toHaveBeenCalledWith(expect.objectContaining({}), [
-          initialUserHandler,
-          subsequentUserHandler,
-        ]);
+        expect(handleRoute).toHaveBeenCalledWith(
+          page,
+          expect.objectContaining({}),
+          [initialUserHandler, subsequentUserHandler],
+        );
       });
 
       test('should include all of the corresponding subsequently added handlers (without having provided initial handlers) when calling handleRoute', async () => {
@@ -120,10 +122,11 @@ describe('router', () => {
 
         const executeRoute = getRouteHandlerForPath(userPath, page);
         executeRoute(mockRoute(), mockRequest());
-        expect(handleRoute).toHaveBeenCalledWith(expect.objectContaining({}), [
-          subsequentUserHandler1,
-          subsequentUserHandler2,
-        ]);
+        expect(handleRoute).toHaveBeenCalledWith(
+          page,
+          expect.objectContaining({}),
+          [subsequentUserHandler1, subsequentUserHandler2],
+        );
       });
 
       test('should not include handlers from other routes when calling handleRoute', async () => {
@@ -148,6 +151,7 @@ describe('router', () => {
 
         expect(handleRoute).toHaveBeenCalledTimes(1);
         expect(handleRoute).toHaveBeenCalledWith(
+          page,
           expect.objectContaining({}),
           // Note the omission of friend handlers
           userHandlers.slice().reverse(),
@@ -175,6 +179,7 @@ describe('router', () => {
 
         expect(handleRoute).toHaveBeenCalledTimes(1);
         expect(handleRoute).toHaveBeenCalledWith(
+          page,
           expect.objectContaining({}),
           // Note the omission of subsequently added handlers
           [initialUserHandler2, initialUserHandler1],

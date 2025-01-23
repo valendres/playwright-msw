@@ -1,4 +1,5 @@
 import { Path, RequestHandler } from 'msw';
+import setCookie from 'set-cookie-parser';
 import { Config } from './config';
 
 export type SerializedPathType = 'regexp' | 'string';
@@ -86,6 +87,26 @@ export const convertMswPathToPlaywrightUrl = (path: Path): RegExp => {
       '$',
     ].join(''),
   );
+};
+
+export const parseSetCookieHeaders = (headers: Headers) => {
+  return setCookie
+    .parse(headers.getSetCookie())
+    .map(({ expires, sameSite, ...cookie }) => {
+      let formattedExpires: number | undefined = undefined;
+      let validatedSameSite: 'Strict' | 'Lax' | 'None' | undefined = undefined;
+      if (expires) {
+        formattedExpires = expires.getTime() / 1000;
+      }
+      if (sameSite === 'Strict' || sameSite === 'Lax' || sameSite === 'None') {
+        validatedSameSite = sameSite;
+      }
+      return {
+        expires: formattedExpires,
+        sameSite: validatedSameSite,
+        ...cookie,
+      };
+    });
 };
 
 export function objectifyHeaders(headers: Headers): Record<string, string> {
