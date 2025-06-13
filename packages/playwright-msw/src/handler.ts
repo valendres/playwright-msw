@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 import type { RequestHandler, LifeCycleEventsMap } from 'msw';
 import { handleRequest } from 'msw';
 import { Emitter } from 'strict-event-emitter';
-import { objectifyHeaders, readableStreamToBuffer } from './utils';
+import { objectifyHeaders, readableStreamToBuffer } from './utils.js';
 
 const emitter = new Emitter<LifeCycleEventsMap>();
 

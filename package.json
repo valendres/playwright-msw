@@ -8,7 +8,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach run build",
+    "build": "yarn workspaces foreach --all run build",
     "deploy": "monodeploy --config-file  monodeploy.config.js",
     "format": "prettier --write .",
     "lint": "eslint \"**/{src,tests}/**/*\"",

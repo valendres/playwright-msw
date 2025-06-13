@@ -1,7 +1,7 @@
 import type { PlaywrightTestArgs, TestFixture } from '@playwright/test';
 import { RequestHandler } from 'msw';
-import { Config } from './config';
-import { createWorker, MockServiceWorker } from './worker';
+import { Config } from './config.js';
+import { createWorker, MockServiceWorker } from './worker.js';
 
 export const createWorkerFixture = (
   handlers: RequestHandler[] = [],

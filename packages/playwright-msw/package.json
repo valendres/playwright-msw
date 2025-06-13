@@ -2,7 +2,12 @@
   "name": "playwright-msw",
   "version": "3.0.1",
   "description": "A Mock Service Worker API for Playwright.",
-  "main": "lib/index.js",
+  "main": "lib/cjs/index.js",
+  "type": "module",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
   "files": [
     "lib"
   ],
@@ -21,7 +26,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project ./tsconfig.json && tsc --project ./tsconfig.esm.json",
     "clean": "rimraf lib",
     "prepack": "yarn clean && yarn build",
     "test": "jest",
