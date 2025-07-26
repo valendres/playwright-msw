@@ -1,18 +1,18 @@
 {
   "private": true,
   "name": "root",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.9.2",
   "workspaces": {
     "packages": [
       "packages/*"
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach run build",
+    "build": "yarn workspaces foreach --all run build",
     "deploy": "monodeploy --config-file  monodeploy.config.js",
     "format": "prettier --write .",
     "lint": "eslint \"**/{src,tests}/**/*\"",
-    "test": "yarn workspaces foreach run test",
+    "test": "yarn workspaces foreach --all run test",
     "postinstall": "husky install"
   },
   "devDependencies": {
