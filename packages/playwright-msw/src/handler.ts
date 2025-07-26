@@ -36,6 +36,7 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
            */
           baseUrl: url.origin,
         },
+        onPassthroughResponse: () => route.continue(),
         onMockedResponse: async ({
           status,
           headers: rawHeaders,
