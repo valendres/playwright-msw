@@ -7,9 +7,9 @@ import {
   deserializePath,
   SerializedPath,
   convertMswPathToPlaywrightUrl,
-} from './utils';
-import { Config, DEFAULT_CONFIG } from './config';
-import { handleRoute } from './handler';
+} from './utils.js';
+import { Config, DEFAULT_CONFIG } from './config.js';
+import { handleRoute } from './handler.js';
 
 export type RouteUrl = string | RegExp;
 

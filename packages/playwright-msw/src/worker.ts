@@ -1,8 +1,8 @@
 import type { Page } from '@playwright/test';
 import { store } from '@mswjs/cookies';
 import type { RequestHandler } from 'msw';
-import { Router } from './router';
-import { Config } from './config';
+import { Router } from './router.js';
+import { Config } from './config.js';
 
 export type MockServiceWorker = {
   /**

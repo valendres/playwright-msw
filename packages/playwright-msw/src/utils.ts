@@ -1,5 +1,5 @@
 import { Path, RequestHandler } from 'msw';
-import { Config } from './config';
+import { Config } from './config.js';
 
 export type SerializedPathType = 'regexp' | 'string';
 export type SerializedPath = `${SerializedPathType}:${string}`;
