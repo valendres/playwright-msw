@@ -1,13 +1,21 @@
-import type { Route } from '@playwright/test';
+import type { Page, Route } from '@playwright/test';
 import { randomUUID } from 'crypto';
 import type { RequestHandler, LifeCycleEventsMap } from 'msw';
 import { handleRequest } from 'msw';
 import { Emitter } from 'strict-event-emitter';
-import { objectifyHeaders, readableStreamToBuffer } from './utils';
+import {
+  objectifyHeaders,
+  parseSetCookieHeaders,
+  readableStreamToBuffer,
+} from './utils';
 
 const emitter = new Emitter<LifeCycleEventsMap>();
 
-export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
+export const handleRoute = async (
+  page: Page,
+  route: Route,
+  handlers: RequestHandler[],
+) => {
   const request = route.request();
   const method = request.method();
   const url = new URL(request.url());
@@ -42,6 +50,9 @@ export const handleRoute = async (route: Route, handlers: RequestHandler[]) => {
           body: rawBody,
         }) => {
           const contentType = rawHeaders.get('content-type') ?? undefined;
+          const cookies = parseSetCookieHeaders(rawHeaders);
+          await page.context().addCookies(cookies);
+          rawHeaders.delete('Set-Cookie');
           const headers = objectifyHeaders(rawHeaders);
           const body = await readableStreamToBuffer(contentType, rawBody);
 
